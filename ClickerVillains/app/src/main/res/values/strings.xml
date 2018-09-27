@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Catnip Clicker</string>
+    <string name="amorGatuno">Click on the cat to show your love :)</string>
+    <string name="tuAmor">Your love: </string>
+    <string name="amor20">-20 Love: +1 Love/click</string>
+    <string name="amor20exito">Love/click incremented by 1!</string>
+    <string name="amor100">-100 Love: +7 Love/click</string>
+    <string name="amor100exito">-100 Love: +7 Love/click</string>
+    <string name="amorFallo">Insufficient love!</string>
+</resources>

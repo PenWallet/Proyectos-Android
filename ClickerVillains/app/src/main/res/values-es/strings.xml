@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Clicker Gatuno</string>
+    <string name="amorGatuno">Haz click en el gato para mostrarle tu amor :)</string>
+    <string name="tuAmor">Tu amor: </string>
+    <string name="amor20">-20 Amor: +1 Amor/click</string>
+    <string name="amor20exito">¡Amor/click aumentado en 1!</string>
+    <string name="amor100">-100 Amor: +7 Amor/click</string>
+    <string name="amor100exito">¡Amor/click aumentado en 7!</string>
+    <string name="amorFallo">¡Amor insuficiente!</string>
+</resources>
