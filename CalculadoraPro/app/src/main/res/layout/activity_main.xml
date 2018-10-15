@@ -11,7 +11,7 @@
         android:id="@+id/txtResults"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Operations"
+        android:hint="@string/operations"
         android:textSize="20sp"
         android:gravity="right"/>
 
@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Numbers"
+        android:hint="@string/numbers"
         android:focusable="false"
         android:gravity="right"
         android:textSize="30sp"/>

@@ -1,5 +1,6 @@
 package com.example.ofunes.calculadorapro;
 
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bEquals, bAddition, bSubstraction, bDivision, bMultiplication, bDelete;
     TextView txtResults;
     EditText txtNumbers;
+    Resources res;
+    boolean resultadoEnPantalla;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        res = getResources();
         b1 = findViewById(R.id.btn1); b1.setOnClickListener(this);
         b2 = findViewById(R.id.btn2); b2.setOnClickListener(this);
         b3 = findViewById(R.id.btn3); b3.setOnClickListener(this);
@@ -35,35 +39,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         txtResults = findViewById(R.id.txtResults);
         txtNumbers = findViewById(R.id.txtNumbers);
+
+        resultadoEnPantalla = false;
     }
 
 
     @Override
     public void onClick(View view) {
-        switch(view.getId())
+        int btnID = view.getId();
+
+        switch(btnID)
         {
             case R.id.btn0: case R.id.btn1: case R.id.btn2: case R.id.btn3: case R.id.btn4: case R.id.btn5: case R.id.btn6: case R.id.btn7: case R.id.btn8: case R.id.btn9:
-                //Codigo
+                if(resultadoEnPantalla)
+                {
+                    txtNumbers.setText("");
+                    txtResults.setText("");
+                    bDelete.setText(res.getString(R.string.delete));
+                }
+
+                switch(btnID)
+                {
+                    case R.id.btn0:
+                        txtNumbers.setText(txtNumbers.getText()+"0");
+                        break;
+
+                    case R.id.btn1:
+                        txtNumbers.setText(txtNumbers.getText()+"1");
+                        break;
+
+                    case R.id.btn2:
+                        txtNumbers.setText(txtNumbers.getText()+"2");
+                        break;
+
+                    case R.id.btn3:
+                        txtNumbers.setText(txtNumbers.getText()+"3");
+                        break;
+
+                    case R.id.btn4:
+                        txtNumbers.setText(txtNumbers.getText()+"4");
+                        break;
+
+                    case R.id.btn5:
+                        txtNumbers.setText(txtNumbers.getText()+"5");
+                        break;
+
+                    case R.id.btn6:
+                        txtNumbers.setText(txtNumbers.getText()+"6");
+                        break;
+
+                    case R.id.btn7:
+                        txtNumbers.setText(txtNumbers.getText()+"7");
+                        break;
+
+                    case R.id.btn8:
+                        txtNumbers.setText(txtNumbers.getText()+"8");
+                        break;
+
+                    case R.id.btn9:
+                        txtNumbers.setText(txtNumbers.getText()+"9");
+                        break;
+                }
             break;
 
-            case R.id.btnAddition:
-                //Codigo
+            case R.id.btnAddition: case R.id.btnSubstraction: case R.id.btnDivision: case R.id.btnMultiplication:
+                if(!resultadoEnPantalla && txtResults.getText().toString().equals(""))
+                {
+                    if(txtNumbers.getText().toString().equals(""))
+                        txtResults.setText("0");
+                    else
+                        txtResults.setText(txtNumbers.getText());
+
+                    txtNumbers.setText("");
+
+                    switch(btnID)
+                    {
+                        case R.id.btnAddition:
+                            txtResults.setText(txtResults.getText()+" + ");
+                            break;
+
+                        case R.id.btnSubstraction:
+                            txtResults.setText(txtResults.getText()+" - ");
+                            break;
+
+                        case R.id.btnDivision:
+                            txtResults.setText(txtResults.getText()+" / ");
+                            break;
+
+                        case R.id.btnMultiplication:
+                            txtResults.setText(txtResults.getText()+" * ");
+                            break;
+                    }
+                }
             break;
-
-            case R.id.btnSubstraction:
-                //Codigo
-                break;
-
-            case R.id.btnDivision:
-                //Codigo
-                break;
-
-            case R.id.btnMultiplication:
-                //Codigo
-                break;
 
             case R.id.btnDelete:
-                //Codigo
+                txtNumbers.setText("");
+                txtResults.setText("");
                 break;
 
             case R.id.btnEquals:
