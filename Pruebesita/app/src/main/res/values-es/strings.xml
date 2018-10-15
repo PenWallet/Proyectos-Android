@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Pruebesita</string>
+    <string name="firstN">Escribe el primer número</string>
+    <string name="secondN">Escribe el segundo número</string>
+    <string name="addition">Sumar</string>
+    <string name="result">Resultado</string>
+</resources>

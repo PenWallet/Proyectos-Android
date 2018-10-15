@@ -1,9 +1,11 @@
 package com.example.oscar.clickervillains;
 
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -11,7 +13,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
     ImageView imgClicker;
     TextView txtAmor;
+    TextView txtAmorPorClick;
     Resources res;
+    Button btnClicker;
     int amor = 0;
     int amorPerClick = 1;
 
@@ -21,9 +25,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         imgClicker = (ImageView)findViewById(R.id.clicker);
         txtAmor = (TextView)findViewById(R.id.contAmor);
+        txtAmorPorClick = (TextView)findViewById(R.id.txtAmorPorClick);
+        btnClicker = (Button)findViewById(R.id.btnClicker);
         imgClicker.setImageResource(R.drawable.tier10);
         txtAmor.setText("0");
         res = getResources();
+        btnClicker.setBackgroundColor(Color.TRANSPARENT);
+        txtAmorPorClick.setText(Integer.toString(amorPerClick));
     }
 
     public void click (View v)
@@ -43,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
             txtAmor.setText(Integer.toString(amor));
             cambiarImagen();
             amorPerClick++;
+            txtAmorPorClick.setText(Integer.toString(amorPerClick));
             Toast.makeText(MainActivity.this, res.getString(R.string.amor20exito),Toast.LENGTH_SHORT).show();
         }
     }
@@ -57,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             txtAmor.setText(Integer.toString(amor));
             cambiarImagen();
             amorPerClick = amorPerClick + 7;
+            txtAmorPorClick.setText(Integer.toString(amorPerClick));
             Toast.makeText(MainActivity.this, res.getString(R.string.amor100exito),Toast.LENGTH_SHORT).show();
         }
     }

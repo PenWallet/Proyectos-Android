@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Little test</string>
+    <string name="firstN">Type the first number</string>
+    <string name="secondN">Type the second number</string>
+    <string name="addition">Add up</string>
+    <string name="result">Result</string>
+</resources>

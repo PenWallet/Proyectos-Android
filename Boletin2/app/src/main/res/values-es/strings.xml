@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Boletin 2</string>
+    <string name="chkNegrita">Cambiar a negrita</string>
+    <string name="chkGrande">Mayor tamaño</string>
+    <string name="chkPequenio">Menor tamaño</string>
+    <string name="chkRojo">Color rojo</string>
+    <string name="txtTexto">Cambiame pls, necesito ser distinto</string>
+</resources>

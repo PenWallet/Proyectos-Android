@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.ofunes.pruebesita.Principal">
+
+    <EditText
+        android:id="@+id/n1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:digits="0123456789"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="@string/firstN" />
+
+    <EditText
+        android:id="@+id/n2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:digits="0123456789"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="@string/secondN"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/addition"
+        android:onClick="sumar"/>
+
+    <TextView
+        android:id="@+id/resultado"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:hint="@string/result"/>
+
+    <TextView
+        android:id="@+id/ej2text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Segundo ejercicio" />
+
+    <Button
+        android:id="@+id/ej2buttonRed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Color Rojo"
+        android:onClick="cambiarColorRojo"/>
+
+    <Button
+        android:id="@+id/ej2buttonGreen"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Color Verde"
+        android:onClick="cambiarColorVerde"/>
+
+    <Button
+        android:id="@+id/ej2buttonBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Color Azul"
+        android:onClick="cambiarColorAzul"/>
+
+</LinearLayout>

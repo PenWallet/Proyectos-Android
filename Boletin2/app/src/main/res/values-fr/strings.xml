@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Boletin 2</string>
+    <string name="chkNegrita">Le negrite</string>
+    <string name="chkGrande">Cest tres grand</string>
+    <string name="chkPequenio">Cest trop petit</string>
+    <string name="chkRojo">Le roux</string>
+    <string name="txtTexto">Bonjour! Sacre bleu!</string>
+</resources>

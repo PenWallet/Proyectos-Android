@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CalculadoraPro</string>
+    <string name="delete">&lt;-</string>
+    <string name="deleteAll">C</string>
+</resources>

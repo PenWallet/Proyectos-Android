@@ -7,4 +7,5 @@
     <string name="amor100">-100 Amor: +7 Amor/click</string>
     <string name="amor100exito">¡Amor/click aumentado en 7!</string>
     <string name="amorFallo">¡Amor insuficiente!</string>
+    <string name="amorPorClick">Amor/click:</string>
 </resources>

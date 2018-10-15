@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Boletin 2</string>
+    <string name="chkNegrita">Change to bold font</string>
+    <string name="chkGrande">Bigger font</string>
+    <string name="chkPequenio">Smaller font</string>
+    <string name="chkRojo">Red colour</string>
+    <string name="txtTexto">Hi! Change me, please!</string>
+</resources>
