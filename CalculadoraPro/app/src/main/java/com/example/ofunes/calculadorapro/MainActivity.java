@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-    Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bEquals, bAddition, bSubstraction, bDivision, bMultiplication, bDelete, bDot;
+    Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bEquals, bAddition, bSubstraction, bDivision, bMultiplication, bDelete, bDot, bPlusMinus;
     TextView txtResults;
     EditText txtNumbers;
     Resources res;
@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bMultiplication = findViewById(R.id.btnMultiplication); bMultiplication.setOnClickListener(this);
         bEquals = findViewById(R.id.btnEquals); bEquals.setOnClickListener(this);
         bDelete = findViewById(R.id.btnDelete); bDelete.setOnClickListener(this);
+        bPlusMinus = findViewById(R.id.btnPlusMinus); bPlusMinus.setOnClickListener(this);
 
         txtResults = findViewById(R.id.txtResults);
         txtNumbers = findViewById(R.id.txtNumbers);
@@ -146,56 +147,103 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnAddition: case R.id.btnSubstraction: case R.id.btnDivision: case R.id.btnMultiplication:
                 //Para que el botón haga algo, no debe estar el resultado en pantalla ni debe haber
                 //nada en la parte de arriba de las operaciones
-                if(!resultadoEnPantalla && txtResults.getText().toString().equals(""))
+                if(!txtNumbers.getText().toString().equals("-"))
                 {
-                    if(txtNumbers.getText().toString().equals(""))
-                    {
-                        txtResults.setText("0");
-                        n1 = 0;
-                    }
-                    else
-                    {
-                        n1 = Double.parseDouble(txtNumbers.getText().toString());
+                    if (!resultadoEnPantalla && txtResults.getText().toString().equals("")) {
+                        if (txtNumbers.getText().toString().equals("")) {
+                            txtResults.setText("0");
+                            n1 = 0;
+                        } else {
+                            n1 = Double.parseDouble(txtNumbers.getText().toString());
+                            txtResults.setText(txtNumbers.getText());
+                        }
+
+                        resetearTxtNumbers();
+
+                        switch (btnID) {
+                            case R.id.btnAddition:
+                                operador = '+';
+                                break;
+
+                            case R.id.btnSubstraction:
+                                operador = '-';
+                                break;
+
+                            case R.id.btnDivision:
+                                operador = '/';
+                                break;
+
+                            case R.id.btnMultiplication:
+                                operador = '*';
+                                break;
+                        }
+
+                        txtResults.setText(txtResults.getText() + " " + operador + " ");
+                    } else if (resultadoEnPantalla) {
+                        resultadoEnPantalla = false;
+                        bDelete.setText(res.getString(R.string.delete));
                         txtResults.setText(txtNumbers.getText());
+                        n1 = resultado;
+                        resultado = 0;
+
+                        resetearTxtNumbers();
+
+                        switch (btnID) {
+                            case R.id.btnAddition:
+                                operador = '+';
+                                break;
+
+                            case R.id.btnSubstraction:
+                                operador = '-';
+                                break;
+
+                            case R.id.btnDivision:
+                                operador = '/';
+                                break;
+
+                            case R.id.btnMultiplication:
+                                operador = '*';
+                                break;
+                        }
+
+                        txtResults.setText(txtResults.getText() + " " + operador + " ");
+                    } else if (operador != '0' && !resultadoEnPantalla) {
+                        n2 = Double.parseDouble(txtNumbers.getText().toString());
+
+                        switch (operador) {
+                            case '+':
+                                n1 = n1 + n2;
+                                break;
+                            case '-':
+                                n1 = n1 - n2;
+                                break;
+                            case '*':
+                                n1 = n1 * n2;
+                                break;
+                            case '/':
+                                n1 = n1 / n2;
+                                break;
+                        }
+
+                        switch (btnID) {
+                            case R.id.btnAddition:
+                                operador = '+';
+                                break;
+                            case R.id.btnSubstraction:
+                                operador = '-';
+                                break;
+                            case R.id.btnDivision:
+                                operador = '/';
+                                break;
+                            case R.id.btnMultiplication:
+                                operador = '*';
+                                break;
+                        }
+
+                        txtResults.setText(String.valueOf(n1) + " " + operador + " ");
+
+                        resetearTxtNumbers();
                     }
-
-                    resetearTxtNumbers();
-
-                    switch(btnID)
-                    {
-                        case R.id.btnAddition: operador = '+'; break;
-
-                        case R.id.btnSubstraction: operador = '-'; break;
-
-                        case R.id.btnDivision: operador = '/'; break;
-
-                        case R.id.btnMultiplication: operador = '*'; break;
-                    }
-
-                    txtResults.setText(txtResults.getText()+" "+operador+" ");
-                }
-                else if(resultadoEnPantalla)
-                {
-                    resultadoEnPantalla = false;
-                    bDelete.setText(res.getString(R.string.delete));
-                    txtResults.setText(txtNumbers.getText());
-                    n1 = resultado;
-                    resultado = 0;
-
-                    resetearTxtNumbers();
-
-                    switch(btnID)
-                    {
-                        case R.id.btnAddition: operador = '+'; break;
-
-                        case R.id.btnSubstraction: operador = '-'; break;
-
-                        case R.id.btnDivision: operador = '/'; break;
-
-                        case R.id.btnMultiplication: operador = '*'; break;
-                    }
-
-                    txtResults.setText(txtResults.getText()+" "+operador+" ");
                 }
             break;
 
@@ -226,7 +274,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnEquals:
-                if(!txtResults.getText().toString().equals("") && !resultadoEnPantalla)
+                if(!txtResults.getText().toString().equals("") && !txtNumbers.getText().toString().equals("-") &&!resultadoEnPantalla )
                 {
                     resultadoEnPantalla = true;
                     bDelete.setText(res.getString(R.string.deleteAll));
@@ -245,6 +293,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
                 break;
 
+            case R.id.btnPlusMinus:
+                if(txtNumbers.getText().toString().equals("0"))
+                    txtNumbers.setText("-");
+                else if(txtNumbers.getText().toString().toCharArray()[0] != '-')
+                    txtNumbers.setText("-"+txtNumbers.getText());
+                else if(txtNumbers.getText().toString().equals("-"))
+                    resetearTxtNumbers();
+                else
+                    txtNumbers.setText(txtNumbers.getText().toString().substring(1));
+
+
+                break;
         }
     }
 
