@@ -67,25 +67,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 switch(btnID)
                 {
                     case R.id.btn0: escribirNumero(0); break;
-
                     case R.id.btn1: escribirNumero(1); break;
-
                     case R.id.btn2: escribirNumero(2); break;
-
                     case R.id.btn3: escribirNumero(3); break;
-
                     case R.id.btn4: escribirNumero(4); break;
-
                     case R.id.btn5: escribirNumero(5); break;
-
                     case R.id.btn6: escribirNumero(6); break;
-
                     case R.id.btn7: escribirNumero(7); break;
-
                     case R.id.btn8: escribirNumero(8); break;
-
                     case R.id.btn9: escribirNumero(9); break;
-
                     case R.id.btnDot:
                         if(txtNumbers.getText().toString().equals("0"))
                             txtNumbers.setText("0.");
@@ -100,37 +90,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //nada en la parte de arriba de las operaciones
                 if(!txtNumbers.getText().toString().equals("-") && !txtNumbers.getText().toString().equals("-.") && !txtNumbers.getText().toString().equals("."))
                 {
-                    if (!resultadoEnPantalla && txtResults.getText().toString().equals("")) {
-                        if (txtNumbers.getText().toString().equals("")) {
+                    if (!resultadoEnPantalla && txtResults.getText().toString().equals(""))
+                    {
+                        if (txtNumbers.getText().toString().equals(""))
+                        {
                             txtResults.setText("0");
                             n1 = 0;
-                        } else {
+                        }
+                        else
+                        {
                             n1 = Double.parseDouble(txtNumbers.getText().toString());
                             txtResults.setText(txtNumbers.getText());
                         }
 
                         resetearTxtNumbers();
 
-                        switch (btnID) {
-                            case R.id.btnAddition:
-                                operador = '+';
-                                break;
-
-                            case R.id.btnSubstraction:
-                                operador = '-';
-                                break;
-
-                            case R.id.btnDivision:
-                                operador = '/';
-                                break;
-
-                            case R.id.btnMultiplication:
-                                operador = '*';
-                                break;
+                        switch (btnID)
+                        {
+                            case R.id.btnAddition: operador = '+'; break;
+                            case R.id.btnSubstraction: operador = '-'; break;
+                            case R.id.btnDivision: operador = '/'; break;
+                            case R.id.btnMultiplication: operador = '*'; break;
                         }
 
                         txtResults.setText(txtResults.getText() + " " + operador + " ");
-                    } else if (resultadoEnPantalla) {
+                    }
+                    else if (resultadoEnPantalla)
+                    {
                         resultadoEnPantalla = false;
                         bDelete.setText(res.getString(R.string.delete));
                         txtResults.setText(txtNumbers.getText());
@@ -139,56 +125,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                         resetearTxtNumbers();
 
-                        switch (btnID) {
-                            case R.id.btnAddition:
-                                operador = '+';
-                                break;
-
-                            case R.id.btnSubstraction:
-                                operador = '-';
-                                break;
-
-                            case R.id.btnDivision:
-                                operador = '/';
-                                break;
-
-                            case R.id.btnMultiplication:
-                                operador = '*';
-                                break;
+                        switch (btnID)
+                        {
+                            case R.id.btnAddition: operador = '+'; break;
+                            case R.id.btnSubstraction: operador = '-'; break;
+                            case R.id.btnDivision: operador = '/'; break;
+                            case R.id.btnMultiplication: operador = '*'; break;
                         }
 
                         txtResults.setText(txtResults.getText() + " " + operador + " ");
-                    } else if (operador != '0' && !resultadoEnPantalla) {
+                    }
+                    else if (operador != '0' && !resultadoEnPantalla)
+                    {
                         n2 = Double.parseDouble(txtNumbers.getText().toString());
 
-                        switch (operador) {
-                            case '+':
-                                n1 = n1 + n2;
-                                break;
-                            case '-':
-                                n1 = n1 - n2;
-                                break;
-                            case '*':
-                                n1 = n1 * n2;
-                                break;
-                            case '/':
-                                n1 = n1 / n2;
-                                break;
+                        switch (operador)
+                        {
+                            case '+': n1 = n1 + n2; break;
+                            case '-': n1 = n1 - n2; break;
+                            case '*': n1 = n1 * n2; break;
+                            case '/': n1 = n1 / n2; break;
                         }
 
-                        switch (btnID) {
-                            case R.id.btnAddition:
-                                operador = '+';
-                                break;
-                            case R.id.btnSubstraction:
-                                operador = '-';
-                                break;
-                            case R.id.btnDivision:
-                                operador = '/';
-                                break;
-                            case R.id.btnMultiplication:
-                                operador = '*';
-                                break;
+                        switch (btnID)
+                        {
+                            case R.id.btnAddition: operador = '+'; break;
+                            case R.id.btnSubstraction: operador = '-'; break;
+                            case R.id.btnDivision: operador = '/'; break;
+                            case R.id.btnMultiplication: operador = '*'; break;
                         }
 
                         txtResults.setText(String.valueOf(n1) + " " + operador + " ");
@@ -225,7 +189,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnEquals:
-                if(!txtResults.getText().toString().equals("") && !txtNumbers.getText().toString().equals("-"))
+                if(!txtResults.getText().toString().equals("") && !txtNumbers.getText().toString().equals("-") && !txtNumbers.getText().toString().equals("."))
                 {
                     if(resultadoEnPantalla)
                     {
@@ -284,6 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /**
      * Función que escribe en pantalla en el textBox de los números el número que se le pase
+     * En caso de que solo hay un 0 en pantalla, escribe el número, si no, lo añade al string.
      *
      * @param n Número a escribir en pantalla
      */
