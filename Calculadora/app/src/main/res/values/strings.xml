@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculadora</string>
+    <string name="btnCalcular">Calculate</string>
+    <string name="txtNumber1">Type first number here</string>
+    <string name="txtNumber2">Type second number here</string>
+    <string name="txtResult">Result here</string>
+    <string name="txtInputError">There is an empty space</string>
+    <string name="txtInputDivisionError">Cannot divide by 0</string>
+</resources>
