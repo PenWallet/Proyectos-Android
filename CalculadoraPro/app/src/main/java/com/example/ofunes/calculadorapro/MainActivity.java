@@ -14,6 +14,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     EditText txtNumbers;
     Resources res;
     boolean resultadoEnPantalla;
+    int btnID;
     double n1, n2, resultado = 0;
     char operador = '0'; //Contiene el operador que se va a usar para operar. En caso de que no se haya pulsado aún, contiene '0'
 
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        int btnID = view.getId();
+        btnID = view.getId();
 
         switch(btnID)
         {
@@ -65,75 +66,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 switch(btnID)
                 {
-                    case R.id.btn0:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("0");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"0");
-                        break;
+                    case R.id.btn0: escribirNumero(0); break;
 
-                    case R.id.btn1:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("1");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"1");
-                        break;
+                    case R.id.btn1: escribirNumero(1); break;
 
-                    case R.id.btn2:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("2");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"2");
-                        break;
+                    case R.id.btn2: escribirNumero(2); break;
 
-                    case R.id.btn3:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("3");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"3");
-                        break;
+                    case R.id.btn3: escribirNumero(3); break;
 
-                    case R.id.btn4:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("4");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"4");
-                        break;
+                    case R.id.btn4: escribirNumero(4); break;
 
-                    case R.id.btn5:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("5");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"5");
-                        break;
+                    case R.id.btn5: escribirNumero(5); break;
 
-                    case R.id.btn6:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("6");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"6");
-                        break;
+                    case R.id.btn6: escribirNumero(6); break;
 
-                    case R.id.btn7:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("7");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"7");
-                        break;
+                    case R.id.btn7: escribirNumero(7); break;
 
-                    case R.id.btn8:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("8");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"8");
-                        break;
+                    case R.id.btn8: escribirNumero(8); break;
 
-                    case R.id.btn9:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("9");
-                        else
-                            txtNumbers.setText(txtNumbers.getText()+"9");
-                        break;
+                    case R.id.btn9: escribirNumero(9); break;
 
                     case R.id.btnDot:
                         if(txtNumbers.getText().toString().equals("0"))
@@ -147,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnAddition: case R.id.btnSubstraction: case R.id.btnDivision: case R.id.btnMultiplication:
                 //Para que el botón haga algo, no debe estar el resultado en pantalla ni debe haber
                 //nada en la parte de arriba de las operaciones
-                if(!txtNumbers.getText().toString().equals("-"))
+                if(!txtNumbers.getText().toString().equals("-") && !txtNumbers.getText().toString().equals("-.") && !txtNumbers.getText().toString().equals("."))
                 {
                     if (!resultadoEnPantalla && txtResults.getText().toString().equals("")) {
                         if (txtNumbers.getText().toString().equals("")) {
@@ -274,12 +225,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnEquals:
-                if(!txtResults.getText().toString().equals("") && !txtNumbers.getText().toString().equals("-") &&!resultadoEnPantalla )
+                if(!txtResults.getText().toString().equals("") && !txtNumbers.getText().toString().equals("-"))
                 {
-                    resultadoEnPantalla = true;
-                    bDelete.setText(res.getString(R.string.deleteAll));
-                    n2 = Double.parseDouble(txtNumbers.getText().toString());
-                    txtResults.setText(txtResults.getText()+txtNumbers.getText().toString());
+                    if(resultadoEnPantalla)
+                    {
+                        n1 = resultado;
+                        txtResults.setText(String.valueOf(n1)+" "+operador+" "+n2);
+                    }
+                    else
+                    {
+                        resultadoEnPantalla = true;
+                        bDelete.setText(res.getString(R.string.deleteAll));
+                        n2 = Double.parseDouble(txtNumbers.getText().toString());
+                        txtResults.setText(txtResults.getText()+txtNumbers.getText().toString());
+                    }
 
                     switch(operador)
                     {
@@ -288,7 +247,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case '*': resultado = n1 * n2; break;
                         case '/': resultado = n1 / n2; break;
                     }
-
                     txtNumbers.setText(String.valueOf(resultado));
                 }
                 break;
@@ -308,13 +266,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    /**
+     * Procedimiento que limpia el textBox de los resultados
+     */
     private void resetearTxtResults()
     {
         txtResults.setText("");
     }
 
+    /**
+     * Procedimiento que limpia el textBox de los números
+     */
     private void resetearTxtNumbers()
     {
         txtNumbers.setText("0");
+    }
+
+    /**
+     * Función que escribe en pantalla en el textBox de los números el número que se le pase
+     *
+     * @param n Número a escribir en pantalla
+     */
+    public void escribirNumero(int n)
+    {
+        if(txtNumbers.getText().toString().equals("0"))
+            txtNumbers.setText(String.valueOf(n));
+        else
+            txtNumbers.setText(txtNumbers.getText()+String.valueOf(n));
     }
 }
