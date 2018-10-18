@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, View.OnLongClickListener {
     Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, bEquals, bAddition, bSubstraction, bDivision, bMultiplication, bDelete, bDot, bPlusMinus;
     TextView txtResults;
     EditText txtNumbers;
@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         bDivision = findViewById(R.id.btnDivision); bDivision.setOnClickListener(this);
         bMultiplication = findViewById(R.id.btnMultiplication); bMultiplication.setOnClickListener(this);
         bEquals = findViewById(R.id.btnEquals); bEquals.setOnClickListener(this);
-        bDelete = findViewById(R.id.btnDelete); bDelete.setOnClickListener(this);
+        bDelete = findViewById(R.id.btnDelete); bDelete.setOnClickListener(this); bDelete.setOnLongClickListener(this);
         bPlusMinus = findViewById(R.id.btnPlusMinus); bPlusMinus.setOnClickListener(this);
 
         txtResults = findViewById(R.id.txtResults);
@@ -57,36 +57,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             //En caso de que se haya pulsado un botón de número o el punto
             case R.id.btn0: case R.id.btn1: case R.id.btn2: case R.id.btn3: case R.id.btn4: case R.id.btn5: case R.id.btn6: case R.id.btn7: case R.id.btn8: case R.id.btn9: case R.id.btnDot:
-                //Si el resultado ya está en pantalla
-                if(resultadoEnPantalla)
+                /*Solo funcionará el botón si ha escrito menos de 16 números, si ha escrito
+                 15 números y hay un '-' al principio, o si el resultado ya está en pantalla */
+                if(txtNumbers.getText().length() < 16 || (txtNumbers.getText().length() == 16 && txtNumbers.getText().toString().toCharArray()[0] == '-') || resultadoEnPantalla)
                 {
-                    //Se limpia lo que haya en ambos textBoxes, se cambia el botón a <- y se actualiza la variable
-                    resetearTxtNumbers();
-                    resetearTxtResults();
-                    bDelete.setText(res.getString(R.string.delete));
-                    resultadoEnPantalla = false;
-                }
+                    //Si el resultado ya está en pantalla
+                    if(resultadoEnPantalla)
+                    {
+                        //Se limpia lo que haya en ambos textBoxes, se cambia el botón a <- y se actualiza la variable
+                        resetearTxtNumbers();
+                        resetearTxtResults();
+                        bDelete.setText(res.getString(R.string.delete));
+                        resultadoEnPantalla = false;
+                    }
 
-                //Dependiendo de qué botón numérico o el punto haya pulsado
-                switch(btnID)
-                {
-                    //Se escribe en txtNumbers el número o punto pulsado
-                    case R.id.btn0: escribirNumero(0); break;
-                    case R.id.btn1: escribirNumero(1); break;
-                    case R.id.btn2: escribirNumero(2); break;
-                    case R.id.btn3: escribirNumero(3); break;
-                    case R.id.btn4: escribirNumero(4); break;
-                    case R.id.btn5: escribirNumero(5); break;
-                    case R.id.btn6: escribirNumero(6); break;
-                    case R.id.btn7: escribirNumero(7); break;
-                    case R.id.btn8: escribirNumero(8); break;
-                    case R.id.btn9: escribirNumero(9); break;
-                    case R.id.btnDot:
-                        if(txtNumbers.getText().toString().equals("0"))
-                            txtNumbers.setText("0.");
-                        else if(!txtNumbers.getText().toString().contains("."))
-                            txtNumbers.setText(txtNumbers.getText()+".");
-                        break;
+                    //Dependiendo de qué botón numérico o el punto haya pulsado
+                    switch(btnID)
+                    {
+                        //Se escribe en txtNumbers el número o punto pulsado
+                        case R.id.btn0: escribirNumero(0); break;
+                        case R.id.btn1: escribirNumero(1); break;
+                        case R.id.btn2: escribirNumero(2); break;
+                        case R.id.btn3: escribirNumero(3); break;
+                        case R.id.btn4: escribirNumero(4); break;
+                        case R.id.btn5: escribirNumero(5); break;
+                        case R.id.btn6: escribirNumero(6); break;
+                        case R.id.btn7: escribirNumero(7); break;
+                        case R.id.btn8: escribirNumero(8); break;
+                        case R.id.btn9: escribirNumero(9); break;
+                        case R.id.btnDot:
+                            if(txtNumbers.getText().toString().equals("0"))
+                                txtNumbers.setText("0.");
+                            else if(!txtNumbers.getText().toString().contains("."))
+                                txtNumbers.setText(txtNumbers.getText()+".");
+                            break;
+                    }
                 }
             break;
 
@@ -262,6 +267,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     txtNumbers.setText(txtNumbers.getText().toString().substring(1)); //Se elimina el primer carácter de la cadena
                 break;
         }
+    }
+
+    @Override
+    public boolean onLongClick(View view) {
+        /*El botón tendrá como texto 'C', por lo que se resetea a '<-', se resetean los
+         TextBoxes y las variables */
+        bDelete.setText(res.getString(R.string.delete));
+        resultadoEnPantalla = false;
+        resetearTxtNumbers();
+        resetearTxtResults();
+        n1 = 0;
+        n2 = 0;
+        operador = '0';
+
+        return false;
     }
 
     /**
