@@ -63,7 +63,7 @@ public class MainActivity extends ListActivity {
 
         @Override
         public int getCount() {
-            return 0;
+            return arrayHeroes.length+arrayMapas.length;
         }
 
         @Override
@@ -107,6 +107,7 @@ public class MainActivity extends ListActivity {
             ViewHolderMapa vhMapa;
             TextView textoHeroe, nombreMapa, tipoMapa;
             ImageView perfil, fotoMapa;
+            int prueba, prueba2;
 
             if (fila==null)
             {
@@ -129,21 +130,23 @@ public class MainActivity extends ListActivity {
                     fila.setTag(vhMapa);
                 }
             }
+
+            //Metemos datos
+            if(getItemViewType(position) == 0)
+            {
+                vhHeroe = (ViewHolderHeroe)fila.getTag();
+                vhHeroe.getTextoHeroe().setText(heroes[position/2].getNombre());
+                prueba = heroes[position/2].getIdRImagen();
+                vhHeroe.getPerfil().setImageResource(prueba);
+                prueba = vhHeroe.getPerfil().getImageAlpha();
+            }
             else
             {
-                if(getItemViewType(position) == 0)
-                {
-                    vhHeroe = (ViewHolderHeroe)fila.getTag();
-                    vhHeroe.getTextoHeroe().setText(heroes[position].getNombre());
-                    vhHeroe.getPerfil().setImageResource(heroes[position].getIdRImagen());
-                }
-                else
-                {
-                    vhMapa = (ViewHolderMapa)fila.getTag();
-                    vhMapa.getNombreMapa().setText((mapas[position].getNombre()));
-                    vhMapa.getTipoMapa().setText(mapas[position].getTipo());
-                    vhMapa.getFotoMapa().setImageResource(mapas[position].getIdRImagen());
-                }
+                vhMapa = (ViewHolderMapa)fila.getTag();
+                vhMapa.getNombreMapa().setText((mapas[position/2].getNombre()));
+                vhMapa.getTipoMapa().setText(mapas[position/2].getTipo());
+                prueba = mapas[position/2].getIdRImagen();
+                vhMapa.getFotoMapa().setImageResource(prueba);
             }
 
             return fila;
