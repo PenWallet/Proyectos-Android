@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         {
             //En caso de que se haya pulsado un botón de número o el punto
             case R.id.btn0: case R.id.btn1: case R.id.btn2: case R.id.btn3: case R.id.btn4: case R.id.btn5: case R.id.btn6: case R.id.btn7: case R.id.btn8: case R.id.btn9: case R.id.btnDot:
-                /*Solo funcionará el botón si ha escrito menos de 16 números, si ha escrito
+                /*Solo funcionará el botón si ha escrit eso menos de 16 números, si ha escrito
                  15 números y hay un '-' al principio, o si el resultado ya está en pantalla */
                 if(txtNumbers.getText().length() < 16 || (txtNumbers.getText().length() == 16 && txtNumbers.getText().toString().toCharArray()[0] == '-') || resultadoEnPantalla)
                 {
