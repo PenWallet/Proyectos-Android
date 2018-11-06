@@ -7,21 +7,34 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends ListActivity {
+public class MainActivity extends ListActivity implements AdapterView.OnItemClickListener {
     List<Nota> listaNotas;
+    ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        lv = getListView();
         listaNotas = Controller.obtenerListaNotas("", this);
         setListAdapter(new IconicAdapter<Nota>(this, R.layout.row, listaNotas));
+        lv.setOnItemClickListener(this);
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
+    {
+        String prueba = listaNotas.get((int)l).getHeader();
+        Toast.makeText(this, "Has pulsado en la nota " + prueba, Toast.LENGTH_SHORT).show();
     }
 
     class IconicAdapter<T> extends ArrayAdapter<T> {
@@ -33,22 +46,50 @@ public class MainActivity extends ListActivity {
         public View getView(int position, View convertView, ViewGroup parent)
         {
             View fila = convertView;
+            ViewHeader vh = null;
+            TextView header = null;
+            TextView texto = null;
 
             if (fila==null)
             {
                 LayoutInflater inflater=getLayoutInflater();
                 fila=inflater.inflate(R.layout.row, parent, false);
+                header = fila.findViewById(R.id.txtHeader);
+                texto = fila.findViewById(R.id.txtTexto);
+                vh = new ViewHeader(header, texto);
+                fila.setTag(vh);
             }
-
-            TextView header = fila.findViewById(R.id.txtHeader);
-            TextView texto = fila.findViewById(R.id.txtTexto);
+            else
+            {
+                vh = (ViewHeader)fila.getTag();
+                header = vh.getHeader();
+                texto = vh.getTexto();
+            }
 
             header.setText(listaNotas.get(position).getHeader());
             texto.setText(listaNotas.get(position).getText());
 
-
             return fila;
         }
 
+        class ViewHeader
+        {
+            TextView header;
+            TextView texto;
+
+            public ViewHeader(TextView header, TextView texto)
+            {
+                this.header = header;
+                this.texto = texto;
+            }
+
+            public TextView getHeader() {
+                return header;
+            }
+
+            public TextView getTexto() {
+                return texto;
+            }
+        }
     }
 }
