@@ -2,6 +2,7 @@ package com.example.ofunes.pennynotes;
 
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -37,7 +38,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         Toast.makeText(this, "Has pulsado en la nota " + prueba, Toast.LENGTH_SHORT).show();
     }
 
-    class IconicAdapter<T> extends ArrayAdapter<T> {
+    class IconicAdapter<T> extends ArrayAdapter<T>
+    {
         IconicAdapter(Context c, int resourceId, List<T> objects) {
             super(c, resourceId, objects);
         }
@@ -91,5 +93,12 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
                 return texto;
             }
         }
+    }
+
+    public void anadirNota(View view)
+    {
+        Intent intent = new Intent(this, anadirNota.class);
+
+        startActivity(intent);
     }
 }
