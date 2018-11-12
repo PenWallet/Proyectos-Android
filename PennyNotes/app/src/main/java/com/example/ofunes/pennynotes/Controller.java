@@ -13,18 +13,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Controller {
-    public static List<Nota> obtenerListaNotas(String direccionNotas, Context context)
+    public static List<Nota> obtenerListaNotas(Context context)
     {
         List<Nota> lista = new ArrayList<>();
         File carpeta = context.getExternalFilesDir(null);
-        String texto;
+        String texto, noteTitle;
 
         File[] arrayNotas = carpeta.listFiles();
         lista.add(new Nota(carpeta.getPath(), carpeta.getPath()));
         for(int i = 0; i < arrayNotas.length; i++)
         {
-            texto = obtenerTextoNota(arrayNotas[i]);
-            lista.add(new Nota(arrayNotas[i].getName().split("[.]")[0], texto));
+            noteTitle = arrayNotas[i].getName().split("[.]")[0];
+            if(arrayNotas[i].getName().split("[.]")[1].equals("txt") && arrayNotas[i].getName().split("[.]")[2] == null)
+            {
+                texto = obtenerTextoNota(arrayNotas[i]);
+                lista.add(new Nota(noteTitle, texto));
+            }
         }
 
         return lista;
@@ -53,5 +57,14 @@ public class Controller {
         } catch (IOException e) { e.printStackTrace(); }
 
         return texto;
+    }
+
+    public static boolean guardarNota(Nota n1)
+    {
+        boolean guardado = false;
+
+
+
+        return guardado;
     }
 }

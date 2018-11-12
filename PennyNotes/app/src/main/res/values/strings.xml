@@ -3,4 +3,5 @@
     <string name="noNotes">You have no notes!</string>
     <string name="title">Note\'s title</string>
     <string name="text">Note\'s content</string>
+    <string name="save">Save note</string>
 </resources>

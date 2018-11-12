@@ -26,8 +26,8 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lv = getListView();
-        listaNotas = Controller.obtenerListaNotas("", this);
-        setListAdapter(new IconicAdapter<Nota>(this, R.layout.row, listaNotas));
+        listaNotas = Controller.obtenerListaNotas(this);
+        setListAdapter(new IconicAdapter<>(this, R.layout.row, listaNotas));
         lv.setOnItemClickListener(this);
     }
 
