@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class anadirNota extends AppCompatActivity {
 
@@ -19,6 +20,44 @@ public class anadirNota extends AppCompatActivity {
 
     public void crearNota(View v)
     {
+        String[] arrayNombreNotas;
+        boolean nombreIgual = false, creadaCorrectamente;
+        String nombreNota;
+        Nota n;
+
+        //Comprobar si el título de la nota está vacío
+        if(editTitle.getText().toString().equals(""))
+            Toast.makeText(this, getString(R.string.emptyTitle), Toast.LENGTH_LONG).show();
+        //Si no, comprobar si el texto de la nota está vacío
+        else if(editNote.getText().toString().equals(""))
+            Toast.makeText(this, getString(R.string.emptyNote), Toast.LENGTH_LONG).show();
+        //else if(editTitle.getText().toString().matches("[a-zA-Z]"))
+        else
+        {
+            nombreNota = editTitle.getText().toString();
+            arrayNombreNotas = getIntent().getStringArrayExtra("listaNotas");
+            //Comprobar que no existe ya una nota con ese nombre
+            for(int i = 0; i < arrayNombreNotas.length && !nombreIgual; i++)
+            {
+                if(arrayNombreNotas[i].equals(nombreNota))
+                    nombreIgual = true;
+            }
+
+            //Si no existe una nota con ese nombre, se crea
+            if(!nombreIgual)
+            {
+                n = new Nota(editTitle.getText().toString(), editNote.getText().toString());
+                creadaCorrectamente = Controller.guardarNota(n, this);
+                if(creadaCorrectamente)
+                    Toast.makeText(this, getString(R.string.noteCreated), Toast.LENGTH_LONG).show();
+                else
+                    Toast.makeText(this, getString(R.string.noteNotCreated), Toast.LENGTH_LONG).show();
+
+                finish();
+            }
+            else
+                Toast.makeText(this, getString(R.string.noteAlreadyExists), Toast.LENGTH_LONG).show();
+        }
 
     }
 }

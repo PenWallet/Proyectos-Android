@@ -4,4 +4,9 @@
     <string name="title">Note\'s title</string>
     <string name="text">Note\'s content</string>
     <string name="save">Save note</string>
+    <string name="emptyTitle">The title of the note can\'t be empty!</string>
+    <string name="emptyNote">Why would you make an empty note? Hmm…</string>
+    <string name="noteAlreadyExists">A note with that name already exists!</string>
+    <string name="noteCreated">The note has been added!</string>
+    <string name="noteNotCreated">There was an error creating the note</string>
 </resources>

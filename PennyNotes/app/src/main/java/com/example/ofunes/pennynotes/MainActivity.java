@@ -26,6 +26,12 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         lv = getListView();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
         listaNotas = Controller.obtenerListaNotas(this);
         setListAdapter(new IconicAdapter<>(this, R.layout.row, listaNotas));
         lv.setOnItemClickListener(this);
@@ -98,7 +104,12 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
     public void anadirNota(View view)
     {
         Intent intent = new Intent(this, anadirNota.class);
-
+        String[] arrayNombreNotas = new String[listaNotas.size()];
+        for(int i = 0; i < listaNotas.size(); i++)
+        {
+            arrayNombreNotas[i] = listaNotas.get(i).getHeader();
+        }
+        intent.putExtra("listaNotas", arrayNombreNotas);
         startActivity(intent);
     }
 }
