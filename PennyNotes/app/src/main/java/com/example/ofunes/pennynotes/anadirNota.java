@@ -53,6 +53,7 @@ public class anadirNota extends AppCompatActivity {
                 else
                     Toast.makeText(this, getString(R.string.noteNotCreated), Toast.LENGTH_LONG).show();
 
+                //Se termina la actividad se haya creado correctamente o no
                 finish();
             }
             else

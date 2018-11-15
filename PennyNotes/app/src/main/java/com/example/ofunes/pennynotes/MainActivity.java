@@ -41,7 +41,9 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l)
     {
         String prueba = listaNotas.get((int)l).getHeader();
-        Toast.makeText(this, "Has pulsado en la nota " + prueba, Toast.LENGTH_SHORT).show();
+        Intent cambiarNotaIntent = new Intent(this, CambiarNotaActivity.class);
+        cambiarNotaIntent.putExtra("nombreNota", prueba);
+        startActivity(cambiarNotaIntent);
     }
 
     class IconicAdapter<T> extends ArrayAdapter<T>

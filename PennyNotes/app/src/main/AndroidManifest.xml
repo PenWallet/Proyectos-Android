@@ -16,7 +16,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".anadirNota"></activity>
+        <activity android:name=".anadirNota" />
+        <activity android:name=".CambiarNotaActivity"></activity>
     </application>
 
 </manifest>

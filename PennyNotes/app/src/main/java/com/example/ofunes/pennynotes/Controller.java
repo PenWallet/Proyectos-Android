@@ -60,6 +60,34 @@ public class Controller {
         return texto;
     }
 
+    public static String obtenerTextoNota(String nombreNota, Context context)
+    {
+        String archivo = context.getExternalFilesDir(null).getPath()+System.getProperty("file.separator")+nombreNota+".txt";
+        String linea, texto = "";
+        File nota;
+        FileReader fr;
+        BufferedReader br = null;
+        try
+        {
+            nota = new File(archivo);
+            fr = new FileReader(nota);
+            br = new BufferedReader(fr);
+        } catch (FileNotFoundException e) { e.printStackTrace(); }
+
+        try
+        {
+            linea = br.readLine();
+
+            while(linea != null)
+            {
+                texto = texto + linea + "\n";
+                linea = br.readLine();
+            }
+        } catch (IOException | NullPointerException e) { e.printStackTrace(); }
+
+        return texto;
+    }
+
     public static boolean guardarNota(Nota n1, Context context)
     {
         boolean guardado = false;
@@ -72,7 +100,7 @@ public class Controller {
         try
         {
             nota.createNewFile();
-            fw = new FileWriter(nota);
+            fw = new FileWriter(nota, false); //false para que sobreescriba si hay algo escrito
             bw = new BufferedWriter(fw);
 
             bw.write(noteTexto);
@@ -89,5 +117,13 @@ public class Controller {
         }
 
         return guardado;
+    }
+
+    public static Nota obtenerNota(String nombreNota, Context context)
+    {
+        String texto = obtenerTextoNota(nombreNota, context);
+        Nota nota = new Nota(nombreNota, texto);
+
+        return nota;
     }
 }
