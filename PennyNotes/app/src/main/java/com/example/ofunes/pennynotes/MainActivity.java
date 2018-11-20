@@ -1,23 +1,24 @@
 package com.example.ofunes.pennynotes;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ListActivity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class MainActivity extends ListActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends ListActivity implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
     List<Nota> listaNotas;
     ListView lv;
 
@@ -34,7 +35,7 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         super.onResume();
         listaNotas = Controller.obtenerListaNotas(this);
         setListAdapter(new IconicAdapter<>(this, R.layout.row, listaNotas));
-        lv.setOnItemClickListener(this);
+        lv.setOnItemClickListener(this); lv.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -44,6 +45,38 @@ public class MainActivity extends ListActivity implements AdapterView.OnItemClic
         Intent cambiarNotaIntent = new Intent(this, CambiarNotaActivity.class);
         cambiarNotaIntent.putExtra("nombreNota", prueba);
         startActivity(cambiarNotaIntent);
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, final View view, final int position, long id) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle(R.string.deletePrompt)
+        .setPositiveButton(R.string.Yes, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int idBtn) {
+                boolean borrado;
+                Nota nota = listaNotas.get(position);
+                borrado = Controller.borrarNota(nota, view.getContext());
+
+                if(borrado)
+                {
+                    listaNotas.remove(nota);
+                    setListAdapter(new IconicAdapter<>(view.getContext(), R.layout.row, listaNotas));
+                    Toast.makeText(view.getContext(), getString(R.string.deletedSuccesful), Toast.LENGTH_LONG).show();
+                }
+            }
+        })
+        .setNegativeButton(R.string.No, new DialogInterface.OnClickListener()
+        {
+            public void onClick(DialogInterface dialog, int idBtn) {  }
+        })
+        .setCancelable(true);
+
+        Dialog dialog = builder.create();
+        dialog.show();
+
+        return true;
     }
 
     class IconicAdapter<T> extends ArrayAdapter<T>

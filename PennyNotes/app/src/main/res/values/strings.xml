@@ -6,10 +6,16 @@
     <string name="save">Save note</string>
     <string name="edit">Save changes</string>
     <string name="emptyTitle">The title of the note can\'t be empty!</string>
+    <string name="titleNotCorrect">The title of the note must be letters and/or numbers only!</string>
     <string name="emptyNote">Why would you make an empty note? Hmm…</string>
     <string name="noteAlreadyExists">A note with that name already exists!</string>
     <string name="noteCreated">The note has been added!</string>
     <string name="noteNotCreated">There was an error creating the note</string>
     <string name="noteChanged">The note has been changed!</string>
     <string name="noteNotChanged">There was an error changing the note</string>
+    <string name="deletePrompt">Do you really wish to delete this note?</string>
+    <string name="Yes">Yes</string>
+    <string name="No">No</string>
+    <string name="deletedSuccesful">The note was deleted correctly!</string>
+    <string name="Unsuccessful">Something went wrong :(</string>
 </resources>

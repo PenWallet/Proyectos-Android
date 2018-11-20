@@ -28,6 +28,9 @@ public class anadirNota extends AppCompatActivity {
         //Comprobar si el título de la nota está vacío
         if(editTitle.getText().toString().equals(""))
             Toast.makeText(this, getString(R.string.emptyTitle), Toast.LENGTH_LONG).show();
+        //Si no, comprobar que el texto del título es solo letras y números
+        else if(!editTitle.getText().toString().matches("^[a-zA-Z0-9_.-]*$"))
+            Toast.makeText(this, getString(R.string.titleNotCorrect), Toast.LENGTH_LONG).show();
         //Si no, comprobar si el texto de la nota está vacío
         else if(editNote.getText().toString().equals(""))
             Toast.makeText(this, getString(R.string.emptyNote), Toast.LENGTH_LONG).show();

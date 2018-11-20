@@ -21,7 +21,6 @@ public class Controller {
         String texto, noteTitle;
 
         File[] arrayNotas = carpeta.listFiles();
-        lista.add(new Nota(carpeta.getPath(), carpeta.getPath()));
         for(int i = 0; i < arrayNotas.length; i++)
         {
             noteTitle = arrayNotas[i].getName().split("[.]")[0];
@@ -125,5 +124,16 @@ public class Controller {
         Nota nota = new Nota(nombreNota, texto);
 
         return nota;
+    }
+
+    public static boolean borrarNota(Nota nota, Context context)
+    {
+        boolean borrado = false;
+        String txtArchivo = context.getExternalFilesDir(null).getPath()+System.getProperty("file.separator")+nota.getHeader()+".txt";
+        File archivo = new File(txtArchivo);
+
+        borrado = archivo.delete();
+
+        return borrado;
     }
 }
