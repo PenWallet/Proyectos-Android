@@ -1,5 +1,7 @@
 package com.example.ofunes.calculadorapro;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -246,8 +248,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         case '*': resultado = n1 * n2; break;
                         case '/': resultado = n1 / n2; break;
                     }
-                    //Y se coloca en txtNumbers el resulado
-                    txtNumbers.setText(String.valueOf(resultado));
+                    //Se comprueba si se viene de un intent
+                    if(getIntent().getBooleanExtra("fromActivity", false) == false)
+                    {
+                        txtNumbers.setText(String.valueOf(resultado));
+                    }
+                    else
+                    {
+                        Intent intentVolver = new Intent();
+                        intentVolver.putExtra("resultado", resultado);
+                        setResult(Activity.RESULT_OK, intentVolver);
+                        finish();
+                    }
                 }
                 break;
 
