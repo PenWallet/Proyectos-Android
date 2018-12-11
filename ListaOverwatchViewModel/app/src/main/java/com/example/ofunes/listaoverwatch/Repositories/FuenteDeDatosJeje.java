@@ -23,5 +23,5 @@ public class FuenteDeDatosJeje {
             new Heroe("Roadhog", R.drawable.roadhog)
     };
 
-    public static final ArrayList<Heroe> listadoHeroes = new ArrayList<>(Arrays.asList(arrayHeroes));
+    public static ArrayList<Heroe> listadoHeroes = new ArrayList<>(Arrays.asList(arrayHeroes));
 }

@@ -42,11 +42,11 @@ public class MainActivity extends ListActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setListAdapter(new IconicAdapter<>(this, R.layout.filaheroe, R.layout.filamapa,
+        setListAdapter(new IconicAdapter(this, R.layout.filaheroe, R.layout.filamapa,
                                             arrayHeroes, arrayMapas));
     }
 
-    class IconicAdapter<T> extends BaseAdapter
+    class IconicAdapter extends BaseAdapter
     {
         Context c;
         int filaHeroe, filaMapa;
@@ -116,7 +116,7 @@ public class MainActivity extends ListActivity {
                 LayoutInflater inflater=getLayoutInflater();
                 if(getItemViewType(position) == 0)
                 {
-                    fila=inflater.inflate(R.layout.filaheroe, parent, false);
+                    fila=inflater.inflate(filaHeroe, parent, false);
                     textoHeroe = fila.findViewById(R.id.txtNombre);
                     perfil = fila.findViewById(R.id.imgFoto);
                     vhHeroe = new ViewHolderHeroe(textoHeroe, perfil);
@@ -124,7 +124,7 @@ public class MainActivity extends ListActivity {
                 }
                 else if(getItemViewType(position) == 1)
                 {
-                    fila=inflater.inflate(R.layout.filamapa, parent, false);
+                    fila=inflater.inflate(filaMapa, parent, false);
                     nombreMapa = fila.findViewById(R.id.txtNombre);
                     tipoMapa = fila.findViewById(R.id.txtTipo);
                     fotoMapa = fila.findViewById(R.id.imgFoto);
