@@ -3,6 +3,7 @@ package com.example.ofunes.pennypanphone;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -24,6 +25,10 @@ public class RegistrationActivity extends Activity {
         txtErrorName = findViewById(R.id.txtErrorName);
         txtErrorUsername = findViewById(R.id.txtErrorUsername);
         txtErrorPassword = findViewById(R.id.txtErrorRegisterPassword);
+
+        if(editName.requestFocus()) {
+            getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        }
     }
 
     public void registerNewUser(View view) {

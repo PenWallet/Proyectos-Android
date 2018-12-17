@@ -8,18 +8,18 @@
     tools:context="com.example.ofunes.pennypanphone.MainActivity">
 
     <TextView
-        android:id="@+id/txtErrorPassword2"
-        android:layout_width="196dp"
-        android:layout_height="19dp"
-        android:layout_marginEnd="8dp"
+        android:id="@+id/txtErrorLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
         android:fontFamily="@font/prinsesstartabold"
-        android:text="@string/errorEmptyPassword"
+        android:text="@string/errorLogIn"
         android:textColor="@color/ErrorRed"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+        tools:layout_editor_absoluteY="420dp" />
 
     <EditText
         android:id="@+id/txtUsername"
@@ -64,12 +64,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="84dp"
-        android:layout_marginTop="16dp"
-        android:text="@string/remember"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtPassword"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/prinsesstartamedium"
-        android:textColor="@color/Gray"/>
+        android:text="@string/remember"
+        android:textColor="@color/Gray"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtPassword" />
 
     <Button
         android:id="@+id/btnLogIn"

@@ -16,4 +16,5 @@
     <string name="errorTakenUsername">That username is already taken!</string>
     <string name="errorEmptyPassword">The password can\'t be empty!</string>
     <string name="errorInvalidPassword">Invalid password! At least 8 characters long</string>
+    <string name="errorLogIn">Invalid username or password</string>
 </resources>
