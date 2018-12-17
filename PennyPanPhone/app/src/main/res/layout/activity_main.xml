@@ -7,25 +7,39 @@
     android:background="@drawable/barradepan"
     tools:context="com.example.ofunes.pennypanphone.MainActivity">
 
+    <TextView
+        android:id="@+id/txtErrorPassword2"
+        android:layout_width="196dp"
+        android:layout_height="19dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/prinsesstartabold"
+        android:text="@string/errorEmptyPassword"
+        android:textColor="@color/ErrorRed"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
+
     <EditText
         android:id="@+id/txtUsername"
         android:layout_width="212dp"
         android:layout_height="54dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/username"
         android:inputType="text"
-        android:maxLines="1"
         android:maxLength="15"
-        app:layout_constraintBottom_toTopOf="@+id/txtPassword"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <EditText
         android:id="@+id/txtPassword"
@@ -33,17 +47,17 @@
         android:layout_height="54dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:layout_marginBottom="208dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="48dp"
         android:background="@drawable/rounded_edittext"
         android:ems="10"
         android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPassword"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUsername" />
 
     <CheckBox
         android:id="@+id/cbRemember"

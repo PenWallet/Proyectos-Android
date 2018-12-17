@@ -1,8 +1,19 @@
 <resources>
     <string name="app_name">PennyPanPhone</string>
+    <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
-    <string name="login">Log in</string>
+    <string name="login">LOG IN</string>
     <string name="remember">Remember me</string>
     <string name="createAccount">Or create a new account</string>
+    <string name="register">CREATE ACCOUNT</string>
+    <string name="newUser">New user</string>
+    <string name="regSubtitle">Welcome to the new bread experience!</string>
+    <string name="errorEmptyName">The name can\'t be empty!</string>
+    <string name="errorInvalidName">Invalid name, get a better one!</string>
+    <string name="errorEmptyUsername">The username can\'t be empty!</string>
+    <string name="errorInvalidUsername">Invalid username! Only alphanumeric</string>
+    <string name="errorTakenUsername">That username is already taken!</string>
+    <string name="errorEmptyPassword">The password can\'t be empty!</string>
+    <string name="errorInvalidPassword">Invalid password! At least 8 characters long</string>
 </resources>
