@@ -13,15 +13,9 @@ GO
 CREATE TABLE Clientes(
 	Username char(15) NOT NULL,
 	[Password] varbinary(max) NOT NULL,
-	Salt varbinary(4) NOT NULL,
-	Nombre varchar(20) NOT NULL,
-	Apellidos varchar(30) NOT NULL,
-	FechaNac date NOT NULL,
-	Ciudad varchar(20) NOT NULL,
-	Direccion varchar(40) NULL,
-	Telefono char(9) NULL,
-	CONSTRAINT PKClientes PRIMARY KEY (Username),
-	CONSTRAINT CHK_Clientes_Edad CHECK (FechaNac < CURRENT_TIMESTAMP)
+	Nombre varchar(50) NOT NULL,
+	Panadero bit NOT NULL DEFAULT 0,
+	CONSTRAINT PKClientes PRIMARY KEY (Username)
 )
 
 CREATE TABLE Complementos(
@@ -757,14 +751,14 @@ DECLARE @pswd NVARCHAR(MAX) = '1234';
 DECLARE @salt VARBINARY(4) = CRYPT_GEN_RANDOM(4);
 DECLARE @hash VARBINARY(MAX) = 0x0200 + @salt + HASHBYTES('SHA2_512', CAST(@pswd AS VARBINARY(MAX)) + @salt);
 
-INSERT INTO Clientes (Username, [Password], Salt, Nombre, Apellidos, FechaNac, Ciudad, Direccion, Telefono) VALUES
-('yeray1', @hash, @salt, 'Yeray','Campanario','04-11-1997','Sevilla','Plaza Camilo José Cela, 1B','678333412'),
-('daniel1', @hash, @salt,'Daniel','Gordillo','03-12-1999','Sevilla','Juan Ramón Jiménez, 20','622041614'),
-('nacho1', @hash, @salt,'Ignacio','Van Loy','04-06-2018','IES Nervion','Claudio Guerin','654321987'),
-('tomas1', @hash, @salt,'Tomás','Núñez','20-04-1998','Utrera','Almería, 35','628119707'),
-('raquel1', @hash, @salt,'Raquel','González','25-05-1995','Sevilla','Almadraberos, 10','667037370'),
-('david1', @hash, @salt,'David','Galván','12-06-1999','Sevilla','Av Parque Amate','674658099'),
-('oscar1', @hash, @salt,'Oscar','Funes','12-08-1999','Sevilla','Reina del Cielo 3 2B','667879970')
+INSERT INTO Clientes (Username, [Password], Nombre) VALUES
+('yeray1', @hash, 'Yeray Campanario'),
+('daniel1', @hash, 'Daniel Gordillo'),
+('nacho1', @hash, 'Ignacio Van Loy'),
+('tomas1', @hash,'Tomás Núñez'),
+('raquel1', @hash, 'Raquel González'),
+('david1', @hash, 'David Galván'),
+('oscar1', @hash, 'Oscar Funes')
 
 INSERT INTO Pedidos (ClienteUsername, FechaCompra) VALUES
 ('yeray1','9-3-2017'),('yeray1','25-5-2017'),('daniel1','3-8-2017'),('daniel1','9-8-2017'),('tomas1','9-9-2017'),('oscar1','21-10-2017'),('david1','30-11-2017'),
