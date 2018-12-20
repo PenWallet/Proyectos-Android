@@ -7,11 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:fontFamily">@font/prinsesstartamedium</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
 
     </style>
 
     <style name="LogInButtonTheme" parent="Widget.AppCompat.Button.Colored">
         <item name="colorButtonNormal">@color/Cyan</item>
+        <item name="android:textColor">@color/White</item>
+    </style>
+
+    <style name="RegisterButtonTheme" parent="Widget.AppCompat.Button.Colored">
+        <item name="colorButtonNormal">@color/GreenishCyan</item>
         <item name="android:textColor">@color/White</item>
     </style>
 

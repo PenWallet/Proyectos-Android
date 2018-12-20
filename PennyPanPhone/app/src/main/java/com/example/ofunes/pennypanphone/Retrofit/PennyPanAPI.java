@@ -17,13 +17,13 @@ import retrofit2.http.Path;
 
 public interface PennyPanAPI {
 
-    @GET("cliente/{username}")
+    @GET("/cliente/{username}")
     Call<Cliente> getCliente(@Header("Authorization") String token, @Path("username") String username);
 
-    @GET("cliente")
+    @GET("/cliente")
     Call<List<Cliente>> getListCliente(@Header("Authorization") String token, @Path("username") String username);
 
-    @POST("cliente")
+    @POST("/cliente")
     Call<Void> postCliente(@Body Cliente cliente);
 
 }
