@@ -45,7 +45,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        gestoraRetrofit = new GestoraRetrofit();
+        gestoraRetrofit = new GestoraRetrofit(mViewModel);
 
         txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this);
         btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this);
@@ -59,7 +59,11 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 if(cliente == null)
                     txtErrorLogin.setVisibility(View.VISIBLE);
                 else
+                {
                     txtErrorLogin.setVisibility(View.GONE);
+                    Toast.makeText(getActivity(), cliente.toString(), Toast.LENGTH_SHORT).show();
+                }
+
             }
         };
 
