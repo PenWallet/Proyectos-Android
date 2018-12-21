@@ -60,10 +60,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     txtErrorLogin.setVisibility(View.VISIBLE);
                 else
                 {
+                    Toast.makeText(getActivity(), cliente.toString(), Toast.LENGTH_SHORT);
                     txtErrorLogin.setVisibility(View.GONE);
-                    Toast.makeText(getActivity(), cliente.toString(), Toast.LENGTH_SHORT).show();
                 }
-
             }
         };
 

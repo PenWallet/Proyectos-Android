@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Retrofit;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.LoginFragment;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 import retrofit2.Call;
@@ -10,11 +11,11 @@ import retrofit2.Response;
 
 public class ClienteCallback implements Callback<Cliente>{
 
-	private MainViewModel mainVM;
+	MainViewModel mainVm;
 
-	public ClienteCallback(MainViewModel mainVM)
+	public ClienteCallback(MainViewModel mainVm)
 	{
-		this.mainVM = mainVM;
+		this.mainVm = mainVm;
 	}
 
 	@Override
@@ -25,6 +26,9 @@ public class ClienteCallback implements Callback<Cliente>{
 
 	@Override
 	public void onFailure(Call<Cliente> call, Throwable t) {
-		//Adew
+		int i = 0;
+
+		i = 4;
+		i = 8;
 	}
 }
