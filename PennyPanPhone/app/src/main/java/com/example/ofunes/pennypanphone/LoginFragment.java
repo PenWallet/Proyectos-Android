@@ -81,18 +81,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btnLogIn:
                 if(checkFields())
-                {
                     gestoraRetrofit.obtenerUsuario(editUsername.getText().toString(), editPassword.getText().toString());
-                }
                 break;
         }
     }
 
     private boolean checkFields()
     {
-        boolean isOk, isUsernameOk = true, isPasswordOk = true;
+        boolean isOk = true, isUsernameOk = true, isPasswordOk = true;
 
-        //Validación del nombre de usuario
+        /*Validación del nombre de usuario
         if(editUsername.getText().toString().equals(""))
         {
             isUsernameOk = false;
@@ -116,7 +114,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), R.string.errorInvalidPassword, Toast.LENGTH_SHORT).show();
         }
 
-        isOk = true;
+        isOk = true;*/
 
         return isOk;
     }

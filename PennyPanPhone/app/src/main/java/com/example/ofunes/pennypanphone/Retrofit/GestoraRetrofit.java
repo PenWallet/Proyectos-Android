@@ -29,7 +29,7 @@ public class GestoraRetrofit {
         String token = username+":"+password;
         byte[] tokenByte = token.getBytes();
         String token64 = Base64.encodeToString(tokenByte, Base64.DEFAULT);
-        token64 = "Basic b3NjYXIxOjEyMzQK";
+        token64 = "Basic b3NjYXIxOjEyMzQ=";
 
         pennyPanAPI.getCliente(token64, username).enqueue(clienteCallback);
     }
