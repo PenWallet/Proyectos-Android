@@ -6,20 +6,20 @@ package com.example.ofunes.pennypanphone.Entidades;
 
 public class Cliente {
     private String username;
-    private String password;
+    private String contrasena;
     private String nombre;
-    private boolean panadero;
+    private int panadero;
 
     public Cliente() {
         this.username = "";
-        this.password = "";
+        this.contrasena = "";
         this.nombre = "";
-        this.panadero = false;
+        this.panadero = 0;
     }
 
-    public Cliente(String username, String password, String nombre, boolean panadero) {
+    public Cliente(String username, String contrasena, String nombre, int panadero) {
         this.username = username;
-        this.password = password;
+        this.contrasena = contrasena;
         this.nombre = nombre;
         this.panadero = panadero;
     }
@@ -28,15 +28,15 @@ public class Cliente {
         return username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getContrasena() {
+        return contrasena;
     }
 
     public String getNombre() {
         return nombre;
     }
 
-    public boolean isPanadero() {
+    public int isPanadero() {
         return panadero;
     }
 
@@ -48,7 +48,7 @@ public class Cliente {
     public String toString() {
         return "Cliente{" +
                 "username='" + username + '\'' +
-                ", password='" + password + '\'' +
+                ", password='" + contrasena + '\'' +
                 ", nombre='" + nombre + '\'' +
                 ", panadero=" + panadero +
                 '}';

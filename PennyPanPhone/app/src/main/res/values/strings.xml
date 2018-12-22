@@ -17,5 +17,9 @@
     <string name="errorEmptyPassword">The password can\'t be empty!</string>
     <string name="errorInvalidPassword">Invalid password! At least 8 characters long</string>
     <string name="errorLogIn">Invalid username or password</string>
+    <string name="registerSuccessful">You registered successfully</string>
+    <string name="registerUnsuccessful">We couldn\'t register you for unknown reasons :(</string>
+    <string name="nani">Nani??</string>
+
 
 </resources>

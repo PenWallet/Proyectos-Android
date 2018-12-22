@@ -5,9 +5,11 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.RenderProcessGoneDetail;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -32,7 +34,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     TextView txtRegistration, txtErrorLogin;
     Button btnLogin;
     EditText editUsername, editPassword;
-    GestoraRetrofit gestoraRetrofit;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,7 +46,6 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        gestoraRetrofit = new GestoraRetrofit(mViewModel);
 
         txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this);
         btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this);
@@ -57,16 +57,36 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onChanged(@Nullable Cliente cliente) {
                 if(cliente == null)
+                {
                     txtErrorLogin.setVisibility(View.VISIBLE);
+                    txtErrorLogin.setText(R.string.errorLogIn);
+                }
                 else
                 {
-                    Toast.makeText(getActivity(), cliente.toString(), Toast.LENGTH_SHORT);
-                    txtErrorLogin.setVisibility(View.GONE);
+                    txtErrorLogin.setVisibility(View.VISIBLE);
+                    txtErrorLogin.setText(cliente.toString());
                 }
             }
         };
 
+        final Observer<Boolean> registerSuccessObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean success) {
+                if(success == null)
+                    Toast.makeText(getActivity(), R.string.nani, Toast.LENGTH_SHORT).show();
+                else if(success)
+                {
+                    Toast.makeText(getActivity(), R.string.registerSuccessful, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), mViewModel.getClienteRegistrado().getValue().toString(), Toast.LENGTH_LONG).show();
+                }
+                else
+                    Toast.makeText(getActivity(), R.string.registerUnsuccessful, Toast.LENGTH_SHORT).show();
+
+            }
+        };
+
         mViewModel.getCliente().observe(this, clienteObserver);
+        mViewModel.getIsRegistrationSuccessful().observe(this, registerSuccessObserver);
     }
 
 
@@ -81,7 +101,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btnLogIn:
                 if(checkFields())
-                    gestoraRetrofit.obtenerUsuario(editUsername.getText().toString(), editPassword.getText().toString());
+                    mViewModel.getGestoraRetrofit().obtenerUsuario(editUsername.getText().toString(), editPassword.getText().toString());
                 break;
         }
     }

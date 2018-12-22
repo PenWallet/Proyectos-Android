@@ -1,10 +1,12 @@
 package com.example.ofunes.pennypanphone;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
@@ -48,6 +52,24 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         txtErrorPassword = getView().findViewById(R.id.txtErrorRegisterPassword);
 
         btnRegister = getView().findViewById(R.id.btnRegister); btnRegister.setOnClickListener(this);
+
+        final Observer<Cliente> registerObserver = new Observer<Cliente>() {
+            @Override
+            public void onChanged(@Nullable Cliente cliente) {
+                if(cliente == null)
+                {
+                    txtErrorUsername.setText(R.string.errorTakenUsername);
+                }
+                else
+                {
+                    txtErrorUsername.setText("");
+                    mViewModel.getIsRegistrationSuccessful().setValue(true);
+                    getFragmentManager().popBackStack();
+                }
+            }
+        };
+
+        mViewModel.getClienteRegistrado().observe(this, registerObserver);
 
         //Sacar el teclado para que pueda escribir en el primer campo
         if(editName.requestFocus()) {
@@ -107,19 +129,18 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             txtErrorPassword.setText("");
 
 
-        if(isNameOk && isUsernameOk && isPasswordOk)
-            isOk = true;
-        else
-            isOk = false;
+        isOk = isNameOk && isUsernameOk && isPasswordOk;
 
         return isOk;
     }
 
     @Override
     public void onClick(View view) {
-        if(checkFields()) {
-            Toast.makeText(getContext(), "Ji ome", Toast.LENGTH_SHORT).show();
-            getFragmentManager().popBackStack();
+        if(checkFields())
+        {
+            Cliente cliente = new Cliente(editUsername.getText().toString(), editPassword.getText().toString(), editName.getText().toString(), 0);
+            mViewModel.getGestoraRetrofit().registrarUsuario(cliente);
+            //mViewModel.getGestoraRetrofit().registrarUsuarioResponse(cliente);
         }
     }
 }
