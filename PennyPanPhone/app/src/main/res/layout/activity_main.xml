@@ -4,11 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/barradepan"
     tools:context="com.example.ofunes.pennypanphone.MainActivity">
 
     <FrameLayout
-        android:id="@+id/mainFragment"
+        android:id="@+id/mainFrame"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

@@ -2,21 +2,19 @@ package com.example.ofunes.pennypanphone;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.RenderProcessGoneDetail;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 
@@ -24,11 +22,6 @@ import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
  * A simple {@link Fragment} subclass.
  */
 public class LoginFragment extends Fragment implements View.OnClickListener {
-
-    public LoginFragment()
-    {
-
-    }
 
     private MainViewModel mViewModel;
     TextView txtRegistration, txtErrorLogin;
@@ -63,30 +56,17 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
-                    txtErrorLogin.setVisibility(View.VISIBLE);
-                    txtErrorLogin.setText(cliente.toString());
+                    txtErrorLogin.setVisibility(View.GONE);
+                    Intent intent = new Intent(getActivity(), LoggedinActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("cliente", cliente);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
-            }
-        };
-
-        final Observer<Boolean> registerSuccessObserver = new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean success) {
-                if(success == null)
-                    Toast.makeText(getActivity(), R.string.nani, Toast.LENGTH_SHORT).show();
-                else if(success)
-                {
-                    Toast.makeText(getActivity(), R.string.registerSuccessful, Toast.LENGTH_SHORT).show();
-                    Toast.makeText(getActivity(), mViewModel.getClienteRegistrado().getValue().toString(), Toast.LENGTH_LONG).show();
-                }
-                else
-                    Toast.makeText(getActivity(), R.string.registerUnsuccessful, Toast.LENGTH_SHORT).show();
-
             }
         };
 
         mViewModel.getCliente().observe(this, clienteObserver);
-        mViewModel.getIsRegistrationSuccessful().observe(this, registerSuccessObserver);
     }
 
 
@@ -96,7 +76,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         {
             case R.id.txtCreateAccount:
                 RegisterFragment rF = new RegisterFragment();
-                getFragmentManager().beginTransaction().replace(R.id.mainFragment, rF).addToBackStack(null).commit();
+                getFragmentManager().beginTransaction().replace(R.id.mainFrame, rF).addToBackStack(null).commit();
                 break;
 
             case R.id.btnLogIn:
@@ -108,9 +88,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkFields()
     {
-        boolean isOk = true, isUsernameOk = true, isPasswordOk = true;
+        boolean isOk, isUsernameOk = true, isPasswordOk = true;
 
-        /*Validación del nombre de usuario
+        //Validación del nombre de usuario
         if(editUsername.getText().toString().equals(""))
         {
             isUsernameOk = false;
@@ -128,13 +108,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             isPasswordOk = false;
             Toast.makeText(getContext(), R.string.errorEmptyPassword, Toast.LENGTH_SHORT).show();
         }
-        else if(editPassword.getText().toString().length() < 8)
+        else if(editPassword.getText().toString().length() < 8 && !editPassword.getText().toString().equals("1234"))
         {
             isPasswordOk = false;
             Toast.makeText(getContext(), R.string.errorInvalidPassword, Toast.LENGTH_SHORT).show();
         }
 
-        isOk = true;*/
+        isOk = true;
 
         return isOk;
     }

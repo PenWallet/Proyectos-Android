@@ -1,10 +1,13 @@
 package com.example.ofunes.pennypanphone.Entidades;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by ofunes on 20/12/18.
  */
 
-public class Cliente {
+public class Cliente implements Parcelable {
     private String username;
     private String contrasena;
     private String nombre;
@@ -36,8 +39,8 @@ public class Cliente {
         return nombre;
     }
 
-    public int isPanadero() {
-        return panadero;
+    public boolean isPanadero() {
+        return panadero == 1;
     }
 
     public void setNombre(String nombre) {
@@ -53,4 +56,37 @@ public class Cliente {
                 ", panadero=" + panadero +
                 '}';
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.username);
+        dest.writeString(this.contrasena);
+        dest.writeString(this.nombre);
+        dest.writeInt(this.panadero);
+    }
+
+    protected Cliente(Parcel in) {
+        this.username = in.readString();
+        this.contrasena = in.readString();
+        this.nombre = in.readString();
+        this.panadero = in.readInt();
+    }
+
+    public static final Parcelable.Creator<Cliente> CREATOR = new Parcelable.Creator<Cliente>() {
+        @Override
+        public Cliente createFromParcel(Parcel source) {
+            return new Cliente(source);
+        }
+
+        @Override
+        public Cliente[] newArray(int size) {
+            return new Cliente[size];
+        }
+    };
 }

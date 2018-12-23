@@ -11,6 +11,6 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
 
         LoginFragment loginFragment = new LoginFragment();
-        getSupportFragmentManager().beginTransaction().replace(R.id.mainFragment, loginFragment).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.mainFrame, loginFragment).commit();
     }
 }

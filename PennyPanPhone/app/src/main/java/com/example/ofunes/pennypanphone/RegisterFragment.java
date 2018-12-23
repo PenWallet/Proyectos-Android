@@ -2,6 +2,7 @@ package com.example.ofunes.pennypanphone;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -63,8 +64,11 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 else
                 {
                     txtErrorUsername.setText("");
-                    mViewModel.getIsRegistrationSuccessful().setValue(true);
-                    getFragmentManager().popBackStack();
+                    Intent intent = new Intent(getActivity(), LoggedinActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    intent.putExtra("cliente", cliente);
+                    startActivity(intent);
+                    getActivity().finish();
                 }
             }
         };

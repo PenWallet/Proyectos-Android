@@ -10,4 +10,7 @@
     <color name="White">#ffffff</color>
     <color name="Gray">#828282</color>
     <color name="ErrorRed">#ff2b2b</color>
+    <color name="Background">#7B1FA2</color>
+    <color name="NotSelected">#EC407A</color>
+    <color name="Selected">#ffffff</color>
 </resources>
