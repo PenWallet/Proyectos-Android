@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     EditText editName, editUsername, editPassword;
     TextView txtErrorName, txtErrorUsername, txtErrorPassword;
     Button btnRegister;
+    ProgressBar progressBar;
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -54,9 +56,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         btnRegister = getView().findViewById(R.id.btnRegister); btnRegister.setOnClickListener(this);
 
+        progressBar = getView().findViewById(R.id.progressBarRegister);
+
         final Observer<Cliente> registerObserver = new Observer<Cliente>() {
             @Override
             public void onChanged(@Nullable Cliente cliente) {
+                progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                btnRegister.setTextColor(getResources().getColor(R.color.White));
                 if(cliente == null)
                 {
                     txtErrorUsername.setText(R.string.errorTakenUsername);
@@ -142,6 +149,10 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(checkFields())
         {
+            progressBar.setVisibility(View.VISIBLE);
+            getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            btnRegister.setTextColor(getResources().getColor(R.color.GreenishCyan));
             Cliente cliente = new Cliente(editUsername.getText().toString(), editPassword.getText().toString(), editName.getText().toString(), 0);
             mViewModel.getGestoraRetrofit().registrarUsuario(cliente);
             //mViewModel.getGestoraRetrofit().registrarUsuarioResponse(cliente);

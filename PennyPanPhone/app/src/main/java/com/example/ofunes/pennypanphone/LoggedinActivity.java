@@ -44,6 +44,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         frameLayout = findViewById(R.id.loggedFrame);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.navHome);
 
         if(viewModel.getCliente().isPanadero())
         {

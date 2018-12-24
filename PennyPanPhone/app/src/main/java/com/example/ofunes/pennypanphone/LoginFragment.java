@@ -9,8 +9,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     TextView txtRegistration, txtErrorLogin;
     Button btnLogin;
     EditText editUsername, editPassword;
+    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,10 +48,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         txtErrorLogin = getView().findViewById(R.id.txtErrorLogin);
         editPassword = getView().findViewById(R.id.editLoginPassword);
         editUsername = getView().findViewById(R.id.editLoginUsername);
+        progressBar = getView().findViewById(R.id.progressBarLogin);
 
         final Observer<Cliente> clienteObserver = new Observer<Cliente>() {
             @Override
             public void onChanged(@Nullable Cliente cliente) {
+                progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                btnLogin.setTextColor(getResources().getColor(R.color.White));
                 if(cliente == null)
                 {
                     txtErrorLogin.setVisibility(View.VISIBLE);
@@ -81,7 +88,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
             case R.id.btnLogIn:
                 if(checkFields())
+                {
+                    progressBar.setVisibility(View.VISIBLE);
+                    getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                            WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                    btnLogin.setTextColor(getResources().getColor(R.color.Cyan));
                     mViewModel.getGestoraRetrofit().obtenerUsuario(editUsername.getText().toString(), editPassword.getText().toString());
+                }
                 break;
         }
     }
