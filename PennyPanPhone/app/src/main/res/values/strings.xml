@@ -17,6 +17,7 @@
     <string name="errorEmptyPassword">The password can\'t be empty!</string>
     <string name="errorInvalidPassword">Invalid password! At least 8 characters long</string>
     <string name="errorLogIn">Invalid username or password</string>
+    <string name="unexpectedLoginError">We couldn\'t load your data for unknown reasons :(</string>
     <string name="registerSuccessful">You registered successfully</string>
     <string name="registerUnsuccessful">We couldn\'t register you for unknown reasons :(</string>
     <string name="nani">Nani??</string>
@@ -30,24 +31,17 @@
 
     <!-- Strings de orders -->
     <string name="taphereOrder">Tap here to see details</string>
-    <string name="orderNumber">Order Nº</string>
+    <string name="orderNumber">Order Nº %1$d</string>
     <string name="noOrders">Looks like you have no orders!</string>
+    <string name="loadingOrders">Loading your orders info…</string>
+    <string name="orderPrice">EUR %1$.2f</string>
 
     <!-- Ni idea -->
     <string name="title_activity_logged_in">LoggedInActivity</string>
-    <string name="title_section1">Section 1</string>
-    <string name="title_section2">Section 2</string>
-    <string name="title_section3">Section 3</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_example">Example action</string>
 
     <string name="action_settings">Settings</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

@@ -9,11 +9,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ClienteCallback implements Callback<Cliente>{
+public class LoginCallback implements Callback<Cliente>{
 
 	MainViewModel mainVm;
 
-	public ClienteCallback(MainViewModel mainVm)
+	public LoginCallback(MainViewModel mainVm)
 	{
 		this.mainVm = mainVm;
 	}
@@ -26,9 +26,6 @@ public class ClienteCallback implements Callback<Cliente>{
 
 	@Override
 	public void onFailure(Call<Cliente> call, Throwable t) {
-		int i = 0;
-
-		i = 4;
-		i = 8;
+		mainVm.getSomethingWrongwWithLogin().setValue(true);
 	}
 }

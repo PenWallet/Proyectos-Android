@@ -1,5 +1,7 @@
 package com.example.ofunes.pennypanphone;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,17 +10,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
+import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.OrdersViewHolder> {
     ArrayList<Pedido> listadoPedidos;
+    private Context context;
 
     class OrdersViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView orderImage;
         public TextView orderNumber, orderDate, orderPrice;
+        public Resources resources;
 
         public OrdersViewHolder(View view)
         {
@@ -27,6 +32,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             this.orderNumber = view.findViewById(R.id.txtOrderNumber);
             this.orderDate = view.findViewById(R.id.txtOrderDate);
             this.orderPrice = view.findViewById(R.id.txtOrderPrice);
+            resources = view.getResources();
         }
     }
 
@@ -50,7 +56,14 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
 
     @Override
     public void onBindViewHolder(OrdersViewHolder holder, int position) {
-        //Rellenar datos
+        Pedido pedido = listadoPedidos.get(position);
+        String orderN = String.format(holder.resources.getString(R.string.orderNumber), pedido.getId());
+        String orderP = String.format(holder.resources.getString(R.string.orderPrice), pedido.getImporteTotal());
+
+        holder.orderImage.setImageResource(R.drawable.loaf);
+        holder.orderDate.setText(pedido.getFechaCompra());
+        holder.orderNumber.setText(orderN);
+        holder.orderPrice.setText(orderP);
     }
 
     @Override

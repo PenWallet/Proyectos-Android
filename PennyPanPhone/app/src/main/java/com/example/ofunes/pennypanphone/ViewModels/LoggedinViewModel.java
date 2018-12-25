@@ -13,12 +13,12 @@ import java.util.List;
 
 public class LoggedinViewModel extends ViewModel {
     private Cliente cliente;
-    private ArrayList<Pedido> listadoPedidos;
+    private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
 
     public LoggedinViewModel()
     {
         cliente = null;
-        listadoPedidos = new ArrayList<>();
+        listadoPedidos = new MutableLiveData<>();
     }
 
     public Cliente getCliente() {
@@ -29,19 +29,11 @@ public class LoggedinViewModel extends ViewModel {
         this.cliente = cliente;
     }
 
-    public ArrayList<Pedido> getListadoPedidos() {
+    public MutableLiveData<ArrayList<Pedido>> getListadoPedidos() {
         return listadoPedidos;
     }
 
-    public void setListadoPedidos(ArrayList<Pedido> listadoPedidos) {
+    public void setListadoPedidos(MutableLiveData<ArrayList<Pedido>> listadoPedidos) {
         this.listadoPedidos = listadoPedidos;
-    }
-
-    public void setListadoPedidos(Pedido[] listadoPedidos) {
-        this.listadoPedidos = new ArrayList<>(Arrays.asList(listadoPedidos));
-    }
-
-    public void setListadoPedidos(List<Pedido> listadoPedidos) {
-        this.listadoPedidos = new ArrayList<>(listadoPedidos);
     }
 }

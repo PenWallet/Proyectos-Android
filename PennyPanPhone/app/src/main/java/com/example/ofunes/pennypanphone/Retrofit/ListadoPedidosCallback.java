@@ -5,6 +5,7 @@ import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -25,7 +26,7 @@ public class ListadoPedidosCallback implements Callback<List<Pedido>>{
 	public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
 		List<Pedido> listado = response.body();
 
-		loggedinViewModel.setListadoPedidos(listado);
+		loggedinViewModel.getListadoPedidos().setValue(listado == null ? null : new ArrayList<>(listado));
 	}
 
 	@Override

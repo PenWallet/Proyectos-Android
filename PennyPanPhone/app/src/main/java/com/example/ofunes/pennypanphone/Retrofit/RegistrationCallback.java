@@ -8,8 +8,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class RegistrationCallback implements Callback<Cliente>{
-
+public class RegistrationCallback implements Callback<Cliente>
+{
 	MainViewModel mainVm;
 
 	public RegistrationCallback(MainViewModel mainVm)
@@ -19,15 +19,12 @@ public class RegistrationCallback implements Callback<Cliente>{
 
 	@Override
 	public void onResponse(Call<Cliente> arg0, Response<Cliente> resp) {
-		int code = resp.code();
 		Cliente cliente = resp.body();
 		mainVm.getClienteRegistrado().postValue(cliente);
 	}
 
 	@Override
 	public void onFailure(Call<Cliente> arg0, Throwable arg1) {
-		int i = 0;
-
-		i = 2;
+		mainVm.getSomethingWrongwWithRegister().setValue(true);
 	}
 }

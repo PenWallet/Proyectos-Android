@@ -74,7 +74,21 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             }
         };
 
+        final Observer<Boolean> somethingWrongObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean somethingWrong) {
+                progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                btnLogin.setTextColor(getResources().getColor(R.color.White));
+                if(somethingWrong)
+                {
+                    Toast.makeText(getActivity(), R.string.unexpectedLoginError, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
         mViewModel.getCliente().observe(this, clienteObserver);
+        mViewModel.getSomethingWrongwWithLogin().observe(this, somethingWrongObserver);
     }
 
 

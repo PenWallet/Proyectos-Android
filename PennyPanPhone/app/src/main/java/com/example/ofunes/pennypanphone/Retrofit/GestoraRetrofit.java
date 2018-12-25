@@ -12,7 +12,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class GestoraRetrofit {
     private Retrofit retrofit;
-    private ClienteCallback clienteCallback;
+    private LoginCallback loginCallback;
     private RegistrationCallback registrationCallback;
     private PennyPanAPI pennyPanAPI;
     private final static String SERVER_URL = "http://pennypan.devel:8080";
@@ -22,7 +22,7 @@ public class GestoraRetrofit {
         Gson gson = new GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd").create();
         retrofit = new Retrofit.Builder().baseUrl(SERVER_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
         pennyPanAPI = retrofit.create(PennyPanAPI.class);
-        clienteCallback = new ClienteCallback(mainVm);
+        loginCallback = new LoginCallback(mainVm);
         registrationCallback = new RegistrationCallback(mainVm);
     }
 
@@ -33,7 +33,7 @@ public class GestoraRetrofit {
         byte[] tokenByte = token.getBytes();
         String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
 
-        pennyPanAPI.getCliente(token64, username).enqueue(clienteCallback);
+        pennyPanAPI.getCliente(token64, username).enqueue(loginCallback);
     }
 
     public void registrarUsuario(Cliente cliente)

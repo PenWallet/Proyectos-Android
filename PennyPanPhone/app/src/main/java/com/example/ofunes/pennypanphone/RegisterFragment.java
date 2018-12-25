@@ -80,7 +80,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             }
         };
 
+        final Observer<Boolean> somethingWrongObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean somethingWrong) {
+                progressBar.setVisibility(View.GONE);
+                getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                btnRegister.setTextColor(getResources().getColor(R.color.White));
+                if(somethingWrong)
+                {
+                    Toast.makeText(getActivity(), R.string.registerUnsuccessful, Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
         mViewModel.getClienteRegistrado().observe(this, registerObserver);
+        mViewModel.getSomethingWrongwWithRegister().observe(this, somethingWrongObserver);
 
         //Sacar el teclado para que pueda escribir en el primer campo
         if(editName.requestFocus()) {
@@ -117,11 +131,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             isUsernameOk = false;
             txtErrorUsername.setText(R.string.errorInvalidUsername);
         }
-        else if(false)
-        {
-            isUsernameOk = false;
-            txtErrorUsername.setText(R.string.errorTakenUsername);
-        }
         else
             txtErrorUsername.setText("");
 
@@ -155,7 +164,6 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
             btnRegister.setTextColor(getResources().getColor(R.color.GreenishCyan));
             Cliente cliente = new Cliente(editUsername.getText().toString(), editPassword.getText().toString(), editName.getText().toString(), 0);
             mViewModel.getGestoraRetrofit().registrarUsuario(cliente);
-            //mViewModel.getGestoraRetrofit().registrarUsuarioResponse(cliente);
         }
     }
 }
