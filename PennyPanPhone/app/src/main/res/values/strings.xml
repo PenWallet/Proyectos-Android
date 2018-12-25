@@ -28,6 +28,11 @@
     <string name="info">Info</string>
     <string name="admin">Admin</string>
 
+    <!-- Strings de orders -->
+    <string name="taphereOrder">Tap here to see details</string>
+    <string name="orderNumber">Order Nº</string>
+    <string name="noOrders">Looks like you have no orders!</string>
+
     <!-- Ni idea -->
     <string name="title_activity_logged_in">LoggedInActivity</string>
     <string name="title_section1">Section 1</string>

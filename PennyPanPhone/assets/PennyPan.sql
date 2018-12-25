@@ -11,8 +11,8 @@ GO
 */
 
 CREATE TABLE Clientes(
-	Username char(15) NOT NULL,
-	[Password] varbinary(max) NOT NULL,
+	Username varchar(15) NOT NULL,
+	[Password] varchar(255) NOT NULL,
 	Nombre varchar(50) NOT NULL,
 	Panadero bit NOT NULL DEFAULT 0,
 	CONSTRAINT PKClientes PRIMARY KEY (Username)
@@ -20,7 +20,7 @@ CREATE TABLE Clientes(
 
 CREATE TABLE Complementos(
 	ID int IDENTITY(1,1) NOT NULL,
-	Nombre char(20) NOT NULL,
+	Nombre varchar(20) NOT NULL,
 	Precio smallmoney NOT NULL,
 	CONSTRAINT PKComplementos PRIMARY KEY (ID),
 	CONSTRAINT CHK_Complementos_Precio CHECK (Precio > 0)
@@ -28,7 +28,7 @@ CREATE TABLE Complementos(
 
 CREATE TABLE Panes(
 	ID int IDENTITY(1,1) NOT NULL,
-	Nombre char(20) NOT NULL,
+	Nombre varchar(20) NOT NULL,
 	Crujenticidad int NULL,
 	Integral bit NOT NULL DEFAULT 0,
 	Precio smallmoney NOT NULL,
@@ -39,7 +39,7 @@ CREATE TABLE Panes(
 
 CREATE TABLE Ingredientes(
 	ID int IDENTITY(1,1) NOT NULL,
-	Nombre char(20) NOT NULL,
+	Nombre varchar(20) NOT NULL,
 	Precio smallmoney NOT NULL,
 	CONSTRAINT PKIngredientes PRIMARY KEY (ID),
 	CONSTRAINT CHK_Ingredientes_Precio CHECK (Precio > 0)
@@ -47,7 +47,7 @@ CREATE TABLE Ingredientes(
 
 CREATE TABLE Pedidos(
 	ID int IDENTITY(1,1) NOT NULL,
-	ClienteUsername char(15) NOT NULL,
+	ClienteUsername varchar(15) NOT NULL,
 	FechaCompra date NOT NULL,
 	ImporteTotal smallmoney NOT NULL DEFAULT 0,
 	CONSTRAINT PKPedidos PRIMARY KEY (ID),
@@ -215,287 +215,6 @@ CREATE PROCEDURE CargarImportesTotales (@IDPedido int) AS
 											dbo.ImporteTotalComplementos(ID)+
 											dbo.ImporteTotalPanes(ID) )
 		COMMIT
-	END
-GO
-
-/*
-	*********************************************************************************************
-	******************** F U N C I O N E S  Y  P R O C E D I M I E N T O S **********************
-	*********************************************************************************************
-*/
-
-/*
-	Función que valida si un usuario existe
-	Devuelve un bit con valor 0 si no existe, o un 1 si existe.
-	Entradas: ID del cliente
-	Salida: Bit
-*/
-GO
-CREATE FUNCTION ValidarUsernameCliente (@Username char) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-		IF(EXISTS(SELECT Username FROM Clientes WHERE Username = @Username))
-			BEGIN
-				SET @ret = 1
-			END
-		ELSE
-			BEGIN
-				SET @ret = 0
-			END
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si una ID de un pedido existe.
-	Devuelve un bit con valor 0 si no existe, o un 1 si existe.
-	Entradas: ID del pedido
-	Salida: Bit
-*/
-GO
-CREATE FUNCTION ValidarIDPedido (@IDPedido int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-		IF(EXISTS(SELECT ID FROM Pedidos WHERE ID = @IDPedido))
-			BEGIN
-				SET @ret = 1
-			END
-		ELSE
-			BEGIN
-				SET @ret = 0
-			END
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si una ID de un pan existe
-	Devuelve un bit con valor 0 si no existe, o un 1 si existe
-	Entradas: ID del pan
-	Salida: Bit
-*/
-GO
-CREATE FUNCTION ValidarIDPan (@IDPan int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-		IF(EXISTS(SELECT ID FROM Panes WHERE ID = @IDPan))
-			BEGIN
-				SET @ret = 1
-			END
-		ELSE
-			BEGIN
-				SET @ret = 0
-			END
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si una ID de un complemento existe
-	Devuelve un bit con valor 0 si no existe, o un 1 si existe
-	Entradas: ID del complemento
-	Salida: Bit
-*/
-GO
-CREATE FUNCTION ValidarIDComplemento (@IDComp int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-		IF(EXISTS(SELECT ID FROM Complementos WHERE ID = @IDComp))
-			BEGIN
-				SET @ret = 1
-			END
-		ELSE
-			BEGIN
-				SET @ret = 0
-			END
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si una ID de un ingrediente existe
-	Devuelve un bit con valor 0 si no existe, o un 1 si existe
-	Entradas: ID del ingrediente
-	Salida: Bit
-*/
-GO
-CREATE FUNCTION ValidarIDIngrediente (@IDIngr int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-		IF(EXISTS(SELECT ID FROM Ingredientes WHERE ID = @IDIngr))
-			BEGIN
-				SET @ret = 1
-			END
-		ELSE
-			BEGIN
-				SET @ret = 0
-			END
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si en un pedido ya tiene el pan con la ID que se le pasa
-	Devuelve un bit con valor 0 si no lo ha pedido, 1 si ya lo ha pedido
-	Entradas: ID del pedido, ID del pan
-	Salidas: Bit
-*/
-GO
-CREATE FUNCTION ValidarPanPedido (@IDPedido int, @IDPan int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-
-		IF(EXISTS (SELECT IDPan FROM PedidosPanes WHERE IDPedido = @IDPedido AND IDPan = @IDPan))
-			SET @ret = 1
-		ELSE
-			SET @ret = 0
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si en un pedido ya tiene el complemento con la ID que se le pasa
-	Devuelve un bit con valor 0 si no lo ha pedido, 1 si ya lo ha pedido
-	Entradas: ID del pedido, ID del complemento
-	Salidas: Bit
-*/
-GO
-CREATE FUNCTION ValidarCompPedido (@IDPedido int, @IDComp int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-
-		IF(EXISTS (SELECT IDComplemento FROM PedidosComplementos WHERE IDPedido = @IDPedido AND IDComplemento = @IDComp))
-			SET @ret = 1
-		ELSE
-			SET @ret = 0
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Función que valida si un bocata ya tiene un ingrediente agregado a él
-	Devuelve un bit con valor 0 si no lo tiene agregado, 1 en caso contrario
-	Entradas: ID del bocata, ID del ingrediente
-	Salidas: Bit
-*/
-GO
-CREATE FUNCTION ValidarIngrBocata (@IDBocata int, @IDIngr int) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit
-
-		IF(EXISTS (SELECT IDIngrediente FROM BocatasIngredientes WHERE IDBocata = @IDBocata AND IDIngrediente = @IDIngr))
-			SET @ret = 1
-		ELSE
-			SET @ret = 0
-
-		RETURN @ret
-	END
-GO
-
-/*
-	Procedimiento usado para añadir panes de manera más cómoda
-	Entradas: char Nombre, bit Integral, int Crujenticidad, smallmoney Precio
-	Salidas: Ninguna
-*/
-GO
-CREATE PROCEDURE InsertarPan (@Nombre char(20), @Integral bit, @Crujenticidad int, @Precio smallmoney)
-AS
-	BEGIN
-		INSERT INTO Panes (Nombre, Integral, Crujenticidad, Precio) VALUES (@Nombre, @Integral, @Crujenticidad, @Precio)
-	END
-GO
-
-/*
-	Procedimiento usado para añadir complementos de manera más cómoda
-	Entradas: char Nombre, smallmoney Precio
-	Salidas: Ninguna
-*/
-GO
-CREATE PROCEDURE InsertarComplemento (@Nombre char(20), @Precio smallmoney)
-AS
-	BEGIN
-		INSERT INTO Complementos (Nombre, Precio) VALUES (@Nombre, @Precio)
-	END
-GO
-
-/*
-	Procedimiento usado para añadir ingredientes de manera más cómoda
-	Entradas: char Nombre, smallmoney Precio
-	Salidas: Ninguna
-*/
-GO
-CREATE PROCEDURE InsertarIngrediente (@Nombre char(20), @Precio smallmoney)
-AS
-	BEGIN
-		INSERT INTO Ingredientes (Nombre, Precio) VALUES (@Nombre, @Precio)
-	END
-GO
-
-/*
-	Procedimiento usado para añadir clientes de manera más cómoda
-*/
-GO
-CREATE PROCEDURE InsertarCliente (@Nombre char(20), @Apellidos char(30), @FechaNac date, @Ciudad char(20), @Direccion char(40), @Telefono char(9))
-AS
-	BEGIN
-		INSERT INTO Clientes (Nombre, Apellidos, FechaNac, Ciudad, Direccion, Telefono) VALUES (@Nombre, @Apellidos, @FechaNac, @Ciudad, @Direccion, @Telefono)
-	END
-GO
-
-/*
-	Procedimiento almacenado que introduce un nuevo pedido en la base de datos, y devuelve la ID de dicho pedido
-	Entradas: ID del cliente que ha hecho el pedido
-	Salidas: ID del nuevo pedido
-*/
-GO
-CREATE PROCEDURE CrearNuevoPedido (@Username char, @IDPedido int OUTPUT)
-AS
-	BEGIN
-		INSERT INTO Pedidos (ClienteUsername, FechaCompra) VALUES (@Username, CAST(CURRENT_TIMESTAMP AS date))
-		SET @IDPedido = @@IDENTITY
-	END
-GO
-
-/*
-	Procedimiento almacenado que introduce un nuevo bocata en la base de datos, y devuelve la ID de dicho bocata
-	Entradas: ID del pedido, ID del pan
-	Salidas: ID del nuevo bocata
-*/
-GO
-CREATE PROCEDURE CrearNuevoBocata (@IDPedido int, @IDPan int, @IDBocata int OUTPUT)
-AS
-	BEGIN
-		INSERT INTO Bocatas (IDPedido, IDPan) VALUES (@IDPedido, @IDPan)
-		SET @IDBocata = @@IDENTITY
-	END
-GO
-
-/*
-	Función que devuelve 0 si la contraseña introducida es incorrecta, 1 si sí es correcta
-	Entradas: Username, Contraseña
-	Salidas: Bit
-*/
-GO
-CREATE FUNCTION ValidarContrasena (@Username char(15), @Contrasena char) RETURNS bit
-AS
-	BEGIN
-		DECLARE @ret bit = PWDCOMPARE(@contrasena, (SELECT [Password] FROM Clientes WHERE Username = @Username))
-		RETURN @ret
 	END
 GO
 
@@ -746,19 +465,17 @@ GO
 	************************************** P O B L A R ******************************************
 	*********************************************************************************************
 */
---Vamos a generar el hash para la contraseña 1234 para todos los clientes
-DECLARE @pswd NVARCHAR(MAX) = '1234'; 
-DECLARE @salt VARBINARY(4) = CRYPT_GEN_RANDOM(4);
-DECLARE @hash VARBINARY(MAX) = 0x0200 + @salt + HASHBYTES('SHA2_512', CAST(@pswd AS VARBINARY(MAX)) + @salt);
 
 INSERT INTO Clientes (Username, [Password], Nombre) VALUES
-('yeray1', @hash, 'Yeray Campanario'),
-('daniel1', @hash, 'Daniel Gordillo'),
-('nacho1', @hash, 'Ignacio Van Loy'),
-('tomas1', @hash,'Tomás Núñez'),
-('raquel1', @hash, 'Raquel González'),
-('david1', @hash, 'David Galván'),
-('oscar1', @hash, 'Oscar Funes')
+('yeray1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'Yeray Campanario'),
+('daniel1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'Daniel Gordillo'),
+('nacho1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'Ignacio Van Loy'),
+('tomas1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.','Tomás Núñez'),
+('raquel1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'Raquel González'),
+('david1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'David Galván'),
+('oscar1', '$2y$10$Bh5t4ggxeK0MR0wAzGxKMum4mi1TIUgyBfDc2zkag844RKWAiETu.', 'Oscar Funes')
+
+UPDATE Clientes SET Panadero = 1 WHERE Username = 'oscar1'
 
 INSERT INTO Pedidos (ClienteUsername, FechaCompra) VALUES
 ('yeray1','9-3-2017'),('yeray1','25-5-2017'),('daniel1','3-8-2017'),('daniel1','9-8-2017'),('tomas1','9-9-2017'),('oscar1','21-10-2017'),('david1','30-11-2017'),

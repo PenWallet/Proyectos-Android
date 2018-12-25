@@ -5,6 +5,7 @@ package com.example.ofunes.pennypanphone.Retrofit;
  */
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.Pedido;
 
 import java.util.List;
 
@@ -35,4 +36,7 @@ public interface PennyPanAPI {
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     Call<ResponseBody> postClienteResponse(@Body Cliente cliente);
 
+    @GET("/cliente/{username}/pedido")
+    @Headers({"Accept: application/json"})
+    Call<List<Pedido>> getListadoPedidos(@Header("Authorization") String token, @Path("username") String username);
 }

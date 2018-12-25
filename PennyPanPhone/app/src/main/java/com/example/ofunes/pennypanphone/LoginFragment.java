@@ -63,6 +63,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
+                    cliente.setContrasena(editPassword.getText().toString());
                     txtErrorLogin.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);

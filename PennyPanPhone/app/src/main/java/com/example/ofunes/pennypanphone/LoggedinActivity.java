@@ -14,6 +14,7 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.widget.Toast;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
@@ -27,6 +28,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentHome fragmentHome;
     FragmentOrders fragmentOrders;
     FragmentInfo fragmentInfo;
+    GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +41,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         fragmentInfo = new FragmentInfo();
 
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
+
+        gestoraRetrofitLoggedin = new GestoraRetrofitLoggedin(viewModel);
 
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         frameLayout = findViewById(R.id.loggedFrame);
@@ -54,6 +58,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         {
             bottomNavigationView.getMenu().removeItem(R.id.navAdmin);
         }
+
+        gestoraRetrofitLoggedin.obtenerListadoPedidos(viewModel.getCliente().getUsername(), viewModel.getCliente().getContrasena());
     }
 
     @Override

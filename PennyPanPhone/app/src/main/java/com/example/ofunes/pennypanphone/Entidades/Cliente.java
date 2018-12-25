@@ -47,6 +47,10 @@ public class Cliente implements Parcelable {
         this.nombre = nombre;
     }
 
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     @Override
     public String toString() {
         return "Cliente{" +
