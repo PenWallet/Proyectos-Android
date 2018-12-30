@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
@@ -17,13 +18,13 @@ import java.util.List;
 
 public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.OrdersViewHolder> {
     ArrayList<Pedido> listadoPedidos;
-    private Context context;
 
     class OrdersViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView orderImage;
         public TextView orderNumber, orderDate, orderPrice;
         public Resources resources;
+        public LinearLayout linearLayout;
 
         public OrdersViewHolder(View view)
         {
@@ -32,7 +33,22 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             this.orderNumber = view.findViewById(R.id.txtOrderNumber);
             this.orderDate = view.findViewById(R.id.txtOrderDate);
             this.orderPrice = view.findViewById(R.id.txtOrderPrice);
+            this.linearLayout = view.findViewById(R.id.linearCardExpandInfo);
             resources = view.getResources();
+
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if(linearLayout.getVisibility() == View.VISIBLE)
+                    {
+                        linearLayout.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        linearLayout.setVisibility(View.VISIBLE);
+                    }
+                }
+            });
         }
     }
 

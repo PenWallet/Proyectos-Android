@@ -73,6 +73,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     txtErrorUsername.setText("");
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                    cliente.setContrasena(editPassword.getText().toString());
                     intent.putExtra("cliente", cliente);
                     startActivity(intent);
                     getActivity().finish();

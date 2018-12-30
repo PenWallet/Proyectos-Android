@@ -34,7 +34,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentCart fragmentCart;
     FragmentHome fragmentHome;
     FragmentOrders fragmentOrders;
-    FragmentInfo fragmentInfo;
+    FragmentMarket fragmentMarket;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
 
@@ -44,9 +44,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         setContentView(R.layout.activity_loggedin);
         viewModel = ViewModelProviders.of(this).get(LoggedinViewModel.class);
         fragmentCart = new FragmentCart();
-        fragmentHome = new FragmentHome();
         fragmentOrders = new FragmentOrders();
-        fragmentInfo = new FragmentInfo();
+        fragmentMarket = new FragmentMarket();
 
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
 
@@ -55,9 +54,6 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
         frameLayout = findViewById(R.id.loggedFrame);
         progressBar = findViewById(R.id.progressBarLoggedin);
-
-        bottomNavigationView.setOnNavigationItemSelectedListener(this);
-        bottomNavigationView.setSelectedItemId(R.id.navHome);
 
         if(viewModel.getCliente().isPanadero())
         {
@@ -70,15 +66,23 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
         final Observer<ArrayList<Pedido>> ordersObserver = new Observer<ArrayList<Pedido>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Pedido> cliente) {
+            public void onChanged(@Nullable ArrayList<Pedido> listadoPedidos) {
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                if(listadoPedidos == null)
+                    viewModel.getHasOrders().setValue(false);
+                else
+                    viewModel.getHasOrders().setValue(true);
             }
         };
 
         gestoraRetrofitLoggedin.obtenerListadoPedidos(viewModel.getCliente().getUsername(), viewModel.getCliente().getContrasena());
         progressBar.setVisibility(View.VISIBLE);
 
+        fragmentHome = new FragmentHome();
+        bottomNavigationView.setOnNavigationItemSelectedListener(this);
+        bottomNavigationView.setSelectedItemId(R.id.navHome);
 
         viewModel.getListadoPedidos().observe(this, ordersObserver);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
@@ -94,8 +98,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                 getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
                 break;
 
-            case R.id.navInfo:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentInfo).commit();
+            case R.id.navMarket:
+                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarket).commit();
                 break;
 
             case R.id.navCart:

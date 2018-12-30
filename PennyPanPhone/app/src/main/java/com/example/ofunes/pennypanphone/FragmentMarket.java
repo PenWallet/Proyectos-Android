@@ -17,12 +17,12 @@ import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentInfo extends Fragment {
+public class FragmentMarket extends Fragment {
 
     LoggedinViewModel viewModel;
     TextView txt;
 
-    public FragmentInfo() {
+    public FragmentMarket() {
         // Required empty public constructor
     }
 
@@ -31,7 +31,7 @@ public class FragmentInfo extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_info, container, false);
+        return inflater.inflate(R.layout.fragment_market, container, false);
     }
 
     @Override
@@ -39,10 +39,10 @@ public class FragmentInfo extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
 
-        txt = getActivity().findViewById(R.id.txtInfo);
+        txt = getActivity().findViewById(R.id.txtMarket);
 
         Cliente cliente = viewModel.getCliente();
 
-        txt.setText("Esta es la pestaña de info. "+cliente.toString());
+        txt.setText("Esta es la pestaña de market. "+cliente.toString());
     }
 }

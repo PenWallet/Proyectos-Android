@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/navInfo"
-        android:title="@string/info"
-        android:icon="@drawable/icon_info"/>
+    <item android:id="@+id/navAdmin"
+        android:title="@string/admin"
+        android:icon="@drawable/icon_admin"/>
 
     <item android:id="@+id/navOrders"
         android:title="@string/orders"
@@ -15,13 +15,13 @@
         android:icon="@drawable/icon_home"
         android:alphabeticShortcut="string"/>
 
+    <item android:id="@+id/navMarket"
+        android:title="@string/market"
+        android:icon="@drawable/icon_market"/>
+
     <item android:id="@+id/navCart"
         android:title="@string/cart"
         android:icon="@drawable/icon_cart"
         android:alphabeticShortcut="string"/>
-
-    <item android:id="@+id/navAdmin"
-        android:title="@string/admin"
-        android:icon="@drawable/icon_admin"/>
 
 </menu>

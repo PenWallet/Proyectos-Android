@@ -14,8 +14,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
+        app:layout_constraintTop_toTopOf="parent"
+        android:animateLayoutChanges="true">
 
     </android.support.v7.widget.RecyclerView>
 
@@ -27,6 +27,7 @@
         android:layout_marginRight="16dp"
         android:text="@string/noOrders"
         android:gravity="center"
+        android:foregroundGravity="center_vertical"
         android:textSize="30sp"
         android:fontFamily="@font/prinsesstartabold"
         app:layout_constraintBottom_toBottomOf="parent"

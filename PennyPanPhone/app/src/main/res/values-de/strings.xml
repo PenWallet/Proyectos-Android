@@ -1,0 +1,45 @@
+<resources>
+    <string name="app_name">Penny Pänn</string>
+    <string name="name">Name</string>
+    <string name="username">Nutzername</string>
+    <string name="password">Passwort</string>
+    <string name="login">EINLOGGEN</string>
+    <string name="remember">Erinnere dich an mich</string>
+    <string name="createAccount">Oder erstellen sie ein neues konto</string>
+    <string name="register">Benutzerkonto anlegen</string>New user
+    <string name="newUser">Neuer Benutzer</string>
+    <string name="regSubtitle">Willkommen beim neuen Broterlebnis!!!!!</string>
+    <string name="errorEmptyName">Der Name darf nicht leer sein!!!!!</string>
+    <string name="errorInvalidName">Invalid name, get a better one!</string>
+    <string name="errorEmptyUsername">Ungültiger Name, erhalten sie einen besseren!!!!!</string>
+    <string name="errorInvalidUsername">Ungültiger Benutzername!!!!! Nur alphanumerisch</string>
+    <string name="errorTakenUsername">Dieser Benutzername ist bereits vergeben!</string>
+    <string name="errorEmptyPassword">Das Passwort darf nicht leer sein!!!!!</string>
+    <string name="errorInvalidPassword">Ungültiges Passwort!!!!! Mindestens 8 Zeichen lang</string>
+    <string name="errorLogIn">Benutzer oder falsches Passwort</string>
+    <string name="unexpectedLoginError">Aus unbekannten Gründen konnten wir Ihre Daten nicht laden</string>
+    <string name="registerSuccessful">Registratten con exiten</string>
+    <string name="registerUnsuccessful">Erfolgreich registriert</string>
+    <string name="nani">Nani?? in german</string>
+
+    <!-- Strings de iconos -->
+    <string name="home">Nach hause</string>
+    <string name="orders">Bestellungen</string>
+    <string name="cart">Korb</string>
+    <string name="market">Markt</string>
+    <string name="admin">Terceren Reich</string>
+
+    <!-- Strings de Home -->
+    <string name="welcome">Wilkommen to PennyPan,\n %1$s</string>
+    <string name="homeOrder">Dies ist Ihre letzte verfluchte jüdische Bestellung:</string>
+    <string name="homeNoOrders">Um mit dem Kauf zu beginnen, klicken Sie auf das Marktsymbol:</string>
+
+    <!-- Strings de orders -->
+    <string name="taphereOrder">Klicken Sie hier, um die Details der Bestellung anzuzeigen</string>
+    <string name="orderNumber">Bestellung Nº %1$d</string>
+    <string name="noOrders">Es scheint, dass Sie keine Bestellungen haben!</string>
+    <string name="loadingOrders">Laden Ihrer Bestellungen…</string>
+    <string name="orderPrice">EUR %1$.2f</string>
+
+
+</resources>

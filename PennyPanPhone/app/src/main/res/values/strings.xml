@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">PennyPanPhone</string>
+    <string name="app_name">Penny Pan</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
@@ -26,22 +26,27 @@
     <string name="home">Home</string>
     <string name="orders">Orders</string>
     <string name="cart">Cart</string>
-    <string name="info">Info</string>
+    <string name="market">Market</string>
     <string name="admin">Admin</string>
 
+    <!-- Strings de Home -->
+    <string name="welcome">Welcome to PennyPan,\n %1$s</string>
+    <string name="splines">Reticulating splines…</string>
+    <string name="homeOrder">This is your last order:</string>
+    <string name="homeNoOrders">To start buying, click on the Market icon:</string>
+    <string name="homeSales">These items are on sale today:</string>
+    <string name="homeLastOrder">This was your last order:</string>
+
     <!-- Strings de orders -->
-    <string name="taphereOrder">Tap here to see details</string>
+    <string name="tapExpand">Tap to expand details</string>
+    <string name="tapCollapse">Tap to collapse details</string>
     <string name="orderNumber">Order Nº %1$d</string>
     <string name="noOrders">Looks like you have no orders!</string>
-    <string name="loadingOrders">Loading your orders info…</string>
+    <string name="loadingOrders">Loading your orders…</string>
     <string name="orderPrice">EUR %1$.2f</string>
-
-    <!-- Ni idea -->
-    <string name="title_activity_logged_in">LoggedInActivity</string>
-
-    <string name="action_example">Example action</string>
-
-    <string name="action_settings">Settings</string>
+    <string name="bread">Bread:</string>
+    <string name="miscellaneous">Miscellaneous:</string>
+    <string name="sandwich">Sandwiches:</string>
 
 
 </resources>

@@ -14,11 +14,13 @@ import java.util.List;
 public class LoggedinViewModel extends ViewModel {
     private Cliente cliente;
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
+    private MutableLiveData<Boolean> hasOrders;
 
     public LoggedinViewModel()
     {
         cliente = null;
         listadoPedidos = new MutableLiveData<>();
+        hasOrders = new MutableLiveData<>();
     }
 
     public Cliente getCliente() {
@@ -35,5 +37,9 @@ public class LoggedinViewModel extends ViewModel {
 
     public void setListadoPedidos(MutableLiveData<ArrayList<Pedido>> listadoPedidos) {
         this.listadoPedidos = listadoPedidos;
+    }
+
+    public MutableLiveData<Boolean> getHasOrders() {
+        return hasOrders;
     }
 }
