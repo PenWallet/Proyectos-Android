@@ -95,6 +95,7 @@
             card_view:layout_constraintTop_toBottomOf="@+id/orderImage">
 
             <TextView
+                android:id="@+id/txtOrderPanesTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -105,12 +106,12 @@
                 android:id="@+id/txtOrderPanes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="Panes:"
                 android:textColor="@color/White" />
 
             <TextView
+                android:id="@+id/txtOrderComplementosTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -121,12 +122,12 @@
                 android:id="@+id/txtOrderComplementos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="Panes:"
                 android:textColor="@color/White" />
 
             <TextView
+                android:id="@+id/txtOrderBocatasTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
@@ -137,9 +138,8 @@
                 android:id="@+id/txtOrderBocatas"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="8dp"
+                android:layout_marginStart="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="Panes:"
                 android:textColor="@color/White" />
 
         </LinearLayout>

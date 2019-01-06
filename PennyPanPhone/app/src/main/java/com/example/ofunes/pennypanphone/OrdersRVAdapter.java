@@ -10,9 +10,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ofunes.pennypanphone.Entidades.Bocata;
+import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
+import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
+import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,7 +27,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
     class OrdersViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView orderImage;
-        public TextView orderNumber, orderDate, orderPrice;
+        public TextView orderNumber, orderDate, orderPrice, orderPanes, orderPanesTitle, orderComplementos, orderComplementosTitle, orderBocatas, orderBocatasTitle;
         public Resources resources;
         public LinearLayout linearLayout;
 
@@ -34,6 +39,12 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             this.orderDate = view.findViewById(R.id.txtOrderDate);
             this.orderPrice = view.findViewById(R.id.txtOrderPrice);
             this.linearLayout = view.findViewById(R.id.linearCardExpandInfo);
+            this.orderPanes = view.findViewById(R.id.txtOrderPanes);
+            this.orderPanesTitle = view.findViewById(R.id.txtOrderPanesTitle);
+            this.orderComplementos = view.findViewById(R.id.txtOrderComplementos);
+            this.orderComplementosTitle = view.findViewById(R.id.txtOrderComplementosTitle);
+            this.orderBocatas = view.findViewById(R.id.txtOrderBocatas);
+            this.orderBocatasTitle = view.findViewById(R.id.txtOrderBocatasTitle);
             resources = view.getResources();
 
             view.setOnClickListener(new View.OnClickListener() {
@@ -80,6 +91,87 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         holder.orderDate.setText(pedido.getFechaCompra());
         holder.orderNumber.setText(orderN);
         holder.orderPrice.setText(orderP);
+
+        Bocata[] bocatas = pedido.getBocatas();
+        PanPedido[] panes = pedido.getPanes();
+        ComplementoPedido[] complementos = pedido.getComplementos();
+        DecimalFormat df = new DecimalFormat(".##");
+
+        if(panes == null || panes.length == 0)
+        {
+            holder.orderPanes.setVisibility(View.GONE);
+            holder.orderPanesTitle.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.orderPanes.setVisibility(View.VISIBLE);
+            holder.orderPanesTitle.setVisibility(View.VISIBLE);
+
+            StringBuilder stringPanes = new StringBuilder();
+            PanPedido pan;
+
+            for(int i = 0; i < panes.length; i++)
+            {
+                pan = panes[i];
+                stringPanes.append((i == 0 ? "":"\n")+pan.getCantidad()+"x "+pan.getNombre()+"   EUR "+df.format(pan.getCantidad()*pan.getPrecio()));
+            }
+
+            holder.orderPanes.setText(stringPanes);
+        }
+
+        if(complementos == null || complementos.length == 0)
+        {
+            holder.orderComplementos.setVisibility(View.GONE);
+            holder.orderComplementosTitle.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.orderComplementos.setVisibility(View.VISIBLE);
+            holder.orderComplementosTitle.setVisibility(View.VISIBLE);
+
+            StringBuilder stringComplementos = new StringBuilder();
+            ComplementoPedido complemento;
+
+            for(int i = 0; i < complementos.length; i++)
+            {
+                complemento = complementos[i];
+                stringComplementos.append((i == 0 ? "":"\n")+complemento.getCantidad()+"x "+complemento.getNombre()+"   EUR "+df.format(complemento.getCantidad()*complemento.getPrecio()));
+            }
+
+            holder.orderComplementos.setText(stringComplementos);
+        }
+
+        if(bocatas == null || bocatas.length == 0)
+        {
+            holder.orderBocatas.setVisibility(View.GONE);
+            holder.orderBocatasTitle.setVisibility(View.GONE);
+        }
+        else
+        {
+            holder.orderBocatas.setVisibility(View.VISIBLE);
+            holder.orderBocatasTitle.setVisibility(View.VISIBLE);
+
+            StringBuilder stringBocatas = new StringBuilder();
+            Bocata bocata;
+            IngredienteBocata[] ingredientes;
+            IngredienteBocata ingrediente;
+
+            for(int i = 0; i < bocatas.length; i++)
+            {
+                bocata = bocatas[i];
+                stringBocatas.append((i == 0 ? "":"\n")+bocata.getPan().getNombre()+"   EUR "+bocata.getPan().getPrecio());
+
+                ingredientes = bocata.getIngredientes();
+
+                for(int j = 0; j < ingredientes.length; j++)
+                {
+                    ingrediente = ingredientes[i];
+                    stringBocatas.append("\n"+ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio()));
+                }
+            }
+
+            holder.orderBocatas.setText(stringBocatas);
+        }
     }
 
     @Override
