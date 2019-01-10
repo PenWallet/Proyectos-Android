@@ -31,9 +31,6 @@ public class ListadoPedidosCallback implements Callback<List<Pedido>>{
 
 	@Override
 	public void onFailure(Call<List<Pedido>> call, Throwable t) {
-		int i = 0;
-
-		i = 4;
-		i = 8;
+		loggedinViewModel.getListadoPedidos().setValue(null);
 	}
 }

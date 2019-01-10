@@ -77,16 +77,16 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
-        gestoraRetrofitLoggedin.obtenerListadoPedidos(viewModel.getCliente().getUsername(), viewModel.getCliente().getContrasena());
-        progressBar.setVisibility(View.VISIBLE);
+        viewModel.getListadoPedidos().observe(this, ordersObserver);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         fragmentHome = new FragmentHome();
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navHome);
 
-        viewModel.getListadoPedidos().observe(this, ordersObserver);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        gestoraRetrofitLoggedin.obtenerListadoPedidos(viewModel.getCliente().getUsername(), viewModel.getCliente().getContrasena());
+        progressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
