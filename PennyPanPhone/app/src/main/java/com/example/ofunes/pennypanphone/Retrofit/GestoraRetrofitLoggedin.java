@@ -15,7 +15,7 @@ public class GestoraRetrofitLoggedin {
     private Retrofit retrofit;
     private ListadoPedidosCallback listadoPedidosCallback;
     private PennyPanAPI pennyPanAPI;
-    private final static String SERVER_URL = "http://pennypan.devel:8080";
+    private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
     public GestoraRetrofitLoggedin(LoggedinViewModel loggedinViewModel)
     {

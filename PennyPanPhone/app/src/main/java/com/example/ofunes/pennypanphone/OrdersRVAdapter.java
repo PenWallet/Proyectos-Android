@@ -165,8 +165,8 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
 
                 for(int j = 0; j < ingredientes.length; j++)
                 {
-                    ingrediente = ingredientes[i];
-                    stringBocatas.append("\n"+ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio()));
+                    ingrediente = ingredientes[j];
+                    stringBocatas.append("\n  "+ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio()));
                 }
             }
 
