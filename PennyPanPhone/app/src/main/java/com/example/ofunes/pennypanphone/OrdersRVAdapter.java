@@ -46,20 +46,6 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             this.orderBocatas = view.findViewById(R.id.txtOrderBocatas);
             this.orderBocatasTitle = view.findViewById(R.id.txtOrderBocatasTitle);
             resources = view.getResources();
-
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    if(linearLayout.getVisibility() == View.VISIBLE)
-                    {
-                        linearLayout.setVisibility(View.GONE);
-                    }
-                    else
-                    {
-                        linearLayout.setVisibility(View.VISIBLE);
-                    }
-                }
-            });
         }
     }
 
