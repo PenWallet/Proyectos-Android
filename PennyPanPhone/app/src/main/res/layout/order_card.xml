@@ -15,9 +15,9 @@
     card_view:layout_constraintEnd_toEndOf="parent"
     card_view:layout_constraintStart_toStartOf="parent"
     card_view:layout_constraintTop_toTopOf="parent"
-    app:title="@string/orderNumber"
-    app:icon="@drawable/barradepan"
     app:inner_view="@layout/inner_order_card"
-    app:expandOnClick="true">
+    app:expandOnClick="true"
+    app:icon="@mipmap/ic_launcher"
+    android:id="@+id/orderCard">
 
 </com.alespero.expandablecardview.ExpandableCardView>

@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Base.Theme.AppCompat.Light.DarkActionBar">
@@ -9,7 +9,10 @@
         <item name="android:fontFamily">@font/prinsesstartamedium</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
 
+    <style name="CustomAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:fontFamily" tools:ignore="NewApi">@font/prinsesstartamedium</item>
     </style>
 
     <style name="LogInButtonTheme" parent="Widget.AppCompat.Button.Colored">

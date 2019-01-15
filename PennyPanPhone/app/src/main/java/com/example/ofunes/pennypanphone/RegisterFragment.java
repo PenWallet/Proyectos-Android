@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,17 +47,21 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        editName = getView().findViewById(R.id.txtRegisterName);
-        editUsername = getView().findViewById(R.id.txtRegisterUsername);
-        editPassword = getView().findViewById(R.id.txtRegisterPassword);
+        editName = getView().findViewById(R.id.txtRegisterName); editName.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        editUsername = getView().findViewById(R.id.txtRegisterUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        editPassword = getView().findViewById(R.id.txtRegisterPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
-        txtErrorName = getView().findViewById(R.id.txtErrorName);
-        txtErrorUsername = getView().findViewById(R.id.txtErrorUsername);
-        txtErrorPassword = getView().findViewById(R.id.txtErrorRegisterPassword);
+        txtErrorName = getView().findViewById(R.id.txtErrorName); txtErrorName.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        txtErrorUsername = getView().findViewById(R.id.txtErrorUsername); txtErrorUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        txtErrorPassword = getView().findViewById(R.id.txtErrorRegisterPassword); txtErrorPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
-        btnRegister = getView().findViewById(R.id.btnRegister); btnRegister.setOnClickListener(this);
+        btnRegister = getView().findViewById(R.id.btnRegister); btnRegister.setOnClickListener(this); btnRegister.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
         progressBar = getView().findViewById(R.id.progressBarRegister);
+
+        ((TextView)getView().findViewById(R.id.title)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
+        ((TextView)getView().findViewById(R.id.txtSubtitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
+
 
         final Observer<Cliente> registerObserver = new Observer<Cliente>() {
             @Override

@@ -2,6 +2,7 @@ package com.example.ofunes.pennypanphone;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.alespero.expandablecardview.ExpandableCardView;
 import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
@@ -19,6 +21,7 @@ import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.OrdersViewHolder> {
@@ -26,16 +29,15 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
 
     class OrdersViewHolder extends RecyclerView.ViewHolder
     {
-        public ImageView orderImage;
-        public TextView orderNumber, orderDate, orderPrice, orderPanes, orderPanesTitle, orderComplementos, orderComplementosTitle, orderBocatas, orderBocatasTitle;
+        public ExpandableCardView cardView;
+        public TextView orderDate, orderPrice, orderPanes, orderPanesTitle, orderComplementos, orderComplementosTitle, orderBocatas, orderBocatasTitle;
         public Resources resources;
         public LinearLayout linearLayout;
 
         public OrdersViewHolder(View view)
         {
             super(view);
-            this.orderImage = view.findViewById(R.id.orderImage);
-            this.orderNumber = view.findViewById(R.id.txtOrderNumber);
+            this.cardView = view.findViewById(R.id.orderCard);
             this.orderDate = view.findViewById(R.id.txtOrderDate);
             this.orderPrice = view.findViewById(R.id.txtOrderPrice);
             this.linearLayout = view.findViewById(R.id.linearCardExpandInfo);
@@ -73,14 +75,21 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         String orderN = String.format(holder.resources.getString(R.string.orderNumber), pedido.getId());
         String orderP = String.format(holder.resources.getString(R.string.orderPrice), pedido.getImporteTotal());
 
-        holder.orderImage.setImageResource(R.drawable.loaf);
         holder.orderDate.setText(pedido.getFechaCompra());
-        holder.orderNumber.setText(orderN);
+        holder.cardView.setTitle(orderN);
         holder.orderPrice.setText(orderP);
 
         Bocata[] bocatas = pedido.getBocatas();
         PanPedido[] panes = pedido.getPanes();
         ComplementoPedido[] complementos = pedido.getComplementos();
+
+        if(panes.length >= complementos.length && panes.length >= bocatas.length)
+            holder.cardView.setIcon(R.drawable.icon_bread);
+        else if(complementos.length >= panes.length && complementos.length >= bocatas.length)
+            holder.cardView.setIcon(R.drawable.icon_miscellaneous);
+        else
+            holder.cardView.setIcon(R.drawable.icon_sandwich);
+
         DecimalFormat df = new DecimalFormat(".##");
 
         if(panes == null || panes.length == 0)

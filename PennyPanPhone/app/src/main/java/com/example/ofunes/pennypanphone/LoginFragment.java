@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,12 +44,14 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
-        txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this);
-        btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this);
-        txtErrorLogin = getView().findViewById(R.id.txtErrorLogin);
-        editPassword = getView().findViewById(R.id.editLoginPassword);
-        editUsername = getView().findViewById(R.id.editLoginUsername);
+        ((TextView)getView().findViewById(R.id.textView)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
+        txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this); txtRegistration.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this); btnLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        txtErrorLogin = getView().findViewById(R.id.txtErrorLogin); txtErrorLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        editPassword = getView().findViewById(R.id.editLoginPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        editUsername = getView().findViewById(R.id.editLoginUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         progressBar = getView().findViewById(R.id.progressBarLogin);
+        ((TextView)getView().findViewById(R.id.cbRemember)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
         final Observer<Cliente> clienteObserver = new Observer<Cliente>() {
             @Override
