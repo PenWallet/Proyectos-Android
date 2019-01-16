@@ -57,11 +57,6 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         this.listadoPedidos = listadoPedidos;
     }
 
-    public OrdersRVAdapter(List<Pedido> listadoPedidos)
-    {
-        this.listadoPedidos = new ArrayList<>(listadoPedidos);
-    }
-
     @Override
     public OrdersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 

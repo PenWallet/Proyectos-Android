@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FragmentAdmin">
 
-    <TextView
-        android:id="@+id/txtAdmin"
+    <ImageView
+        android:id="@+id/imgPrueba"
+        android:layout_width="71dp"
+        android:layout_height="78dp"
+        android:layout_marginStart="157dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="156dp"
+        android:src="@drawable/icon_minus"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPrueba"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"/>
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="320dp"
+        android:text="Pulsar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-</FrameLayout>
+</android.support.constraint.ConstraintLayout>

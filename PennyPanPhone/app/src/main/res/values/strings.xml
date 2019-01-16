@@ -49,9 +49,9 @@
     <string name="orderNumber">Order Nº %1$d</string>
     <string name="noOrders">Looks like you have no orders!</string>
     <string name="orderPrice">EUR %1$.2f</string>
-    <string name="bread">Bread:</string>
-    <string name="miscellaneous">Miscellaneous:</string>
-    <string name="sandwich">Sandwiches:</string>
+    <string name="bread">Bread</string>
+    <string name="miscellaneous">Miscellaneous</string>
+    <string name="sandwich">Sandwiches</string>
 
 
 </resources>

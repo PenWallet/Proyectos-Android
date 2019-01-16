@@ -58,7 +58,6 @@ public class FragmentOrders extends Fragment {
             recyclerView.setVisibility(View.VISIBLE);
 
             //Iniciando RecyclerView
-            recyclerView.setHasFixedSize(true);
             layoutManager = new LinearLayoutManager(getContext());
             recyclerView.setLayoutManager(layoutManager);
             adapter = new OrdersRVAdapter(viewModel.getListadoPedidos().getValue());
