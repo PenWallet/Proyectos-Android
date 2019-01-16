@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:paddingBottom="16dp"
         android:fontFamily="@font/prinsesstartabold"
         android:text="0.90 EUR"
         android:textColor="@color/Gray"

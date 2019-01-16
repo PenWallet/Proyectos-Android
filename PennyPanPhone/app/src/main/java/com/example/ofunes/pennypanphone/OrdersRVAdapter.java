@@ -3,6 +3,7 @@ package com.example.ofunes.pennypanphone;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,15 +39,15 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         {
             super(view);
             this.cardView = view.findViewById(R.id.orderCard);
-            this.orderDate = view.findViewById(R.id.txtOrderDate);
-            this.orderPrice = view.findViewById(R.id.txtOrderPrice);
+            this.orderDate = view.findViewById(R.id.txtOrderDate); orderDate.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamediumitalic));
+            this.orderPrice = view.findViewById(R.id.txtOrderPrice); orderPrice.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartabold));
             this.linearLayout = view.findViewById(R.id.linearCardExpandInfo);
-            this.orderPanes = view.findViewById(R.id.txtOrderPanes);
-            this.orderPanesTitle = view.findViewById(R.id.txtOrderPanesTitle);
-            this.orderComplementos = view.findViewById(R.id.txtOrderComplementos);
-            this.orderComplementosTitle = view.findViewById(R.id.txtOrderComplementosTitle);
-            this.orderBocatas = view.findViewById(R.id.txtOrderBocatas);
-            this.orderBocatasTitle = view.findViewById(R.id.txtOrderBocatasTitle);
+            this.orderPanes = view.findViewById(R.id.txtOrderPanes); orderPanes.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamedium));
+            this.orderPanesTitle = view.findViewById(R.id.txtOrderPanesTitle); orderPanesTitle.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartabolditalic));
+            this.orderComplementos = view.findViewById(R.id.txtOrderComplementos); orderComplementos.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamedium));
+            this.orderComplementosTitle = view.findViewById(R.id.txtOrderComplementosTitle); orderComplementosTitle.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartabolditalic));
+            this.orderBocatas = view.findViewById(R.id.txtOrderBocatas); orderBocatas.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamedium));
+            this.orderBocatasTitle = view.findViewById(R.id.txtOrderBocatasTitle); orderBocatasTitle.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartabolditalic));
             resources = view.getResources();
         }
     }

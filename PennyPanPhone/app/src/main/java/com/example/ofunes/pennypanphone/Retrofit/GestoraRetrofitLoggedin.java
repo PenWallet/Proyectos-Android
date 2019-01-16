@@ -14,6 +14,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class GestoraRetrofitLoggedin {
     private Retrofit retrofit;
     private ListadoPedidosCallback listadoPedidosCallback;
+    private ListadoPanesCallback listadoPanesCallback;
+    private ListadoComplementosCallback listadoComplementosCallback;
+    private ListadoIngredientesCallback listadoIngredientesCallback;
     private PennyPanAPI pennyPanAPI;
     private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
@@ -23,6 +26,9 @@ public class GestoraRetrofitLoggedin {
         retrofit = new Retrofit.Builder().baseUrl(SERVER_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
         pennyPanAPI = retrofit.create(PennyPanAPI.class);
         listadoPedidosCallback = new ListadoPedidosCallback(loggedinViewModel);
+        listadoPanesCallback = new ListadoPanesCallback(loggedinViewModel);
+        listadoComplementosCallback = new ListadoComplementosCallback(loggedinViewModel);
+        listadoIngredientesCallback = new ListadoIngredientesCallback(loggedinViewModel);
     }
 
 
@@ -33,5 +39,20 @@ public class GestoraRetrofitLoggedin {
         String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
 
         pennyPanAPI.getListadoPedidos(token64, username).enqueue(listadoPedidosCallback);
+    }
+
+    public void obtenerListadoPanes()
+    {
+        pennyPanAPI.getListadoPanes().enqueue(listadoPanesCallback);
+    }
+
+    public void obtenerListadoComplementos()
+    {
+        pennyPanAPI.getListadoComplementos().enqueue(listadoComplementosCallback);
+    }
+
+    public void obtenerListadoIngredientes()
+    {
+        pennyPanAPI.getListadoIngredientes().enqueue(listadoIngredientesCallback);
     }
 }

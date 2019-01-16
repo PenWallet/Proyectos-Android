@@ -31,7 +31,7 @@
 
     <!-- Strings de Home -->
     <string name="welcome">Bienvenido a PennyPan,\n %1$s</string>
-    <string name="splines">Trazando retícula de Splines…</string>
+    <string name="loadingSplines">Trazando retícula de Splines…</string>
     <string name="homeOrder">Este es tu último pedido:</string>
     <string name="homeNoOrders">Para comenzar a comprar, pulse el icono de Mercado:</string>
 

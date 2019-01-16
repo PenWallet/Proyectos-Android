@@ -59,8 +59,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
         progressBar = getView().findViewById(R.id.progressBarRegister);
 
-        ((TextView)getView().findViewById(R.id.title)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         ((TextView)getView().findViewById(R.id.txtSubtitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
+        ((TextView)getView().findViewById(R.id.txtTitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
 
 
         final Observer<Cliente> registerObserver = new Observer<Cliente>() {

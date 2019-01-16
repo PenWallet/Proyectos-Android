@@ -5,6 +5,9 @@ package com.example.ofunes.pennypanphone.Retrofit;
  */
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.Complemento;
+import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
+import com.example.ofunes.pennypanphone.Entidades.Pan;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 
 import java.util.List;
@@ -39,4 +42,16 @@ public interface PennyPanAPI {
     @GET("/cliente/{username}/pedido")
     @Headers({"Accept: application/json"})
     Call<List<Pedido>> getListadoPedidos(@Header("Authorization") String token, @Path("username") String username);
+
+    @GET("/pan")
+    @Headers({"Accept: application/json"})
+    Call<List<Pan>> getListadoPanes();
+
+    @GET("/complemento")
+    @Headers({"Accept: application/json"})
+    Call<List<Complemento>> getListadoComplementos();
+
+    @GET("/ingrediente")
+    @Headers({"Accept: application/json"})
+    Call<List<Ingrediente>> getListadoIngredientes();
 }

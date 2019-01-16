@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
@@ -18,12 +19,16 @@ import android.support.design.widget.BottomNavigationView.OnNavigationItemSelect
 import android.widget.Toast;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.Complemento;
+import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
+import com.example.ofunes.pennypanphone.Entidades.Pan;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class LoggedinActivity extends FragmentActivity implements OnNavigationItemSelectedListener {
 
@@ -37,6 +42,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentMarket fragmentMarket;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
+    TextView txtLoading;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         frameLayout = findViewById(R.id.loggedFrame);
         progressBar = findViewById(R.id.progressBarLoggedin);
 
+        txtLoading = findViewById(R.id.txtLoading); txtLoading.setTypeface(ResourcesCompat.getFont(this, R.font.prinsesstartabolditalic));
+
         if(viewModel.getCliente().isPanadero())
         {
             fragmentAdmin = new FragmentAdmin();
@@ -67,17 +75,45 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         final Observer<ArrayList<Pedido>> ordersObserver = new Observer<ArrayList<Pedido>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Pedido> listadoPedidos) {
-                progressBar.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
                 if(listadoPedidos == null)
                     viewModel.getHasOrders().setValue(false);
                 else
                     viewModel.getHasOrders().setValue(true);
+
+                txtLoading.setText(R.string.loadingBread);
+                gestoraRetrofitLoggedin.obtenerListadoPanes();
+            }
+        };
+
+        final Observer<ArrayList<Pan>> panesObserver = new Observer<ArrayList<Pan>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Pan> listadoPedidos) {
+                txtLoading.setText(R.string.loadingMiscellaneous);
+                gestoraRetrofitLoggedin.obtenerListadoComplementos();
+            }
+        };
+
+        final Observer<ArrayList<Complemento>> complementosObserver = new Observer<ArrayList<Complemento>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Complemento> listadoPedidos) {
+                txtLoading.setText(R.string.loadingIngredients);
+                gestoraRetrofitLoggedin.obtenerListadoIngredientes();
+            }
+        };
+
+        final Observer<ArrayList<Ingrediente>> ingredientesObserver = new Observer<ArrayList<Ingrediente>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Ingrediente> listadoPedidos) {
+                progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         };
 
         viewModel.getListadoPedidos().observe(this, ordersObserver);
+        viewModel.getPanes().observe(this, panesObserver);
+        viewModel.getComplementos().observe(this, complementosObserver);
+        viewModel.getIngredientes().observe(this, ingredientesObserver);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 

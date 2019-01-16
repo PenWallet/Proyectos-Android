@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.res.ResourcesCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,11 +49,15 @@ public class FragmentHome extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
+        ((TextView)getView().findViewById(R.id.txtHome)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
+        ((TextView)getView().findViewById(R.id.txtHome2)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        ((TextView)getView().findViewById(R.id.txtSales)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        ((TextView)getView().findViewById(R.id.txtLastOrder)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         linearHomeNoOrder = getActivity().findViewById(R.id.linearHomeNoOrder);
         linearHomeLastOrder = getActivity().findViewById(R.id.linearHomeLastOrder);
-        txtLastOrderNumber = getActivity().findViewById(R.id.txtLastOrderNumber);
-        txtLastOrderDate = getActivity().findViewById(R.id.txtLastOrderDate);
-        txtLastOrderPrice = getActivity().findViewById(R.id.txtLastOrderPrice);
+        txtLastOrderNumber = getActivity().findViewById(R.id.txtLastOrderNumber); txtLastOrderNumber.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
+        txtLastOrderDate = getActivity().findViewById(R.id.txtLastOrderDate); txtLastOrderDate.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        txtLastOrderPrice = getActivity().findViewById(R.id.txtLastOrderPrice); txtLastOrderPrice.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
         lastOrderImage = getActivity().findViewById(R.id.lastOrderImage);
 
         final Observer<Boolean> ordersObserver = new Observer<Boolean>() {
@@ -69,11 +74,11 @@ public class FragmentHome extends Fragment {
                     String orderP = String.format(getResources().getString(R.string.orderPrice), pedido.getImporteTotal());
 
                     if(pedido.getPanes().length >= pedido.getComplementos().length && pedido.getPanes().length >= pedido.getBocatas().length)
-                        lastOrderImage.setImageResource(R.drawable.icon_bread);
+                        lastOrderImage.setImageResource(R.drawable.icon_bread128);
                     else if(pedido.getComplementos().length >= pedido.getPanes().length && pedido.getComplementos().length >= pedido.getBocatas().length)
-                        lastOrderImage.setImageResource(R.drawable.icon_miscellaneous);
+                        lastOrderImage.setImageResource(R.drawable.icon_miscellaneous128);
                     else
-                        lastOrderImage.setImageResource(R.drawable.icon_sandwich);
+                        lastOrderImage.setImageResource(R.drawable.icon_sandwich128);
                     txtLastOrderDate.setText(pedido.getFechaCompra());
                     txtLastOrderNumber.setText(orderN);
                     txtLastOrderPrice.setText(orderP);
