@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Retrofit;
 
 import com.example.ofunes.pennypanphone.Entidades.Pan;
+import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
@@ -24,8 +25,21 @@ public class ListadoPanesCallback implements Callback<List<Pan>>{
 	@Override
 	public void onResponse(Call<List<Pan>> call, Response<List<Pan>> response) {
 		List<Pan> listado = response.body();
+		if(listado != null && listado.size() != 0)
+		{
+			ArrayList<PanPedido> listadoPanes = new ArrayList<>();
 
-		loggedinViewModel.getPanes().setValue(listado == null ? null : new ArrayList<>(listado));
+			for(Pan pan : listado)
+			{
+				listadoPanes.add(new PanPedido(pan.getId(), pan.getNombre(), pan.getCrujenticidad(), pan.isIntegral(), pan.getPrecio(),0));
+			}
+			loggedinViewModel.getPanes().setValue(listadoPanes);
+		}
+		else
+		{
+			loggedinViewModel.getPanes().setValue(null);
+		}
+
 	}
 
 	@Override

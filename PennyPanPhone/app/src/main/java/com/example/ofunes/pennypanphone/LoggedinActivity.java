@@ -20,8 +20,11 @@ import android.widget.Toast;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.Complemento;
+import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
+import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.Pan;
+import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
@@ -86,25 +89,25 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
-        final Observer<ArrayList<Pan>> panesObserver = new Observer<ArrayList<Pan>>() {
+        final Observer<ArrayList<PanPedido>> panesObserver = new Observer<ArrayList<PanPedido>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Pan> listadoPedidos) {
+            public void onChanged(@Nullable ArrayList<PanPedido> listadoPedidos) {
                 txtLoading.setText(R.string.loadingMiscellaneous);
                 gestoraRetrofitLoggedin.obtenerListadoComplementos();
             }
         };
 
-        final Observer<ArrayList<Complemento>> complementosObserver = new Observer<ArrayList<Complemento>>() {
+        final Observer<ArrayList<ComplementoPedido>> complementosObserver = new Observer<ArrayList<ComplementoPedido>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Complemento> listadoPedidos) {
+            public void onChanged(@Nullable ArrayList<ComplementoPedido> listadoPedidos) {
                 txtLoading.setText(R.string.loadingIngredients);
                 gestoraRetrofitLoggedin.obtenerListadoIngredientes();
             }
         };
 
-        final Observer<ArrayList<Ingrediente>> ingredientesObserver = new Observer<ArrayList<Ingrediente>>() {
+        final Observer<ArrayList<IngredienteBocata>> ingredientesObserver = new Observer<ArrayList<IngredienteBocata>>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Ingrediente> listadoPedidos) {
+            public void onChanged(@Nullable ArrayList<IngredienteBocata> listadoPedidos) {
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }

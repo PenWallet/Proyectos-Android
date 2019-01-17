@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Retrofit;
 
 import com.example.ofunes.pennypanphone.Entidades.Complemento;
+import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.util.ArrayList;
@@ -24,7 +25,20 @@ public class ListadoComplementosCallback implements Callback<List<Complemento>>{
 	public void onResponse(Call<List<Complemento>> call, Response<List<Complemento>> response) {
 		List<Complemento> listado = response.body();
 
-		loggedinViewModel.getComplementos().setValue(listado == null ? null : new ArrayList<>(listado));
+		if(listado != null && listado.size() != 0)
+		{
+			ArrayList<ComplementoPedido> listadoComplementos = new ArrayList<>();
+
+			for(Complemento complemento : listado)
+			{
+				listadoComplementos.add(new ComplementoPedido(complemento.getId(), complemento.getNombre(), complemento.getPrecio(), 0));
+			}
+			loggedinViewModel.getComplementos().setValue(listadoComplementos);
+		}
+		else
+		{
+			loggedinViewModel.getPanes().setValue(null);
+		}
 	}
 
 	@Override

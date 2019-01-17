@@ -3,10 +3,13 @@ package com.example.ofunes.pennypanphone.ViewModels;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.Complemento;
+import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
-import com.example.ofunes.pennypanphone.Entidades.Pan;
+import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
+import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
 
@@ -16,10 +19,12 @@ import java.util.List;
 
 public class LoggedinViewModel extends ViewModel {
     private Cliente cliente;
-    private MutableLiveData<ArrayList<Pan>> panes;
-    private MutableLiveData<ArrayList<Complemento>> complementos;
-    private MutableLiveData<ArrayList<Ingrediente>> ingredientes;
+    private MutableLiveData<ArrayList<PanPedido>> panes;
+    private MutableLiveData<ArrayList<ComplementoPedido>> complementos;
+    private MutableLiveData<ArrayList<IngredienteBocata>> ingredientes;
+    private MutableLiveData<ArrayList<Bocata>> bocatas;
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
+    private MutableLiveData<ArrayList<Object>> cesta;
     private MutableLiveData<Boolean> hasOrders;
 
     public LoggedinViewModel()
@@ -30,6 +35,8 @@ public class LoggedinViewModel extends ViewModel {
         panes = new MutableLiveData<>();
         complementos = new MutableLiveData<>();
         ingredientes = new MutableLiveData<>();
+        bocatas = new MutableLiveData<>();
+        cesta = new MutableLiveData<>();
     }
 
     public Cliente getCliente() {
@@ -52,27 +59,43 @@ public class LoggedinViewModel extends ViewModel {
         return hasOrders;
     }
 
-    public MutableLiveData<ArrayList<Pan>> getPanes() {
+    public MutableLiveData<ArrayList<PanPedido>> getPanes() {
         return panes;
     }
 
-    public void setPanes(MutableLiveData<ArrayList<Pan>> panes) {
+    public void setPanes(MutableLiveData<ArrayList<PanPedido>> panes) {
         this.panes = panes;
     }
 
-    public MutableLiveData<ArrayList<Complemento>> getComplementos() {
+    public MutableLiveData<ArrayList<ComplementoPedido>> getComplementos() {
         return complementos;
     }
 
-    public void setComplementos(MutableLiveData<ArrayList<Complemento>> complementos) {
+    public void setComplementos(MutableLiveData<ArrayList<ComplementoPedido>> complementos) {
         this.complementos = complementos;
     }
 
-    public MutableLiveData<ArrayList<Ingrediente>> getIngredientes() {
+    public MutableLiveData<ArrayList<IngredienteBocata>> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(MutableLiveData<ArrayList<Ingrediente>> ingredientes) {
+    public void setIngredientes(MutableLiveData<ArrayList<IngredienteBocata>> ingredientes) {
         this.ingredientes = ingredientes;
+    }
+
+    public MutableLiveData<ArrayList<Bocata>> getBocatas() {
+        return bocatas;
+    }
+
+    public void setBocatas(MutableLiveData<ArrayList<Bocata>> bocatas) {
+        this.bocatas = bocatas;
+    }
+
+    public MutableLiveData<ArrayList<Object>> getCesta() {
+        return cesta;
+    }
+
+    public void setCesta(MutableLiveData<ArrayList<Object>> cesta) {
+        this.cesta = cesta;
     }
 }
