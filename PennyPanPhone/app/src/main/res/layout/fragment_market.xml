@@ -5,7 +5,8 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FragmentMarket">
+        tools:context=".FragmentMarket"
+        >
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
@@ -33,7 +34,8 @@
             android:divider="@drawable/divider"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtMarketBread"/>
+            app:layout_constraintTop_toBottomOf="@id/txtMarketBread"
+            android:nestedScrollingEnabled="false"/>
 
         <TextView
             android:id="@+id/txtMarketMiscellaneous"
