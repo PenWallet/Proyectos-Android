@@ -83,7 +83,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
                 //Comprobar que hay menos de 100 panes pedidos
                 if(pan.getCantidad() < 10)
                 {
-                    animateClick(v);
+                    Utils.animateClick(v);
 
                     if(!viewModel.getCesta().getValue().contains(pan))
                     {
@@ -112,7 +112,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
                 }
                 else
                 {
-                    animateError(v);
+                    Utils.animateError(v);
                 }
 
             }
@@ -126,7 +126,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
                 //Asegurar que no puede bajar de 0
                 if(pan.getCantidad() != 0)
                 {
-                    animateClick(v);
+                    Utils.animateClick(v);
 
                     Object object;
                     ListIterator<Object> iterator = viewModel.getCesta().getValue().listIterator();
@@ -153,7 +153,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
                 }
                 else
                 {
-                    animateError(v);
+                    Utils.animateError(v);
                 }
             }
         });
@@ -162,23 +162,5 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
     @Override
     public int getItemCount() {
         return viewModel.getPanes().getValue().size();
-    }
-
-    private void animateClick(View v)
-    {
-        ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setInterpolator(new CycleInterpolator(1));
-        animation.setDuration(200);
-
-        v.startAnimation(animation);
-    }
-
-    private void animateError(View v)
-    {
-        TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
-        animation.setInterpolator(new CycleInterpolator(2));
-        animation.setDuration(200);
-
-        v.startAnimation(animation);
     }
 }

@@ -53,5 +53,26 @@
     <string name="miscellaneous">Miscellaneous</string>
     <string name="sandwich">Sandwiches</string>
 
+    <!-- Strings de Market -->
+    <string-array name="motd">
+        <item>Feeling thirsty today?</item>
+        <item>Up for a healthy sandwich?</item>
+        <item>You deserve a snack</item>
+        <item>A moment to yourself</item>
+        <item>PennyPan to serve you</item>
+        <item>Delicious alternatives</item>
+        <item>Freshly baked all day. All day!</item>
+        <item>I can stop when I want</item>
+        <item>Reticulating splines…</item>
+        <item>Try our Nachos!</item>
+        <item>Man cannot live on bread alone</item>
+        <item>Oreo. Milk\'s favourite cookie</item>
+        <item>So sweet. So good.</item>
+        <item>A PennyPan for your thoughts ;)</item>
+        <item>Not sponsored by Coca-Cola. Buy one, though</item>
+    </string-array>
+    <integer name="numberOfMOTD">15</integer>
+
+
 
 </resources>
