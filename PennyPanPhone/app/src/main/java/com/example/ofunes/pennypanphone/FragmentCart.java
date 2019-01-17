@@ -39,11 +39,7 @@ public class FragmentCart extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
 
-        txt = getActivity().findViewById(R.id.txtCart);
 
-        Cliente cliente = viewModel.getCliente();
-
-        txt.setText("Esta es la pestaña de cart. "+cliente.toString());
     }
 
 }
