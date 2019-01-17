@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -22,6 +23,9 @@ import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdapter.MarketBreadViewHolder> {
     LoggedinViewModel viewModel;
@@ -60,8 +64,8 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
     }
 
     @Override
-    public void onBindViewHolder(MarketBreadViewHolder holder, final int position) {
-        PanPedido pan = viewModel.getPanes().getValue().get(position);
+    public void onBindViewHolder(final MarketBreadViewHolder holder, final int position) {
+        final PanPedido pan = viewModel.getPanes().getValue().get(position);
         String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), pan.getPrecio());
 
         holder.imageClose.setVisibility(View.GONE);
@@ -76,16 +80,41 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
             @Override
             public void onClick(View v)
             {
-                ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                animation.setInterpolator(new CycleInterpolator(1));
-                animation.setDuration(200);
-                animation.setRepeatCount(0);
+                //Comprobar que hay menos de 100 panes pedidos
+                if(pan.getCantidad() < 10)
+                {
+                    animateClick(v);
 
-                v.startAnimation(animation);
+                    if(!viewModel.getCesta().getValue().contains(pan))
+                    {
+                        pan.addOne();
+                        viewModel.getCesta().getValue().add(pan);
+                    }
+                    else
+                    {
+                        ListIterator<Object> iterator = viewModel.getCesta().getValue().listIterator();
+                        Object object;
 
-                viewModel.getPanes().getValue().get(position).addOne();
+                        while(iterator.hasNext())
+                        {
+                            object = iterator.next();
+                            if(object instanceof PanPedido && object.equals(pan))
+                            {
+                                pan.addOne();
+                                iterator.set(pan);
 
-                notifyDataSetChanged();
+                                break;
+                            }
+                        }
+                    }
+
+                    holder.txtProductQuantity.setText(String.valueOf(viewModel.getPanes().getValue().get(position).getCantidad()));
+                }
+                else
+                {
+                    animateError(v);
+                }
+
             }
         });
 
@@ -94,16 +123,38 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
             @Override
             public void onClick(View v)
             {
-                ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-                animation.setInterpolator(new CycleInterpolator(1));
-                animation.setDuration(200);
-                animation.setRepeatCount(0);
+                //Asegurar que no puede bajar de 0
+                if(pan.getCantidad() != 0)
+                {
+                    animateClick(v);
 
-                v.startAnimation(animation);
+                    Object object;
+                    ListIterator<Object> iterator = viewModel.getCesta().getValue().listIterator();
+                    while(iterator.hasNext())
+                    {
+                        object = iterator.next();
+                        if(object instanceof PanPedido && object.equals(pan))
+                        {
+                            if(((PanPedido) object).getCantidad() == 1)
+                            {
+                                pan.substractOne();
+                                iterator.remove();
+                            }
+                            else
+                            {
+                                pan.substractOne();
+                                iterator.set(pan);
+                            }
+                            break;
+                        }
+                    }
 
-                viewModel.getPanes().getValue().get(position).substractOne();
-
-                notifyDataSetChanged();
+                    holder.txtProductQuantity.setText(String.valueOf(viewModel.getPanes().getValue().get(position).getCantidad()));
+                }
+                else
+                {
+                    animateError(v);
+                }
             }
         });
     }
@@ -113,4 +164,21 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
         return viewModel.getPanes().getValue().size();
     }
 
+    private void animateClick(View v)
+    {
+        ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animation.setInterpolator(new CycleInterpolator(1));
+        animation.setDuration(200);
+
+        v.startAnimation(animation);
+    }
+
+    private void animateError(View v)
+    {
+        TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
+        animation.setInterpolator(new CycleInterpolator(2));
+        animation.setDuration(200);
+
+        v.startAnimation(animation);
+    }
 }

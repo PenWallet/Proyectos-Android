@@ -36,7 +36,7 @@ public class LoggedinViewModel extends ViewModel {
         complementos = new MutableLiveData<>();
         ingredientes = new MutableLiveData<>();
         bocatas = new MutableLiveData<>();
-        cesta = new MutableLiveData<>();
+        cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
     }
 
     public Cliente getCliente() {

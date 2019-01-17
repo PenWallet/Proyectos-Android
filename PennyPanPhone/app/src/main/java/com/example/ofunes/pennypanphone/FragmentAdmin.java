@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.CycleInterpolator;
 import android.view.animation.ScaleAnimation;
+import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -50,10 +51,9 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
-        animation.setInterpolator(new CycleInterpolator(1));
-        animation.setDuration(300);
-        animation.setRepeatCount(0);
+        TranslateAnimation animation = new TranslateAnimation(Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0.2f, Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0);
+        animation.setInterpolator(new CycleInterpolator(2));
+        animation.setDuration(200);
 
         imageView.startAnimation(animation);
     }
