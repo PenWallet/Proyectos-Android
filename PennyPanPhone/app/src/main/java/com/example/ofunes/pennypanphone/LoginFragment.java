@@ -145,7 +145,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             Toast.makeText(getContext(), R.string.errorInvalidPassword, Toast.LENGTH_SHORT).show();
         }
 
-        isOk = true;
+        //TODO Borrar antes de release
+        if(editUsername.getText().toString().equals("") && editPassword.getText().toString().equals(""))
+        {
+            isUsernameOk = true;
+            isPasswordOk = true;
+            editPassword.setText("1234");
+            editUsername.setText("oscar1");
+        }
+
+        isOk = isUsernameOk && isPasswordOk;
 
         return isOk;
     }

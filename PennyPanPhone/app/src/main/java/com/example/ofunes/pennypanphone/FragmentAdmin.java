@@ -8,8 +8,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.view.animation.AnimationSet;
+import android.view.animation.AnimationUtils;
 import android.view.animation.CycleInterpolator;
+import android.view.animation.LinearInterpolator;
 import android.view.animation.ScaleAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
@@ -55,6 +59,8 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
         animation.setInterpolator(new CycleInterpolator(2));
         animation.setDuration(200);
 
-        imageView.startAnimation(animation);
+        //imageView.startAnimation(animation);
+
+        Utils.animateEnter(imageView, getContext());
     }
 }
