@@ -61,6 +61,6 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
 
         //imageView.startAnimation(animation);
 
-        Utils.animateEnter(imageView, getContext());
+        Utils.animateEnter(imageView);
     }
 }

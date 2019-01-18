@@ -23,6 +23,7 @@ import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
+import com.example.ofunes.pennypanphone.Entidades.MarketType;
 import com.example.ofunes.pennypanphone.Entidades.Pan;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
@@ -43,6 +44,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentHome fragmentHome;
     FragmentOrders fragmentOrders;
     FragmentMarket fragmentMarket;
+    FragmentMarketBread fragmentMarketBread;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
     TextView txtLoading;
@@ -51,30 +53,37 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
+
+        //Crear el viewmodel y los fragments
         viewModel = ViewModelProviders.of(this).get(LoggedinViewModel.class);
         fragmentCart = new FragmentCart();
         fragmentOrders = new FragmentOrders();
         fragmentMarket = new FragmentMarket();
+        fragmentMarketBread = new FragmentMarketBread();
 
+        //Coger los datos del cliente
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
 
+        //Crear la gestora de retrofit para la actividad LoggedIn
         gestoraRetrofitLoggedin = new GestoraRetrofitLoggedin(viewModel);
 
+        //Inicializar el menú de navegación inferior
         bottomNavigationView = findViewById(R.id.bottomNavigationView);
-        frameLayout = findViewById(R.id.loggedFrame);
-        progressBar = findViewById(R.id.progressBarLoggedin);
 
+        //El frameLayout para los fragments
+        frameLayout = findViewById(R.id.loggedFrame);
+
+        //Preparando el loading
+        progressBar = findViewById(R.id.progressBarLoggedin);
         txtLoading = findViewById(R.id.txtLoading); txtLoading.setTypeface(ResourcesCompat.getFont(this, R.font.prinsesstartabolditalic));
 
+        //Si es panadero inicializamos el fragment de admin, si no, lo quitamos del menú
         if(viewModel.getCliente().isPanadero())
-        {
             fragmentAdmin = new FragmentAdmin();
-        }
         else
-        {
             bottomNavigationView.getMenu().removeItem(R.id.navAdmin);
-        }
 
+        //Observer para saber cuándo han cargado los pedidos
         final Observer<ArrayList<Pedido>> ordersObserver = new Observer<ArrayList<Pedido>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Pedido> listadoPedidos) {
@@ -89,6 +98,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
+        //Observer para saber cuándo han cargado los panes
         final Observer<ArrayList<PanPedido>> panesObserver = new Observer<ArrayList<PanPedido>>() {
             @Override
             public void onChanged(@Nullable ArrayList<PanPedido> listadoPedidos) {
@@ -97,6 +107,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
+        //Observer para saber cuándo han cargado los complementos
         final Observer<ArrayList<ComplementoPedido>> complementosObserver = new Observer<ArrayList<ComplementoPedido>>() {
             @Override
             public void onChanged(@Nullable ArrayList<ComplementoPedido> listadoPedidos) {
@@ -105,6 +116,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
+        //Observer para saber cuándo han cargado los ingredientes
         final Observer<ArrayList<IngredienteBocata>> ingredientesObserver = new Observer<ArrayList<IngredienteBocata>>() {
             @Override
             public void onChanged(@Nullable ArrayList<IngredienteBocata> listadoPedidos) {
@@ -113,10 +125,32 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
+        final Observer<MarketType> marketOptionObserver = new Observer<MarketType>() {
+            @Override
+            public void onChanged(@Nullable MarketType marketType) {
+                switch(marketType)
+                {
+                    case BREAD:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketBread).addToBackStack(null).commit();
+                        break;
+
+                    case MISCELLANEOUS:
+                        Toast.makeText(LoggedinActivity.this, "Pulsaste el beverage", Toast.LENGTH_SHORT).show();
+                        break;
+
+                    case SANDWICH:
+                        Toast.makeText(LoggedinActivity.this, "Pulsaste el sandwich", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+            }
+        };
+
+        //Desclarando los observers
         viewModel.getListadoPedidos().observe(this, ordersObserver);
         viewModel.getPanes().observe(this, panesObserver);
         viewModel.getComplementos().observe(this, complementosObserver);
         viewModel.getIngredientes().observe(this, ingredientesObserver);
+        viewModel.getMarketOption().observe(this, marketOptionObserver);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -130,6 +164,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+        getSupportFragmentManager().popBackStack();
 
         switch(item.getItemId())
         {
@@ -155,5 +191,24 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         }
 
         return true;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopService(new Intent(this, BackgroundSoundService.class));
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopService(new Intent(this, BackgroundSoundService.class));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Intent music = new Intent(this, BackgroundSoundService.class);
+        startService(music);
     }
 }

@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.annotation.Nullable;
+import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
@@ -26,7 +28,8 @@ public class FragmentOrders extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
-    TextView emptyRV;
+    TextView emptyRV, txtNoOrders;
+    LinearLayout linearLayout;
 
     public FragmentOrders() {
         // Required empty public constructor
@@ -44,17 +47,19 @@ public class FragmentOrders extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
-        emptyRV = getActivity().findViewById(R.id.emptyRV);
+        linearLayout = getActivity().findViewById(R.id.linearNoOrders);
+        txtNoOrders = getActivity().findViewById(R.id.txtNoOrders); txtNoOrders.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        emptyRV = getActivity().findViewById(R.id.emptyRV); emptyRV.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         recyclerView = getActivity().findViewById(R.id.ordersRecyclerView);
 
         if(viewModel.getListadoPedidos().getValue() == null)
         {
-            emptyRV.setVisibility(View.VISIBLE);
+            linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);
         }
         else
         {
-            emptyRV.setVisibility(View.GONE);
+            linearLayout.setVisibility(View.GONE);
             recyclerView.setVisibility(View.VISIBLE);
 
             //Iniciando RecyclerView

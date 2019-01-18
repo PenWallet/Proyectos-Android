@@ -9,6 +9,7 @@ import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
+import com.example.ofunes.pennypanphone.Entidades.MarketType;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
@@ -26,6 +27,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
     private MutableLiveData<ArrayList<Object>> cesta;
     private MutableLiveData<Boolean> hasOrders;
+    private MutableLiveData<MarketType> marketOption;
 
     public LoggedinViewModel()
     {
@@ -37,6 +39,7 @@ public class LoggedinViewModel extends ViewModel {
         ingredientes = new MutableLiveData<>();
         bocatas = new MutableLiveData<>();
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
+        marketOption = new MutableLiveData<>();
     }
 
     public Cliente getCliente() {
@@ -97,5 +100,13 @@ public class LoggedinViewModel extends ViewModel {
 
     public void setCesta(MutableLiveData<ArrayList<Object>> cesta) {
         this.cesta = cesta;
+    }
+
+    public MutableLiveData<MarketType> getMarketOption() {
+        return marketOption;
+    }
+
+    public void setMarketOption(MutableLiveData<MarketType> marketOption) {
+        this.marketOption = marketOption;
     }
 }

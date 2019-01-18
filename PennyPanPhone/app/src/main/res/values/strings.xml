@@ -39,7 +39,7 @@
     <!-- Strings de Home -->
     <string name="welcome">Welcome to PennyPan,\n %1$s</string>
     <string name="homeOrder">This is your last order:</string>
-    <string name="homeNoOrders">To start buying, click on the Market icon:</string>
+    <string name="homeNoOrders">To start buying, click on the Market icon</string>
     <string name="homeSales">These items are on sale today:</string>
     <string name="homeLastOrder">This was your last order:</string>
 

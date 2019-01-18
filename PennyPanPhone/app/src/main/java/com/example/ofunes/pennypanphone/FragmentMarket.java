@@ -23,6 +23,7 @@ import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.MarketType;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.util.Random;
@@ -35,6 +36,7 @@ public class FragmentMarket extends Fragment implements View.OnClickListener {
 
     TextView txtMOTD;
     CardView bread, misc, sand;
+    LoggedinViewModel viewModel;
 
     public FragmentMarket() {
         // Required empty public constructor
@@ -51,10 +53,11 @@ public class FragmentMarket extends Fragment implements View.OnClickListener {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
         txtMOTD = getActivity().findViewById(R.id.txtMarketMOTD); txtMOTD.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         bread = getActivity().findViewById(R.id.marketCardViewBread); bread.setOnClickListener(this);
-        misc = getActivity().findViewById(R.id.marketCardViewMiscellaneous);
-        sand = getActivity().findViewById(R.id.marketCardViewSandwiches);
+        misc = getActivity().findViewById(R.id.marketCardViewMiscellaneous); misc.setOnClickListener(this);
+        sand = getActivity().findViewById(R.id.marketCardViewSandwiches); sand.setOnClickListener(this);
         loadRandomMOTD();
     }
 
@@ -71,6 +74,69 @@ public class FragmentMarket extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         int id = view.getId();
 
-        Utils.animateEnter(bread, getContext());
+        switch(id)
+        {
+            case R.id.marketCardViewBread:
+                bread.setCardElevation(4);
+                misc.setCardElevation(1);
+                sand.setCardElevation(1);
+                animateEnter(bread);
+                break;
+
+            case R.id.marketCardViewMiscellaneous:
+                bread.setCardElevation(1);
+                misc.setCardElevation(4);
+                sand.setCardElevation(1);
+                animateEnter(misc);
+                break;
+
+            case R.id.marketCardViewSandwiches:
+                bread.setCardElevation(1);
+                misc.setCardElevation(1);
+                sand.setCardElevation(4);
+                animateEnter(sand);
+                break;
+        }
+
+
+    }
+
+    private void animateEnter(final View v)
+    {
+        final Animation anim = AnimationUtils.loadAnimation(v.getContext(), R.anim.market_enter_zoomfade);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                int id = v.getId();
+
+                switch(id)
+                {
+                    case R.id.marketCardViewBread:
+                        viewModel.getMarketOption().setValue(MarketType.BREAD);
+                        break;
+
+                    case R.id.marketCardViewMiscellaneous:
+                        viewModel.getMarketOption().setValue(MarketType.MISCELLANEOUS);
+                        break;
+
+                    case R.id.marketCardViewSandwiches:
+                        viewModel.getMarketOption().setValue(MarketType.SANDWICH);
+                        break;
+                }
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        v.startAnimation(anim);
     }
 }

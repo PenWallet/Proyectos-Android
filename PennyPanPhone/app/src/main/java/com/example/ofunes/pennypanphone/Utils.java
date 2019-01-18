@@ -28,9 +28,9 @@ public class Utils {
         v.startAnimation(animation);
     }
 
-    public static void animateEnter(final View v, Context context)
+    public static void animateEnter(final View v)
     {
-        View parent = (View)v.getParent();
+        /*View parent = (View)v.getParent();
         int widthParent = parent.getWidth()/2;
         int heightParent = parent.getHeight()/2;
         int widthChild = v.getWidth()/2;
@@ -45,17 +45,17 @@ public class Utils {
         move.setFillEnabled(true);
         move.setDuration(500);
 
-        final ScaleAnimation scale = new ScaleAnimation(1, 4, 1, 4, Animation.ABSOLUTE, width, Animation.ABSOLUTE, height);
+        final ScaleAnimation scale = new ScaleAnimation(1, 10, 1, 10, Animation.ABSOLUTE, width, Animation.ABSOLUTE, height);
         scale.setStartOffset(500);
         scale.setDuration(1000);
+        scale.setFillAfter(true);
 
         AnimationSet animationSet = new AnimationSet(true);
-        animationSet.setFillAfter(true);
-        animationSet.setFillEnabled(true);
         animationSet.addAnimation(move);
         animationSet.addAnimation(scale);
+        animationSet.setFillAfter(true);
 
-        final Animation anim = AnimationUtils.loadAnimation(context, R.anim.market_enter_zoomfade);
+
 
         move.setAnimationListener(new Animation.AnimationListener() {
             @Override
@@ -65,7 +65,26 @@ public class Utils {
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                v.startAnimation(scale);
+                //v.startAnimation(scale);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });*/
+
+        final Animation anim = AnimationUtils.loadAnimation(v.getContext(), R.anim.market_enter_zoomfade);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
             }
 
             @Override
@@ -74,7 +93,7 @@ public class Utils {
             }
         });
 
-        v.startAnimation(move);
+        v.startAnimation(anim);
     }
 
 }
