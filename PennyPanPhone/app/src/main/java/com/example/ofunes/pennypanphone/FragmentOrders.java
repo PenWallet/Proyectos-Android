@@ -19,9 +19,6 @@ import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import org.w3c.dom.Text;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class FragmentOrders extends Fragment {
 
     LoggedinViewModel viewModel;

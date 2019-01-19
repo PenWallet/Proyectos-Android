@@ -16,4 +16,14 @@ public class ComplementoPedido extends Complemento{
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
     }
+
+    public void addOne()
+    {
+        this.cantidad++;
+    }
+
+    public void substractOne()
+    {
+        this.cantidad--;
+    }
 }

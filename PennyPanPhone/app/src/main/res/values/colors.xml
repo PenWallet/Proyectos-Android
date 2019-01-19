@@ -15,6 +15,7 @@
     <color name="GreenBread">#C5E1A5</color>
     <color name="BlueMisc">#80CBC4</color>
     <color name="RedSand">#EF5350</color>
+    <color name="DeleteRed">#E53935</color>
 
     <!-- Colores para el bottom menu -->
     <color name="Selected">#0B5EE3</color>

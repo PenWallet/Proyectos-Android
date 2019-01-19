@@ -81,7 +81,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
             public void onClick(View v)
             {
                 //Comprobar que hay menos de 100 panes pedidos
-                if(pan.getCantidad() < 10)
+                if(pan.getCantidad() < 100)
                 {
                     Utils.animateClick(v);
 

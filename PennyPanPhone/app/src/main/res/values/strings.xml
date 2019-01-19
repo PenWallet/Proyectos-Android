@@ -43,7 +43,7 @@
     <string name="homeSales">These items are on sale today:</string>
     <string name="homeLastOrder">This was your last order:</string>
 
-    <!-- Strings de orders -->
+    <!-- Strings de Orders -->
     <string name="tapExpand">Tap to expand details</string>
     <string name="tapCollapse">Tap to collapse details</string>
     <string name="orderNumber">Order Nº %1$d</string>
@@ -72,6 +72,13 @@
         <item>Not sponsored by Coca-Cola. Buy one, though</item>
     </string-array>
     <integer name="numberOfMOTD">15</integer>
+
+    <!-- Strings de Cart -->
+    <string name="deleteItemHeader">Delete this product?</string>
+    <string name="deleteItemContent">You will have to re-add it to your shopping cart from the Market tab</string>
+    <string name="deleteItemAffirmative">Delete</string>
+    <string name="deleteItemCancel">Cancel</string>
+    <string name="emptyCart">Looks like your cart is empty!</string>
 
 
 
