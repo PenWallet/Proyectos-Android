@@ -25,7 +25,6 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<ArrayList<PanPedido>> panes;
     private MutableLiveData<ArrayList<ComplementoPedido>> complementos;
     private MutableLiveData<ArrayList<IngredienteBocata>> ingredientes;
-    private MutableLiveData<ArrayList<Bocata>> bocatas;
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
     private MutableLiveData<ArrayList<Object>> cesta;
     private MutableLiveData<Boolean> hasOrders;
@@ -40,7 +39,6 @@ public class LoggedinViewModel extends ViewModel {
         panes = new MutableLiveData<>();
         complementos = new MutableLiveData<>();
         ingredientes = new MutableLiveData<>();
-        bocatas = new MutableLiveData<>();
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
         marketOption = new MutableLiveData<>();
         cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
@@ -58,10 +56,6 @@ public class LoggedinViewModel extends ViewModel {
         return listadoPedidos;
     }
 
-    public void setListadoPedidos(MutableLiveData<ArrayList<Pedido>> listadoPedidos) {
-        this.listadoPedidos = listadoPedidos;
-    }
-
     public MutableLiveData<Boolean> getHasOrders() {
         return hasOrders;
     }
@@ -70,48 +64,20 @@ public class LoggedinViewModel extends ViewModel {
         return panes;
     }
 
-    public void setPanes(MutableLiveData<ArrayList<PanPedido>> panes) {
-        this.panes = panes;
-    }
-
     public MutableLiveData<ArrayList<ComplementoPedido>> getComplementos() {
         return complementos;
-    }
-
-    public void setComplementos(MutableLiveData<ArrayList<ComplementoPedido>> complementos) {
-        this.complementos = complementos;
     }
 
     public MutableLiveData<ArrayList<IngredienteBocata>> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(MutableLiveData<ArrayList<IngredienteBocata>> ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
-    public MutableLiveData<ArrayList<Bocata>> getBocatas() {
-        return bocatas;
-    }
-
-    public void setBocatas(MutableLiveData<ArrayList<Bocata>> bocatas) {
-        this.bocatas = bocatas;
-    }
-
     public MutableLiveData<ArrayList<Object>> getCesta() {
         return cesta;
     }
 
-    public void setCesta(MutableLiveData<ArrayList<Object>> cesta) {
-        this.cesta = cesta;
-    }
-
     public MutableLiveData<MarketType> getMarketOption() {
         return marketOption;
-    }
-
-    public void setMarketOption(MutableLiveData<MarketType> marketOption) {
-        this.marketOption = marketOption;
     }
 
     public MutableLiveData<Double> getCartTotal() {
@@ -122,6 +88,7 @@ public class LoggedinViewModel extends ViewModel {
         this.cartTotal = cartTotal;
     }
 
+    /* Funciones */
     public void addValueCartTotal(double value)
     {
         NumberFormat df = new DecimalFormat("#.00");

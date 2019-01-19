@@ -21,6 +21,8 @@
     <string name="registerSuccessful">You registered successfully</string>
     <string name="registerUnsuccessful">We couldn\'t register you for unknown reasons :(</string>
     <string name="nani">Nani??</string>
+    <string name="error">Error</string>
+    <string name="loading">Loading</string>
 
     <!-- Strings de iconos -->
     <string name="home">Home</string>
@@ -80,6 +82,8 @@
     <string name="deleteItemCancel">Cancel</string>
     <string name="emptyCart">Looks like your cart is empty!</string>
     <string name="cartTotal">Total:</string>
+    <string name="finishSandwich">Finish Sandwich</string>
+    <string name="finishOrder">Finish Order</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

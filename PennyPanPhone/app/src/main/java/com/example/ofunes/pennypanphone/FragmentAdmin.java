@@ -50,7 +50,7 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
         imageView = getActivity().findViewById(R.id.imgPrueba);
-        button = getActivity().findViewById(R.id.btnPrueba); button.setOnClickListener(this);
+        //button = getActivity().findViewById(R.id.btnPrueba); button.setOnClickListener(this);
     }
 
     @Override
