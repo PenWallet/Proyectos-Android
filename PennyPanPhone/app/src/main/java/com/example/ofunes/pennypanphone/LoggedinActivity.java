@@ -45,6 +45,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentOrders fragmentOrders;
     FragmentMarket fragmentMarket;
     FragmentMarketBread fragmentMarketBread;
+    FragmentMarketMiscellaneous fragmentMarketMiscellaneous;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
     TextView txtLoading;
@@ -60,6 +61,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         fragmentOrders = new FragmentOrders();
         fragmentMarket = new FragmentMarket();
         fragmentMarketBread = new FragmentMarketBread();
+        fragmentMarketMiscellaneous = new FragmentMarketMiscellaneous();
 
         //Coger los datos del cliente
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
@@ -135,7 +137,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         break;
 
                     case MISCELLANEOUS:
-                        Toast.makeText(LoggedinActivity.this, "Pulsaste el beverage", Toast.LENGTH_SHORT).show();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketMiscellaneous).addToBackStack(null).commit();
                         break;
 
                     case SANDWICH:

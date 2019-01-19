@@ -79,7 +79,10 @@
     <string name="deleteItemAffirmative">Delete</string>
     <string name="deleteItemCancel">Cancel</string>
     <string name="emptyCart">Looks like your cart is empty!</string>
+    <string name="cartTotal">Total:</string>
 
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

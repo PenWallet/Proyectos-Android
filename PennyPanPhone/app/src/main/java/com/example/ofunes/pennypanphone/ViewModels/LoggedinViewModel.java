@@ -14,6 +14,8 @@ import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,6 +30,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Object>> cesta;
     private MutableLiveData<Boolean> hasOrders;
     private MutableLiveData<MarketType> marketOption;
+    private MutableLiveData<Double> cartTotal;
 
     public LoggedinViewModel()
     {
@@ -40,6 +43,7 @@ public class LoggedinViewModel extends ViewModel {
         bocatas = new MutableLiveData<>();
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
         marketOption = new MutableLiveData<>();
+        cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
     }
 
     public Cliente getCliente() {
@@ -108,5 +112,21 @@ public class LoggedinViewModel extends ViewModel {
 
     public void setMarketOption(MutableLiveData<MarketType> marketOption) {
         this.marketOption = marketOption;
+    }
+
+    public MutableLiveData<Double> getCartTotal() {
+        return cartTotal;
+    }
+
+    public void setCartTotal(MutableLiveData<Double> cartTotal) {
+        this.cartTotal = cartTotal;
+    }
+
+    public void addValueCartTotal(double value)
+    {
+        NumberFormat df = new DecimalFormat("#.00");
+        double actualValue = cartTotal.getValue();
+        double finalValue = actualValue + value;
+        cartTotal.setValue(Double.valueOf(df.format(finalValue)));
     }
 }

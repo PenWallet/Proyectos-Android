@@ -69,19 +69,18 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         switch(holder.getItemViewType())
         {
             case 0:
-                final CartBMViewHolder viewHolder = (CartBMViewHolder)holder;
+                final CartBMViewHolder viewHolderBread = (CartBMViewHolder)holder;
                 final PanPedido pan = (PanPedido)viewModel.getCesta().getValue().get(position);
-                //final PanPedido panInMarket = searchBreadInMarket(pan);
-                String orderP = String.format(viewHolder.view.getResources().getString(R.string.orderPrice), pan.getPrecio());
+                String orderP = String.format(viewHolderBread.view.getResources().getString(R.string.orderPrice), pan.getPrecio());
 
                 //Asignaciones a los txt e imágenes
-                viewHolder.txtProductName.setText(pan.getNombre());
-                viewHolder.txtProductPrice.setText(orderP);
-                viewHolder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
-                viewHolder.imageProduct.setImageResource(pan.isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
+                viewHolderBread.txtProductName.setText(pan.getNombre());
+                viewHolderBread.txtProductPrice.setText(orderP);
+                viewHolderBread.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+                viewHolderBread.imageProduct.setImageResource(pan.isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
 
                 //OnClickListeners para los botones
-                viewHolder.imagePlus.setOnClickListener(new View.OnClickListener(){
+                viewHolderBread.imagePlus.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v)
                     {
@@ -91,9 +90,10 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             Utils.animateClick(v);
 
                             pan.addOne();
-                            viewModel.getCesta().getValue().add(pan);
 
-                            viewHolder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+                            viewHolderBread.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+
+                            viewModel.addValueCartTotal(pan.getPrecio());
                         }
                         else
                         {
@@ -104,7 +104,7 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 });
 
 
-                viewHolder.imageMinus.setOnClickListener(new View.OnClickListener(){
+                viewHolderBread.imageMinus.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v)
                     {
@@ -117,14 +117,15 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                         else
                         {
                             pan.substractOne();
+                            viewModel.addValueCartTotal(pan.getPrecio() * -1);
                         }
 
-                        viewHolder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+                        viewHolderBread.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
 
                     }
                 });
 
-                viewHolder.imageClose.setOnClickListener(new View.OnClickListener(){
+                viewHolderBread.imageClose.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v)
                     {
@@ -136,6 +137,69 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
 
             case 1:
+                final CartBMViewHolder viewHolderMisc = (CartBMViewHolder)holder;
+                final ComplementoPedido complemento = (ComplementoPedido)viewModel.getCesta().getValue().get(position);
+                String orderM = String.format(viewHolderMisc.view.getResources().getString(R.string.orderPrice), complemento.getPrecio());
+
+                //Asignaciones a los txt e imágenes
+                viewHolderMisc.txtProductName.setText(complemento.getNombre());
+                viewHolderMisc.txtProductPrice.setText(orderM);
+                viewHolderMisc.txtProductQuantity.setText(String.valueOf(complemento.getCantidad()));
+                viewHolderMisc.imageProduct.setImageResource(R.drawable.icon_miscellaneous128);
+
+                //OnClickListeners para los botones
+                viewHolderMisc.imagePlus.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v)
+                    {
+                        //Comprobar que hay menos de 100 complementos pedidos
+                        if(complemento.getCantidad() < 100)
+                        {
+                            Utils.animateClick(v);
+
+                            complemento.addOne();
+
+                            viewHolderMisc.txtProductQuantity.setText(String.valueOf(complemento.getCantidad()));
+
+                            viewModel.addValueCartTotal(complemento.getPrecio());
+                        }
+                        else
+                        {
+                            Utils.animateError(v);
+                        }
+
+                    }
+                });
+
+
+                viewHolderMisc.imageMinus.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Utils.animateClick(v);
+
+                        if(complemento.getCantidad() == 1)
+                            askDeleteProduct(v.getContext(), viewModel, complemento);
+                        else
+                        {
+                            complemento.substractOne();
+                            viewModel.addValueCartTotal(complemento.getPrecio() * -1);
+                        }
+
+
+                        viewHolderMisc.txtProductQuantity.setText(String.valueOf(complemento.getCantidad()));
+
+                    }
+                });
+
+                viewHolderMisc.imageClose.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Utils.animateClick(v);
+                        askDeleteProduct(v.getContext(), viewModel, complemento);
+                    }
+                });
                 break;
 
             case 2:
@@ -182,28 +246,22 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         if(product instanceof PanPedido)
-                            ((PanPedido)product).setCantidad(0);
+                        {
+                            PanPedido p = (PanPedido)product;
+                            viewModel.addValueCartTotal(p.getPrecio() * p.getCantidad() * -1);
+                            p.setCantidad(0);
+                        }
                         else if(product instanceof ComplementoPedido)
-                            ((ComplementoPedido)product).setCantidad(0);
+                        {
+                            ComplementoPedido m = (ComplementoPedido)product;
+                            viewModel.addValueCartTotal(m.getPrecio() * m.getCantidad() * -1);
+                            m.setCantidad(0);
+                        }
 
                         viewModel.getCesta().getValue().remove(product);
                         notifyDataSetChanged();
                     }
                 })
                 .show();
-    }
-
-    private PanPedido searchBreadInMarket(PanPedido pan)
-    {
-        PanPedido panEncontrado = null;
-        Iterator<PanPedido> iterator = viewModel.getPanes().getValue().iterator();
-        while(iterator.hasNext())
-        {
-            panEncontrado = iterator.next();
-            if(pan.equals(panEncontrado))
-                break;
-        }
-
-        return panEncontrado;
     }
 }
