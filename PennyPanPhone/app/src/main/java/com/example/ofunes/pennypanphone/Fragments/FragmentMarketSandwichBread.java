@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -7,29 +7,30 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
+import com.example.ofunes.pennypanphone.Adapters.MarketSandwichBreadRVAdapter;
+import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentMarketBread extends Fragment {
+public class FragmentMarketSandwichBread extends Fragment {
 
     LoggedinViewModel viewModel;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
 
-    public FragmentMarketBread() {
+    public FragmentMarketSandwichBread() {
         // Required empty public constructor
     }
 
@@ -38,7 +39,7 @@ public class FragmentMarketBread extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_market_bread, container, false);
+        return inflater.inflate(R.layout.fragment_market_sandwich_bread, container, false);
     }
 
     @Override
@@ -46,15 +47,18 @@ public class FragmentMarketBread extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
 
-        recyclerView = getActivity().findViewById(R.id.marketBreadRecyclerView);
+        ((AppCompatTextView)getActivity().findViewById(R.id.sandwichBreadTitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
+
+        recyclerView = getActivity().findViewById(R.id.marketSandwichBreadRecyclerView);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
-        adapter = new MarketBreadRVAdapter(viewModel);
+        adapter = new MarketSandwichBreadRVAdapter(viewModel);
 
         recyclerView.setAdapter(adapter);
     }
+
 }

@@ -1,14 +1,11 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Adapters;
 
-import android.content.Context;
 import android.content.res.Resources;
-import android.graphics.drawable.Drawable;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -18,12 +15,10 @@ import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
-import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
+import com.example.ofunes.pennypanphone.R;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.OrdersViewHolder> {
     ArrayList<Pedido> listadoPedidos;
@@ -86,7 +81,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         else
             holder.cardView.setIcon(R.drawable.icon_sandwich);
 
-        DecimalFormat df = new DecimalFormat(".##");
+        DecimalFormat df = new DecimalFormat("#.00");
 
         if(panes == null || panes.length == 0)
         {
@@ -144,7 +139,7 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
 
             StringBuilder stringBocatas = new StringBuilder();
             Bocata bocata;
-            IngredienteBocata[] ingredientes;
+            ArrayList<IngredienteBocata> ingredientes;
             IngredienteBocata ingrediente;
 
             for(int i = 0; i < bocatas.length; i++)
@@ -154,9 +149,9 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
 
                 ingredientes = bocata.getIngredientes();
 
-                for(int j = 0; j < ingredientes.length; j++)
+                for(int j = 0; j < ingredientes.size(); j++)
                 {
-                    ingrediente = ingredientes[j];
+                    ingrediente = ingredientes.get(j);
                     stringBocatas.append("\n  "+ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio()));
                 }
             }

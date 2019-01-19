@@ -30,6 +30,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<Boolean> hasOrders;
     private MutableLiveData<MarketType> marketOption;
     private MutableLiveData<Double> cartTotal;
+    private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
 
     public LoggedinViewModel()
     {
@@ -86,6 +87,14 @@ public class LoggedinViewModel extends ViewModel {
 
     public void setCartTotal(MutableLiveData<Double> cartTotal) {
         this.cartTotal = cartTotal;
+    }
+
+    public int getSandwichInProgress() {
+        return sandwichInProgress;
+    }
+
+    public void setSandwichInProgress(int sandwichInProgress) {
+        this.sandwichInProgress = sandwichInProgress;
     }
 
     /* Funciones */

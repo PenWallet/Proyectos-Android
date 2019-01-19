@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Adapters;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -13,14 +13,20 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
+import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
+import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Duration;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.ListIterator;
 
@@ -52,6 +58,24 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
     }
 
+    class CartSViewHolder extends RecyclerView.ViewHolder
+    {
+        public ImageView imageClose, imageBread;
+        public TextView txtSandwichBreadName, txtSandwichBreadPrice, txtSandwichIngredients;
+        public View view;
+
+        public CartSViewHolder(View view)
+        {
+            super(view);
+            this.view = view;
+            this.imageBread = view.findViewById(R.id.imgSandwichBread);
+            this.txtSandwichBreadName = view.findViewById(R.id.txtSandwichBreadName); txtSandwichBreadName.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamedium));
+            this.txtSandwichBreadPrice = view.findViewById(R.id.txtSandwichBreadPrice); txtSandwichBreadPrice.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartabold));
+            this.txtSandwichIngredients = view.findViewById(R.id.txtSandwichIngredients); txtSandwichIngredients.setTypeface(ResourcesCompat.getFont(view.getContext(), R.font.prinsesstartamedium));
+            this.imageClose = view.findViewById(R.id.imgSandwichClose);
+        }
+    }
+
     //TODO Corregir cuando haga el bocata
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -59,9 +83,13 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if(viewType == 0 || viewType == 1)
         {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_layout, parent, false);
+            return new CartBMViewHolder(view);
         }
-
-        return new CartBMViewHolder(view);
+        else
+        {
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.sandwich_list_layout, parent, false);
+            return new CartSViewHolder(view);
+        }
     }
 
     @Override
@@ -203,6 +231,24 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 break;
 
             case 2:
+                final CartSViewHolder viewHolderSand = (CartSViewHolder)holder;
+                final Bocata bocata = (Bocata)viewModel.getCesta().getValue().get(position);
+                String orderS = String.format(viewHolderSand.view.getResources().getString(R.string.orderPrice), bocata.getPan().getPrecio());
+
+                //Asignaciones a los txt e imágenes
+                viewHolderSand.txtSandwichBreadName.setText(bocata.getPan().getNombre());
+                viewHolderSand.txtSandwichBreadPrice.setText(orderS);
+                viewHolderSand.txtSandwichIngredients.setText(ingredientsToString(bocata.getIngredientes()));
+                viewHolderSand.imageBread.setImageResource(bocata.getPan().isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
+
+                viewHolderSand.imageClose.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v)
+                    {
+                        Utils.animateClick(v);
+                        askDeleteProduct(v.getContext(), viewModel, bocata);
+                    }
+                });
                 break;
         }
     }
@@ -236,7 +282,7 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                 .setDescription(R.string.deleteItemContent)
                 .setStyle(Style.HEADER_WITH_ICON)
                 .setIcon(R.drawable.icon_deletecartitem512)
-                .setHeaderColor(R.color.DeleteRed)
+                .setHeaderColor(R.color.ErrorRed)
                 .setPositiveText(R.string.deleteItemAffirmative)
                 .setNegativeText(R.string.deleteItemCancel)
                 .setCancelable(true)
@@ -257,11 +303,33 @@ public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             viewModel.addValueCartTotal(m.getPrecio() * m.getCantidad() * -1);
                             m.setCantidad(0);
                         }
+                        else
+                        {
+                            Bocata b = (Bocata)product;
+                            viewModel.addValueCartTotal(b.getPan().getPrecio() * -1);
+                            for(IngredienteBocata ingrediente : b.getIngredientes())
+                            {
+                                viewModel.addValueCartTotal(ingrediente.getCantidad() * ingrediente.getPrecio() * -1);
+                            }
+                        }
 
                         viewModel.getCesta().getValue().remove(product);
                         notifyDataSetChanged();
                     }
                 })
                 .show();
+    }
+
+    private String ingredientsToString(ArrayList<IngredienteBocata> ingredientes)
+    {
+        StringBuilder string = new StringBuilder();
+        DecimalFormat df = new DecimalFormat("#.00");
+
+        for(IngredienteBocata ingrediente : ingredientes)
+        {
+            string.append(ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio())+"\n");
+        }
+
+        return string.toString();
     }
 }

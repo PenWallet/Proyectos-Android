@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:layout_editor_absoluteY="25dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="@drawable/custom_ripple"
+    android:padding="15sp">
+
+
+    <ImageView
+        android:id="@+id/imgSandwichBread"
+        android:layout_width="90sp"
+        android:layout_height="90sp"
+        android:src="@drawable/icon_bread128"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtSandwichBreadName"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Andaluza"
+        android:textSize="20sp"
+        app:layout_constraintStart_toEndOf="@+id/imgSandwichBread"
+        app:layout_constraintTop_toTopOf="@+id/imgSandwichBread" />
+
+    <TextView
+        android:id="@+id/txtSandwichBreadPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/orderPrice"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/imgSandwichBread"
+        app:layout_constraintStart_toEndOf="@+id/imgSandwichBread" />
+
+
+
+</android.support.constraint.ConstraintLayout>

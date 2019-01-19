@@ -76,6 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/guideline16" />
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintProductButtons"
         android:layout_width="110dp"
         android:layout_height="35dp"
         android:background="@drawable/rounded_product_plusminus"

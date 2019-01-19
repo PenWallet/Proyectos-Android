@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -20,7 +20,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.dd.processbutton.FlatButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 
@@ -31,7 +34,7 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
 
     LoggedinViewModel viewModel;
     ImageView imageView;
-    Button button;
+    FlatButton button;
 
     public FragmentAdmin() {
         // Required empty public constructor
@@ -50,7 +53,7 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
         imageView = getActivity().findViewById(R.id.imgPrueba);
-        //button = getActivity().findViewById(R.id.btnPrueba); button.setOnClickListener(this);
+        button = getActivity().findViewById(R.id.btnPrueba); button.setOnClickListener(this);
     }
 
     @Override
@@ -59,7 +62,7 @@ public class FragmentAdmin extends Fragment implements View.OnClickListener {
         animation.setInterpolator(new CycleInterpolator(2));
         animation.setDuration(200);
 
-        //imageView.startAnimation(animation);
+        imageView.startAnimation(animation);
 
         Utils.animateEnter(imageView);
     }

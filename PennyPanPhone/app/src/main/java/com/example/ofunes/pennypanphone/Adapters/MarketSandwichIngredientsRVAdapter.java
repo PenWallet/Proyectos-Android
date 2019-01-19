@@ -1,42 +1,28 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Adapters;
 
-import android.content.res.Resources;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.CycleInterpolator;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.ofunes.pennypanphone.Entidades.Bocata;
-import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.Pan;
-import com.example.ofunes.pennypanphone.Entidades.PanPedido;
+import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
-import java.text.DecimalFormat;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
-
-public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdapter.MarketBreadViewHolder> {
+public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<MarketSandwichIngredientsRVAdapter.MarketSIngrViewHolder> {
     LoggedinViewModel viewModel;
 
-    class MarketBreadViewHolder extends RecyclerView.ViewHolder
+    class MarketSIngrViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView imageProduct, imageMinus, imagePlus, imageClose;
         public TextView txtProductPrice, txtProductName, txtProductQuantity;
         public View view;
 
-        public MarketBreadViewHolder(View view)
+        public MarketSIngrViewHolder(View view)
         {
             super(view);
             this.view = view;
@@ -50,49 +36,41 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
         }
     }
 
-    public MarketBreadRVAdapter(LoggedinViewModel loggedinViewModel)
+    public MarketSandwichIngredientsRVAdapter(LoggedinViewModel loggedinViewModel)
     {
         this.viewModel = loggedinViewModel;
     }
 
     @Override
-    public MarketBreadViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MarketSIngrViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_layout, parent, false);
-        MarketBreadViewHolder vh = new MarketBreadViewHolder(view);
+        MarketSIngrViewHolder vh = new MarketSIngrViewHolder(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(final MarketBreadViewHolder holder, final int position) {
-        final PanPedido pan = viewModel.getPanes().getValue().get(position);
-        String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), pan.getPrecio());
+    public void onBindViewHolder(final MarketSIngrViewHolder holder, final int position) {
+        final IngredienteBocata ingr = viewModel.getIngredientes().getValue().get(position);
+        String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), ingr.getPrecio());
 
         holder.imageClose.setVisibility(View.GONE);
 
-        holder.txtProductName.setText(pan.getNombre());
+        holder.txtProductName.setText(ingr.getNombre());
         holder.txtProductPrice.setText(orderP);
-        holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
-        holder.imageProduct.setImageResource(pan.isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
+        holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
+        holder.imageProduct.setImageResource(R.drawable.icon_ingredient128);
 
         //OnImageClicks
         holder.imagePlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                //Comprobar que hay menos de 100 panes pedidos
-                if(pan.getCantidad() < 100)
+                //Comprobar que hay menos de 5 ingredientes añadidos al bocata
+                if(ingr.getCantidad() < 5)
                 {
                     Utils.animateClick(v);
-
-                    pan.addOne();
-
-                    if(!viewModel.getCesta().getValue().contains(pan))
-                        viewModel.getCesta().getValue().add(pan);
-
-                    holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
-
-                    viewModel.addValueCartTotal(pan.getPrecio());
+                    //TODO
                 }
                 else
                     Utils.animateError(v);
@@ -106,18 +84,10 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
             public void onClick(View v)
             {
                 //Asegurar que no puede bajar de 0
-                if(pan.getCantidad() != 0)
+                if(ingr.getCantidad() != 0)
                 {
                     Utils.animateClick(v);
-
-                    pan.substractOne();
-
-                    if(pan.getCantidad() == 1)
-                        viewModel.getCesta().getValue().remove(pan);
-
-                    holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
-
-                    viewModel.addValueCartTotal(pan.getPrecio()*-1);
+                    //TODO
                 }
                 else
                     Utils.animateError(v);
@@ -127,6 +97,6 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
 
     @Override
     public int getItemCount() {
-        return viewModel.getPanes().getValue().size();
+        return viewModel.getIngredientes().getValue().size();
     }
 }

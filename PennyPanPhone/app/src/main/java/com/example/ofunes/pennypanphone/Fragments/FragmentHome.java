@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.Observer;
@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
+import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 import java.util.ArrayList;

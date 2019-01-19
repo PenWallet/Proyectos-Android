@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.Observer;
@@ -16,13 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
-import com.example.ofunes.pennypanphone.Entidades.Pedido;
+import com.example.ofunes.pennypanphone.Adapters.CartRVAdapter;
+import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
-
-import java.util.ArrayList;
 
 
 /**

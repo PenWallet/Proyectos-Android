@@ -4,15 +4,15 @@ import java.util.ArrayList;
 
 public class Bocata {
     private Pan pan;
-    private IngredienteBocata[] ingredientes;
+    private ArrayList<IngredienteBocata> ingredientes;
 
     public Bocata()
     {
         this.pan = null;
-        this.ingredientes = new IngredienteBocata[0];
+        this.ingredientes = new ArrayList<>();
     }
 
-    public Bocata(Pan pan, IngredienteBocata[] ingredientes) {
+    public Bocata(Pan pan, ArrayList<IngredienteBocata> ingredientes) {
         this.pan = pan;
         this.ingredientes = ingredientes;
     }
@@ -25,15 +25,11 @@ public class Bocata {
         this.pan = pan;
     }
 
-    public IngredienteBocata[] getIngredientes() {
+    public ArrayList<IngredienteBocata> getIngredientes() {
         return ingredientes;
     }
 
-    public void setIngredientes(IngredienteBocata[] ingredientes) {
-        this.ingredientes = ingredientes;
-    }
-
     public void setIngredientes(ArrayList<IngredienteBocata> ingredientes) {
-        this.ingredientes = (IngredienteBocata[])ingredientes.toArray();
+        this.ingredientes = ingredientes;
     }
 }

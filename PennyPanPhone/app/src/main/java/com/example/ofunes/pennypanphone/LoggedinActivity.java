@@ -16,23 +16,26 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
-import android.widget.Toast;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
-import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.MarketType;
-import com.example.ofunes.pennypanphone.Entidades.Pan;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
+import com.example.ofunes.pennypanphone.Fragments.FragmentAdmin;
+import com.example.ofunes.pennypanphone.Fragments.FragmentCart;
+import com.example.ofunes.pennypanphone.Fragments.FragmentHome;
+import com.example.ofunes.pennypanphone.Fragments.FragmentMarket;
+import com.example.ofunes.pennypanphone.Fragments.FragmentMarketBread;
+import com.example.ofunes.pennypanphone.Fragments.FragmentMarketMiscellaneous;
+import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichBread;
+import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichIngredients;
+import com.example.ofunes.pennypanphone.Fragments.FragmentOrders;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
-import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 
 public class LoggedinActivity extends FragmentActivity implements OnNavigationItemSelectedListener {
 
@@ -46,6 +49,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentMarket fragmentMarket;
     FragmentMarketBread fragmentMarketBread;
     FragmentMarketMiscellaneous fragmentMarketMiscellaneous;
+    FragmentMarketSandwichBread fragmentMarketSandwichBread;
     FragmentMarketSandwichIngredients fragmentMarketSandwichIngredients;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
@@ -63,6 +67,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         fragmentMarket = new FragmentMarket();
         fragmentMarketBread = new FragmentMarketBread();
         fragmentMarketMiscellaneous = new FragmentMarketMiscellaneous();
+        fragmentMarketSandwichBread = new FragmentMarketSandwichBread();
         fragmentMarketSandwichIngredients = new FragmentMarketSandwichIngredients();
 
         //Coger los datos del cliente
@@ -142,7 +147,11 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketMiscellaneous).addToBackStack(null).commit();
                         break;
 
-                    case SANDWICH:
+                    case SANDWICHBREAD:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichBread).addToBackStack(null).commit();
+                        break;
+
+                    case SANDWICHINGREDIENTS:
                         getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichIngredients).addToBackStack(null).commit();
                         break;
                 }

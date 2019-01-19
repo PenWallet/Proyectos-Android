@@ -74,6 +74,14 @@
         <item>Not sponsored by Coca-Cola. Buy one, though</item>
     </string-array>
     <integer name="numberOfMOTD">15</integer>
+    <string name="sandwichBreadTitle">Select your sandwich\'s bread</string>
+    <string name="sandwichIngredientsTitle">Select your sandwich\'s bread</string>
+    <string name="sandwichDialogBreadTitle">Select this bread?</string>
+    <string name="sandwichDialogBreadContent">You will be able to change it once you have selected it by going back to this window</string>
+    <string name="sandwichDialogBreadAffirmative">Accept</string>
+    <string name="sandwichDialogBreadNegative">Cancel</string>
+
+    <string name="sandwichFinishIngredients">Finish Order</string>
 
     <!-- Strings de Cart -->
     <string name="deleteItemHeader">Delete this product?</string>
@@ -82,8 +90,7 @@
     <string name="deleteItemCancel">Cancel</string>
     <string name="emptyCart">Looks like your cart is empty!</string>
     <string name="cartTotal">Total:</string>
-    <string name="finishSandwich">Finish Sandwich</string>
-    <string name="finishOrder">Finish Order</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

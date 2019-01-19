@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -14,9 +14,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ofunes.pennypanphone.Adapters.OrdersRVAdapter;
+import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
-
-import org.w3c.dom.Text;
 
 
 public class FragmentOrders extends Fragment {

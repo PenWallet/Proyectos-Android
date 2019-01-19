@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Adapters;
 
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
+import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
-
-import java.util.ListIterator;
 
 public class MarketMiscRVAdapter extends RecyclerView.Adapter<MarketMiscRVAdapter.MarketMiscViewHolder> {
     LoggedinViewModel viewModel;

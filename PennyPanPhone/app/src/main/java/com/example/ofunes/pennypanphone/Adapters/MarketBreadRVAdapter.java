@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Adapters;
 
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
@@ -8,19 +8,21 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
+import com.example.ofunes.pennypanphone.Entidades.PanPedido;
+import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
-public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<MarketSandwichIngredientsRVAdapter.MarketSIngrViewHolder> {
+public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdapter.MarketBreadViewHolder> {
     LoggedinViewModel viewModel;
 
-    class MarketSIngrViewHolder extends RecyclerView.ViewHolder
+    class MarketBreadViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView imageProduct, imageMinus, imagePlus, imageClose;
         public TextView txtProductPrice, txtProductName, txtProductQuantity;
         public View view;
 
-        public MarketSIngrViewHolder(View view)
+        public MarketBreadViewHolder(View view)
         {
             super(view);
             this.view = view;
@@ -34,41 +36,49 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
         }
     }
 
-    public MarketSandwichIngredientsRVAdapter(LoggedinViewModel loggedinViewModel)
+    public MarketBreadRVAdapter(LoggedinViewModel loggedinViewModel)
     {
         this.viewModel = loggedinViewModel;
     }
 
     @Override
-    public MarketSIngrViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public MarketBreadViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.product_list_layout, parent, false);
-        MarketSIngrViewHolder vh = new MarketSIngrViewHolder(view);
+        MarketBreadViewHolder vh = new MarketBreadViewHolder(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(final MarketSIngrViewHolder holder, final int position) {
-        final IngredienteBocata ingr = viewModel.getIngredientes().getValue().get(position);
-        String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), ingr.getPrecio());
+    public void onBindViewHolder(final MarketBreadViewHolder holder, final int position) {
+        final PanPedido pan = viewModel.getPanes().getValue().get(position);
+        String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), pan.getPrecio());
 
         holder.imageClose.setVisibility(View.GONE);
 
-        holder.txtProductName.setText(ingr.getNombre());
+        holder.txtProductName.setText(pan.getNombre());
         holder.txtProductPrice.setText(orderP);
-        holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
-        holder.imageProduct.setImageResource(R.drawable.icon_ingredient128);
+        holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+        holder.imageProduct.setImageResource(pan.isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
 
         //OnImageClicks
         holder.imagePlus.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v)
             {
-                //Comprobar que hay menos de 5 ingredientes añadidos al bocata
-                if(ingr.getCantidad() < 5)
+                //Comprobar que hay menos de 100 panes pedidos
+                if(pan.getCantidad() < 100)
                 {
                     Utils.animateClick(v);
-                    //TODO
+
+                    pan.addOne();
+
+                    if(!viewModel.getCesta().getValue().contains(pan))
+                        viewModel.getCesta().getValue().add(pan);
+
+                    holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+
+                    viewModel.addValueCartTotal(pan.getPrecio());
                 }
                 else
                     Utils.animateError(v);
@@ -82,10 +92,18 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
             public void onClick(View v)
             {
                 //Asegurar que no puede bajar de 0
-                if(ingr.getCantidad() != 0)
+                if(pan.getCantidad() != 0)
                 {
                     Utils.animateClick(v);
-                    //TODO
+
+                    pan.substractOne();
+
+                    if(pan.getCantidad() == 1)
+                        viewModel.getCesta().getValue().remove(pan);
+
+                    holder.txtProductQuantity.setText(String.valueOf(pan.getCantidad()));
+
+                    viewModel.addValueCartTotal(pan.getPrecio()*-1);
                 }
                 else
                     Utils.animateError(v);
@@ -95,6 +113,6 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
 
     @Override
     public int getItemCount() {
-        return viewModel.getIngredientes().getValue().size();
+        return viewModel.getPanes().getValue().size();
     }
 }

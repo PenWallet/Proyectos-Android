@@ -1,4 +1,4 @@
-package com.example.ofunes.pennypanphone;
+package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
@@ -13,20 +13,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.ofunes.pennypanphone.Adapters.MarketSandwichIngredientsRVAdapter;
+import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentMarketMiscellaneous extends Fragment {
+public class FragmentMarketSandwichIngredients extends Fragment {
 
     LoggedinViewModel viewModel;
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter;
     RecyclerView.LayoutManager layoutManager;
 
-    public FragmentMarketMiscellaneous() {
+    public FragmentMarketSandwichIngredients() {
         // Required empty public constructor
     }
 
@@ -35,7 +37,7 @@ public class FragmentMarketMiscellaneous extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_market_miscellaneous, container, false);
+        return inflater.inflate(R.layout.fragment_market_sandwich_ingredients, container, false);
     }
 
     @Override
@@ -43,16 +45,21 @@ public class FragmentMarketMiscellaneous extends Fragment {
         super.onActivityCreated(savedInstanceState);
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
 
-        recyclerView = getActivity().findViewById(R.id.marketMiscellaneousRecyclerView);
+        recyclerView = getActivity().findViewById(R.id.marketSandwichIngredientsRecyclerView);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getContext(), R.drawable.divider));
         recyclerView.addItemDecoration(dividerItemDecoration);
-        adapter = new MarketMiscRVAdapter(viewModel);
+        adapter = new MarketSandwichIngredientsRVAdapter(viewModel);
 
         recyclerView.setAdapter(adapter);
+    }
+
+    public void finishSandwich(View v)
+    {
+
     }
 
 }

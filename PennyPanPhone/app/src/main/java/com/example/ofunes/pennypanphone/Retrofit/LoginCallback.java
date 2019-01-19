@@ -1,7 +1,6 @@
 package com.example.ofunes.pennypanphone.Retrofit;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.LoginFragment;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 import retrofit2.Call;

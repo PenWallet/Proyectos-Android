@@ -5,7 +5,7 @@
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".FragmentMarketSandwichIngredients">
+    tools:context=".Fragments.FragmentMarketSandwichIngredients">
 
     <android.support.v4.widget.NestedScrollView
         android:layout_width="385dp"
@@ -38,7 +38,9 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:clickable="false"
+                android:focusable="false"/>
 
         </android.support.constraint.ConstraintLayout>
 
