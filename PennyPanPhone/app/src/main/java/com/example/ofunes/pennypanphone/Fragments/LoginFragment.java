@@ -17,6 +17,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dd.processbutton.FlatButton;
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
@@ -30,9 +32,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private MainViewModel mViewModel;
     TextView txtRegistration, txtErrorLogin;
-    Button btnLogin;
+    ActionProcessButton btnLogin;
     EditText editUsername, editPassword;
-    ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,28 +49,26 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
         ((TextView)getView().findViewById(R.id.textView)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this); txtRegistration.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
-        btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this); btnLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this); btnLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium)); btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
         txtErrorLogin = getView().findViewById(R.id.txtErrorLogin); txtErrorLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editPassword = getView().findViewById(R.id.editLoginPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editUsername = getView().findViewById(R.id.editLoginUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
-        progressBar = getView().findViewById(R.id.progressBarLogin);
         ((TextView)getView().findViewById(R.id.cbRemember)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
         final Observer<Cliente> clienteObserver = new Observer<Cliente>() {
             @Override
             public void onChanged(@Nullable Cliente cliente) {
-                progressBar.setVisibility(View.GONE);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 btnLogin.setTextColor(getResources().getColor(R.color.White));
                 if(cliente == null)
                 {
-                    txtErrorLogin.setVisibility(View.VISIBLE);
+                    btnLogin.setProgress(0);
                     txtErrorLogin.setText(R.string.errorLogIn);
                 }
                 else
                 {
+                    btnLogin.setProgress(100);
                     cliente.setContrasena(editPassword.getText().toString());
-                    txtErrorLogin.setVisibility(View.GONE);
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("cliente", cliente);
@@ -82,13 +81,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         final Observer<Boolean> somethingWrongObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean somethingWrong) {
-                progressBar.setVisibility(View.GONE);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 btnLogin.setTextColor(getResources().getColor(R.color.White));
                 if(somethingWrong)
                 {
                     Toast.makeText(getActivity(), R.string.unexpectedLoginError, Toast.LENGTH_SHORT).show();
+                    btnLogin.setProgress(-1);
                 }
+                else
+                    btnLogin.setProgress(0);
             }
         };
 
@@ -109,7 +110,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
             case R.id.btnLogIn:
                 if(checkFields())
                 {
-                    progressBar.setVisibility(View.VISIBLE);
+                    btnLogin.setProgress(1);
+                    btnLogin.setText(getResources().getString(R.string.loading));
                     getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                             WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                     btnLogin.setTextColor(getResources().getColor(R.color.Cyan));
@@ -127,7 +129,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if(editUsername.getText().toString().equals(""))
         {
             isUsernameOk = false;
-            Toast.makeText(getContext(), R.string.errorEmptyUsername, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), R.string.errorEmptyUsername, Toast.LENGTH_SHORT).show();
         }
         else if(!editUsername.getText().toString().matches("\\w{1,15}"))
         {
@@ -139,7 +141,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         if(editPassword.getText().toString().equals(""))
         {
             isPasswordOk = false;
-            Toast.makeText(getContext(), R.string.errorEmptyPassword, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), R.string.errorEmptyPassword, Toast.LENGTH_SHORT).show();
         }
         else if(editPassword.getText().toString().length() < 8 && !editPassword.getText().toString().equals("1234"))
         {

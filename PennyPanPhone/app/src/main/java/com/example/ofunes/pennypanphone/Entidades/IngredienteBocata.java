@@ -9,6 +9,12 @@ public class IngredienteBocata extends Ingrediente{
         this.cantidad = cantidad;
     }
 
+    public IngredienteBocata(IngredienteBocata ingrediente)
+    {
+        super(ingrediente.getId(), ingrediente.getNombre(), ingrediente.getPrecio());
+        this.cantidad = getCantidad();
+    }
+
     public int getCantidad() {
         return cantidad;
     }

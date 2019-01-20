@@ -8,13 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
+import java.util.HashMap;
+
 public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<MarketSandwichIngredientsRVAdapter.MarketSIngrViewHolder> {
     LoggedinViewModel viewModel;
+    HashMap<IngredienteBocata, Integer> hashMap;
 
     class MarketSIngrViewHolder extends RecyclerView.ViewHolder
     {
@@ -39,6 +43,7 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
     public MarketSandwichIngredientsRVAdapter(LoggedinViewModel loggedinViewModel)
     {
         this.viewModel = loggedinViewModel;
+        this.hashMap = new HashMap<>();
     }
 
     @Override
@@ -53,6 +58,7 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
     public void onBindViewHolder(final MarketSIngrViewHolder holder, final int position) {
         final IngredienteBocata ingr = viewModel.getIngredientes().getValue().get(position);
         String orderP = String.format(holder.view.getResources().getString(R.string.orderPrice), ingr.getPrecio());
+        final Bocata bocata = (Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress());
 
         holder.imageClose.setVisibility(View.GONE);
 
@@ -70,7 +76,19 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
                 if(ingr.getCantidad() < 5)
                 {
                     Utils.animateClick(v);
-                    //TODO
+
+                    if(!hashMap.containsKey(ingr))
+                    {
+                        bocata.getIngredientes().add(new IngredienteBocata(ingr));
+                        hashMap.put(ingr, bocata.getIngredientes().size()-1);
+                    }
+
+                    ingr.addOne();
+                    bocata.getIngredientes().get(hashMap.get(ingr)).addOne();
+
+                    viewModel.addValueCartTotal(ingr.getPrecio());
+
+                    holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
                 }
                 else
                     Utils.animateError(v);
@@ -87,7 +105,18 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
                 if(ingr.getCantidad() != 0)
                 {
                     Utils.animateClick(v);
-                    //TODO
+                    ingr.substractOne();
+
+                    if(ingr.getCantidad() == 0)
+                    {
+                        bocata.getIngredientes().remove((int)hashMap.get(ingr));
+                        hashMap.remove(ingr);
+                    }
+                    else
+                        bocata.getIngredientes().get(hashMap.get(ingr)).substractOne();
+
+                    holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
+                    viewModel.addValueCartTotal(ingr.getPrecio() * -1);
                 }
                 else
                     Utils.animateError(v);

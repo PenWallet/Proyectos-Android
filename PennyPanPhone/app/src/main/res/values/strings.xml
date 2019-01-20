@@ -75,13 +75,17 @@
     </string-array>
     <integer name="numberOfMOTD">15</integer>
     <string name="sandwichBreadTitle">Select your sandwich\'s bread</string>
-    <string name="sandwichIngredientsTitle">Select your sandwich\'s bread</string>
+    <string name="sandwichIngredientsTitle">Select the ingredients</string>
     <string name="sandwichDialogBreadTitle">Select this bread?</string>
     <string name="sandwichDialogBreadContent">You will be able to change it once you have selected it by going back to this window</string>
     <string name="sandwichDialogBreadAffirmative">Accept</string>
     <string name="sandwichDialogBreadNegative">Cancel</string>
+    <string name="sandwichErrorNoIngredients">You can\'t make a sandwich out of bread alone!</string>
+    <string name="sandwichFinalQuestionTitle">This will be your sandwich</string>
+    <string name="sandwichFinalQuestionAffirmative">Love it!</string>
+    <string name="sandwichFinalQuestionNegative">Hate it</string>
 
-    <string name="sandwichFinishIngredients">Finish Order</string>
+    <string name="sandwichFinishIngredients">Finish Sandwich</string>
 
     <!-- Strings de Cart -->
     <string name="deleteItemHeader">Delete this product?</string>
@@ -90,6 +94,7 @@
     <string name="deleteItemCancel">Cancel</string>
     <string name="emptyCart">Looks like your cart is empty!</string>
     <string name="cartTotal">Total:</string>
+    <string name="finishOrder">Finish Order</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -154,6 +154,10 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                     case SANDWICHINGREDIENTS:
                         getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichIngredients).addToBackStack(null).commit();
                         break;
+
+                    case FINISHSANDWICH:
+                        bottomNavigationView.setSelectedItemId(R.id.navCart);
+                        break;
                 }
             }
         };
