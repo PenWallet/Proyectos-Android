@@ -14,8 +14,7 @@ import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.MarketType;
-import com.example.ofunes.pennypanphone.Entidades.Pan;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
@@ -99,8 +98,7 @@ public class MarketSandwichBreadRVAdapter extends RecyclerView.Adapter<MarketSan
 
                         viewModel.getCesta().getValue().add(bocata);
                         viewModel.setSandwichInProgress(viewModel.getCesta().getValue().size()-1);
-                        viewModel.addValueCartTotal(panBocata.getPrecio());
-                        viewModel.getMarketOption().setValue(MarketType.SANDWICHINGREDIENTS);
+                        viewModel.getFragmentOption().setValue(FragmentOption.SANDWICHINGREDIENTS);
                     }
                 })
                 .show();

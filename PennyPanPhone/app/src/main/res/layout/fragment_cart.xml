@@ -14,7 +14,8 @@
         <android.support.constraint.ConstraintLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:paddingBottom="16dp">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/cartRecyclerView"
@@ -30,13 +31,12 @@
                 android:id="@+id/cartTotalTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:paddingBottom="8dp"
                 android:text="@string/cartTotal"
                 android:textColor="@color/Cyan"
                 android:textSize="30sp"
-                android:paddingBottom="8dp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/guideline74"
                 app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView" />
 
             <TextView
@@ -44,12 +44,41 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
                 android:text="@string/orderPrice"
                 android:textColor="@android:color/black"
                 android:textSize="30sp"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/guideline75"
                 app:layout_constraintTop_toBottomOf="@+id/cartRecyclerView" />
+
+            <com.dd.processbutton.FlatButton
+                android:id="@+id/btnFinishOrder"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/finishOrder"
+                android:textColor="@android:color/white"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toStartOf="@+id/guideline75"
+                app:layout_constraintStart_toStartOf="@+id/guideline74"
+                app:layout_constraintTop_toBottomOf="@+id/cartTotalTitle"
+                app:pb_colorNormal="@color/GreenBread"
+                app:pb_colorPressed="@color/Cyan" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline74"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.05" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline75"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintGuide_percent="0.95" />
 
         </android.support.constraint.ConstraintLayout>
     </android.support.v4.widget.NestedScrollView>
@@ -61,6 +90,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

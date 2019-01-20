@@ -87,6 +87,11 @@
 
     <string name="sandwichFinishIngredients">Finish Sandwich</string>
 
+    <string name="dialogExitSandwichCreationTitle">Are you sure you want to lose this sandwich?</string>
+    <string name="dialogExitSandwichCreationContent">If you exit now, you will lose all progress on this sandwich and it will not be added to your cart</string>
+    <string name="dialogExitSandwichCreationAffirmative">Exit</string>
+    <string name="dialogExitSandwichCreationNegative">Go back</string>
+
     <!-- Strings de Cart -->
     <string name="deleteItemHeader">Delete this product?</string>
     <string name="deleteItemContent">You will have to re-add it to your shopping cart from the Market tab</string>
@@ -94,7 +99,12 @@
     <string name="deleteItemCancel">Cancel</string>
     <string name="emptyCart">Looks like your cart is empty!</string>
     <string name="cartTotal">Total:</string>
+    <string name="choosePaymentMethod">Choose your payment method</string>
     <string name="finishOrder">Finish Order</string>
+    <string name="finishOrderDialogTitle">Are you happy with your order?</string>
+    <string name="finishOrderDialogContent">You will not be able to change it once the order has been placed</string>
+    <string name="finishOrderDialogAffirmative">Yes!</string>
+    <string name="finishOrderDialogNegative">Nope</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

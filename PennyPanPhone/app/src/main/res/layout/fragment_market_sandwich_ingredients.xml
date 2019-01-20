@@ -1,62 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Fragments.FragmentMarketSandwichIngredients">
 
-    <android.support.v4.widget.NestedScrollView
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:paddingBottom="16dp">
 
-        <android.support.constraint.ConstraintLayout
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/sandwichIngredientsTitle"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:gravity="center"
+            android:text="@string/sandwichIngredientsTitle"
+            android:textColor="@color/Cyan"
+            app:autoSizeTextType="uniform"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintStart_toStartOf="@+id/guideline22"
+            app:layout_constraintTop_toTopOf="@+id/guideline55" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/marketSandwichIngredientsRecyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:nestedScrollingEnabled="false"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sandwichIngredientsTitle" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/marketSandwichIngredientsRecyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                android:clickable="false"
-                android:focusable="false"/>
+        <com.dd.processbutton.FlatButton
+            android:id="@+id/btnFinishSandwich"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:text="@string/sandwichFinishIngredients"
+            android:textColor="@android:color/white"
+            android:textSize="15sp"
+            app:layout_constraintEnd_toStartOf="@+id/guideline37"
+            app:layout_constraintStart_toEndOf="@+id/guideline22"
+            app:layout_constraintTop_toBottomOf="@+id/marketSandwichIngredientsRecyclerView"
+            app:pb_colorNormal="@color/Cyan"
+            app:pb_colorPressed="@color/GreenBread" />
 
-            <com.dd.processbutton.FlatButton
-                android:id="@+id/btnFinishSandwich"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
-                android:layout_marginTop="16dp"
-                android:text="@string/sandwichFinishIngredients"
-                android:textColor="@android:color/white"
-                app:layout_constraintEnd_toStartOf="@+id/guideline37"
-                app:layout_constraintStart_toEndOf="@+id/guideline22"
-                app:layout_constraintTop_toBottomOf="@+id/marketSandwichIngredientsRecyclerView"
-                app:pb_colorComplete="@color/GreenBread"
-                app:pb_colorNormal="@color/Cyan"
-                app:pb_colorPressed="@color/LightCyan"/>
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.1" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline37"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.95" />
 
-            <android.support.constraint.Guideline
-                android:id="@+id/guideline37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.9" />
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline55"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.01" />
 
-        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
 
-    </android.support.v4.widget.NestedScrollView>
-
-
-</android.support.constraint.ConstraintLayout>
+</android.support.v4.widget.NestedScrollView>

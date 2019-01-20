@@ -70,20 +70,20 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
         holder.cardView.setTitle(orderN);
         holder.orderPrice.setText(orderP);
 
-        Bocata[] bocatas = pedido.getBocatas();
-        PanPedido[] panes = pedido.getPanes();
-        ComplementoPedido[] complementos = pedido.getComplementos();
+        ArrayList<Bocata> bocatas = pedido.getBocatas();
+        ArrayList<PanPedido> panes = pedido.getPanes();
+        ArrayList<ComplementoPedido> complementos = pedido.getComplementos();
 
-        if(panes.length >= complementos.length && panes.length >= bocatas.length)
+        if(panes.size() >= complementos.size() && panes.size() >= bocatas.size())
             holder.cardView.setIcon(R.drawable.icon_bread);
-        else if(complementos.length >= panes.length && complementos.length >= bocatas.length)
+        else if(complementos.size() >= panes.size() && complementos.size() >= bocatas.size())
             holder.cardView.setIcon(R.drawable.icon_miscellaneous);
         else
             holder.cardView.setIcon(R.drawable.icon_sandwich);
 
         DecimalFormat df = new DecimalFormat("#.00");
 
-        if(panes == null || panes.length == 0)
+        if(panes == null || panes.size() == 0)
         {
             holder.orderPanes.setVisibility(View.GONE);
             holder.orderPanesTitle.setVisibility(View.GONE);
@@ -96,16 +96,16 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             StringBuilder stringPanes = new StringBuilder();
             PanPedido pan;
 
-            for(int i = 0; i < panes.length; i++)
+            for(int i = 0; i < panes.size(); i++)
             {
-                pan = panes[i];
+                pan = panes.get(i);
                 stringPanes.append((i == 0 ? "":"\n")+pan.getCantidad()+"x "+pan.getNombre()+"   EUR "+df.format(pan.getCantidad()*pan.getPrecio()));
             }
 
             holder.orderPanes.setText(stringPanes);
         }
 
-        if(complementos == null || complementos.length == 0)
+        if(complementos == null || complementos.size() == 0)
         {
             holder.orderComplementos.setVisibility(View.GONE);
             holder.orderComplementosTitle.setVisibility(View.GONE);
@@ -118,16 +118,16 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             StringBuilder stringComplementos = new StringBuilder();
             ComplementoPedido complemento;
 
-            for(int i = 0; i < complementos.length; i++)
+            for(int i = 0; i < complementos.size(); i++)
             {
-                complemento = complementos[i];
+                complemento = complementos.get(i);
                 stringComplementos.append((i == 0 ? "":"\n")+complemento.getCantidad()+"x "+complemento.getNombre()+"   EUR "+df.format(complemento.getCantidad()*complemento.getPrecio()));
             }
 
             holder.orderComplementos.setText(stringComplementos);
         }
 
-        if(bocatas == null || bocatas.length == 0)
+        if(bocatas == null || bocatas.size() == 0)
         {
             holder.orderBocatas.setVisibility(View.GONE);
             holder.orderBocatasTitle.setVisibility(View.GONE);
@@ -142,9 +142,9 @@ public class OrdersRVAdapter extends RecyclerView.Adapter<OrdersRVAdapter.Orders
             ArrayList<IngredienteBocata> ingredientes;
             IngredienteBocata ingrediente;
 
-            for(int i = 0; i < bocatas.length; i++)
+            for(int i = 0; i < bocatas.size(); i++)
             {
-                bocata = bocatas[i];
+                bocata = bocatas.get(i);
                 stringBocatas.append((i == 0 ? "":"\n")+bocata.getPan().getNombre()+"   EUR "+bocata.getPan().getPrecio());
 
                 ingredientes = bocata.getIngredientes();

@@ -3,22 +3,16 @@ package com.example.ofunes.pennypanphone.ViewModels;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
-import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.MarketType;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
-import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofit;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class LoggedinViewModel extends ViewModel {
     private Cliente cliente;
@@ -28,7 +22,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
     private MutableLiveData<ArrayList<Object>> cesta;
     private MutableLiveData<Boolean> hasOrders;
-    private MutableLiveData<MarketType> marketOption;
+    private MutableLiveData<FragmentOption> fragmentOption;
     private MutableLiveData<Double> cartTotal;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
 
@@ -41,7 +35,7 @@ public class LoggedinViewModel extends ViewModel {
         complementos = new MutableLiveData<>();
         ingredientes = new MutableLiveData<>();
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
-        marketOption = new MutableLiveData<>();
+        fragmentOption = new MutableLiveData<>();
         cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
     }
 
@@ -77,8 +71,8 @@ public class LoggedinViewModel extends ViewModel {
         return cesta;
     }
 
-    public MutableLiveData<MarketType> getMarketOption() {
-        return marketOption;
+    public MutableLiveData<FragmentOption> getFragmentOption() {
+        return fragmentOption;
     }
 
     public MutableLiveData<Double> getCartTotal() {

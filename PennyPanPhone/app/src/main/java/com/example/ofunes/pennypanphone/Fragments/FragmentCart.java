@@ -18,7 +18,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.dd.processbutton.FlatButton;
 import com.example.ofunes.pennypanphone.Adapters.CartRVAdapter;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
@@ -26,7 +28,7 @@ import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentCart extends Fragment {
+public class FragmentCart extends Fragment implements View.OnClickListener {
 
     LoggedinViewModel viewModel;
     RecyclerView recyclerView;
@@ -35,6 +37,7 @@ public class FragmentCart extends Fragment {
     TextView txtEmptyCart, txtEmptyCart2, cartTotalTitle, cartTotal;
     LinearLayout linearLayout;
     NestedScrollView scrollView;
+    FlatButton flatButton;
 
     public FragmentCart() {
         // Required empty public constructor
@@ -60,6 +63,7 @@ public class FragmentCart extends Fragment {
         cartTotalTitle = getActivity().findViewById(R.id.cartTotalTitle); cartTotalTitle.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamediumitalic));
         cartTotal = getActivity().findViewById(R.id.cartTotal); cartTotal.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
         scrollView = getActivity().findViewById(R.id.scrollViewCart);
+        flatButton = getActivity().findViewById(R.id.btnFinishOrder); flatButton.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium)); flatButton.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -105,4 +109,8 @@ public class FragmentCart extends Fragment {
         cartTotal.setText(orderP);
     }
 
+    @Override
+    public void onClick(View view) {
+        viewModel.getFragmentOption().setValue(FragmentOption.PAYMENTMETHOD);
+    }
 }

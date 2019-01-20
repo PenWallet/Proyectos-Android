@@ -86,8 +86,6 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
                     ingr.addOne();
                     bocata.getIngredientes().get(hashMap.get(ingr)).addOne();
 
-                    viewModel.addValueCartTotal(ingr.getPrecio());
-
                     holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
                 }
                 else
@@ -116,7 +114,6 @@ public class MarketSandwichIngredientsRVAdapter extends RecyclerView.Adapter<Mar
                         bocata.getIngredientes().get(hashMap.get(ingr)).substractOne();
 
                     holder.txtProductQuantity.setText(String.valueOf(ingr.getCantidad()));
-                    viewModel.addValueCartTotal(ingr.getPrecio() * -1);
                 }
                 else
                     Utils.animateError(v);

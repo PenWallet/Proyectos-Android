@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.res.ResourcesCompat;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,14 +18,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.MarketType;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Fragments.FragmentAdmin;
 import com.example.ofunes.pennypanphone.Fragments.FragmentCart;
+import com.example.ofunes.pennypanphone.Fragments.FragmentCartPaymentMethod;
 import com.example.ofunes.pennypanphone.Fragments.FragmentHome;
 import com.example.ofunes.pennypanphone.Fragments.FragmentMarket;
 import com.example.ofunes.pennypanphone.Fragments.FragmentMarketBread;
@@ -34,6 +38,9 @@ import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichIngredie
 import com.example.ofunes.pennypanphone.Fragments.FragmentOrders;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
+import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
+import com.github.javiersantos.materialstyleddialogs.enums.Duration;
+import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.util.ArrayList;
 
@@ -51,6 +58,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentMarketMiscellaneous fragmentMarketMiscellaneous;
     FragmentMarketSandwichBread fragmentMarketSandwichBread;
     FragmentMarketSandwichIngredients fragmentMarketSandwichIngredients;
+    FragmentCartPaymentMethod fragmentCartPaymentMethod;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     LinearLayout progressBar;
     TextView txtLoading;
@@ -69,6 +77,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         fragmentMarketMiscellaneous = new FragmentMarketMiscellaneous();
         fragmentMarketSandwichBread = new FragmentMarketSandwichBread();
         fragmentMarketSandwichIngredients = new FragmentMarketSandwichIngredients();
+        fragmentCartPaymentMethod = new FragmentCartPaymentMethod();
 
         //Coger los datos del cliente
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
@@ -134,9 +143,9 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
             }
         };
 
-        final Observer<MarketType> marketOptionObserver = new Observer<MarketType>() {
+        final Observer<FragmentOption> marketOptionObserver = new Observer<FragmentOption>() {
             @Override
-            public void onChanged(@Nullable MarketType marketType) {
+            public void onChanged(@Nullable FragmentOption marketType) {
                 switch(marketType)
                 {
                     case BREAD:
@@ -148,16 +157,25 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         break;
 
                     case SANDWICHBREAD:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichBread).addToBackStack(null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichBread).addToBackStack("sandwichBread").commit();
                         break;
 
                     case SANDWICHINGREDIENTS:
-                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichIngredients).addToBackStack(null).commit();
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichIngredients).addToBackStack("sandwichIngredients").commit();
                         break;
 
                     case FINISHSANDWICH:
                         bottomNavigationView.setSelectedItemId(R.id.navCart);
                         break;
+
+                    case PAYMENTMETHOD:
+                        getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentCartPaymentMethod).addToBackStack("paymentMethod").commit();
+                        break;
+
+                    case ORDERS:
+                        bottomNavigationView.setSelectedItemId(R.id.navOrders);
+                        break;
+
                 }
             }
         };
@@ -167,7 +185,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         viewModel.getPanes().observe(this, panesObserver);
         viewModel.getComplementos().observe(this, complementosObserver);
         viewModel.getIngredientes().observe(this, ingredientesObserver);
-        viewModel.getMarketOption().observe(this, marketOptionObserver);
+        viewModel.getFragmentOption().observe(this, marketOptionObserver);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -180,34 +198,91 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     }
 
     @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+    public boolean onNavigationItemSelected(final @NonNull MenuItem item) {
 
-        getSupportFragmentManager().popBackStack();
-
-        switch(item.getItemId())
+        Object object = getSupportFragmentManager().findFragmentById(R.id.loggedFrame);
+        if(object instanceof FragmentMarketSandwichIngredients && viewModel.getSandwichInProgress() != -1)
         {
-            case R.id.navAdmin:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
-                break;
+            new MaterialStyledDialog.Builder(this)
+                    .setTitle(R.string.dialogExitSandwichCreationTitle)
+                    .setDescription(R.string.dialogExitSandwichCreationContent)
+                    .setPositiveText(R.string.dialogExitSandwichCreationAffirmative)
+                    .setNegativeText(R.string.dialogExitSandwichCreationNegative)
+                    .setStyle(Style.HEADER_WITH_ICON)
+                    .setIcon(R.drawable.icon_warning128)
+                    .setHeaderColor(R.color.ErrorRed)
+                    .setCancelable(true)
+                    .withIconAnimation(true)
+                    .withDialogAnimation(true, Duration.FAST)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            getSupportFragmentManager().popBackStack("sandwichBread", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
-            case R.id.navMarket:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarket).commit();
-                break;
+                            resetOnProgressSandwich();
 
-            case R.id.navCart:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentCart).commit();
-                break;
+                            switch(item.getItemId())
+                            {
+                                case R.id.navAdmin:
+                                    bottomNavigationView.getMenu().findItem(R.id.navAdmin).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
+                                    break;
 
-            case R.id.navHome:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentHome).commit();
-                break;
+                                case R.id.navMarket:
+                                    bottomNavigationView.getMenu().findItem(R.id.navMarket).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarket).commit();
+                                    break;
 
-            case R.id.navOrders:
-                getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentOrders).commit();
-                break;
+                                case R.id.navCart:
+                                    bottomNavigationView.getMenu().findItem(R.id.navCart).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentCart).commit();
+                                    break;
+
+                                case R.id.navHome:
+                                    bottomNavigationView.getMenu().findItem(R.id.navHome).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentHome).commit();
+                                    break;
+
+                                case R.id.navOrders:
+                                    bottomNavigationView.getMenu().findItem(R.id.navOrders).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentOrders).commit();
+                                    break;
+                            }
+                        }
+                    })
+                    .show();
+
+            return false;
         }
+        else
+        {
+            getSupportFragmentManager().popBackStack();
 
-        return true;
+            switch(item.getItemId())
+            {
+                case R.id.navAdmin:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
+                    break;
+
+                case R.id.navMarket:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarket).commit();
+                    break;
+
+                case R.id.navCart:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentCart).commit();
+                    break;
+
+                case R.id.navHome:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentHome).commit();
+                    break;
+
+                case R.id.navOrders:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentOrders).commit();
+                    break;
+            }
+
+            return true;
+        }
     }
 
     @Override
@@ -227,5 +302,36 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         super.onResume();
         Intent music = new Intent(this, BackgroundSoundService.class);
         startService(music);
+    }
+
+    @Override
+    public void onBackPressed() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+
+        if(count == 0)
+            super.onBackPressed();
+        else
+        {
+            Object object = getSupportFragmentManager().findFragmentById(R.id.loggedFrame);
+            if(object instanceof FragmentMarketSandwichIngredients)
+            {
+                resetOnProgressSandwich();
+            }
+
+            super.onBackPressed();
+        }
+    }
+
+    private void resetOnProgressSandwich()
+    {
+        //Resetear los ingredientes a 0 cantidad
+        for(IngredienteBocata ingr : viewModel.getIngredientes().getValue())
+        {
+            ingr.setCantidad(0);
+        }
+
+        viewModel.getCesta().getValue().remove(viewModel.getSandwichInProgress());
+
+        viewModel.setSandwichInProgress(-1);
     }
 }

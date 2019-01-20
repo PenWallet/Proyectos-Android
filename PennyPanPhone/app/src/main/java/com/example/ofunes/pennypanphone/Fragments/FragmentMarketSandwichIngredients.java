@@ -2,12 +2,13 @@ package com.example.ofunes.pennypanphone.Fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.content.res.ResourcesCompat;
+import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,10 +22,8 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.dd.processbutton.FlatButton;
 import com.example.ofunes.pennypanphone.Adapters.MarketSandwichIngredientsRVAdapter;
 import com.example.ofunes.pennypanphone.Entidades.Bocata;
-import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.MarketType;
-import com.example.ofunes.pennypanphone.Entidades.PanPedido;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
@@ -63,6 +62,7 @@ public class FragmentMarketSandwichIngredients extends Fragment implements View.
         viewModel = ViewModelProviders.of(getActivity()).get(LoggedinViewModel.class);
 
         btnFinish = getActivity().findViewById(R.id.btnFinishSandwich); btnFinish.setOnClickListener(this);
+        ((AppCompatTextView)getActivity().findViewById(R.id.sandwichIngredientsTitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
 
         recyclerView = getActivity().findViewById(R.id.marketSandwichIngredientsRecyclerView);
 
@@ -115,12 +115,20 @@ public class FragmentMarketSandwichIngredients extends Fragment implements View.
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                         getActivity().getSupportFragmentManager().popBackStack();
-                        viewModel.setSandwichInProgress(-1);
                         for(IngredienteBocata ingrediente : viewModel.getIngredientes().getValue())
                             ingrediente.setCantidad(0);
-                        viewModel.getMarketOption().setValue(MarketType.FINISHSANDWICH);
+
+                        //Añadir el precio del bocata al total
+                        viewModel.addValueCartTotal(((Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress())).getPan().getPrecio());
+                        for(IngredienteBocata ingrediente : ((Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress())).getIngredientes())
+                            viewModel.addValueCartTotal(ingrediente.getPrecio() * ingrediente.getCantidad());
+
+                        viewModel.setSandwichInProgress(-1);
+                        viewModel.getFragmentOption().setValue(FragmentOption.FINISHSANDWICH);
                     }
                 })
                 .show();
     }
+
+
 }

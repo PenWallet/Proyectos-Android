@@ -74,9 +74,9 @@ public class FragmentHome extends Fragment {
                     String orderN = String.format(getResources().getString(R.string.orderNumber), pedido.getId());
                     String orderP = String.format(getResources().getString(R.string.orderPrice), pedido.getImporteTotal());
 
-                    if(pedido.getPanes().length >= pedido.getComplementos().length && pedido.getPanes().length >= pedido.getBocatas().length)
+                    if(pedido.getPanes().size() >= pedido.getComplementos().size() && pedido.getPanes().size() >= pedido.getBocatas().size())
                         lastOrderImage.setImageResource(R.drawable.icon_bread128);
-                    else if(pedido.getComplementos().length >= pedido.getPanes().length && pedido.getComplementos().length >= pedido.getBocatas().length)
+                    else if(pedido.getComplementos().size() >= pedido.getPanes().size() && pedido.getComplementos().size() >= pedido.getBocatas().size())
                         lastOrderImage.setImageResource(R.drawable.icon_miscellaneous128);
                     else
                         lastOrderImage.setImageResource(R.drawable.icon_sandwich128);

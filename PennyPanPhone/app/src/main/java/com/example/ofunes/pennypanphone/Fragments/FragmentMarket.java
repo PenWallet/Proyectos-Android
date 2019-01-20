@@ -5,25 +5,16 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.view.animation.AnimationSet;
 import android.view.animation.AnimationUtils;
-import android.view.animation.ScaleAnimation;
-import android.view.animation.TranslateAnimation;
 import android.widget.TextView;
 
-import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.Entidades.MarketType;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
@@ -119,15 +110,15 @@ public class FragmentMarket extends Fragment implements View.OnClickListener {
                 switch(id)
                 {
                     case R.id.marketCardViewBread:
-                        viewModel.getMarketOption().setValue(MarketType.BREAD);
+                        viewModel.getFragmentOption().setValue(FragmentOption.BREAD);
                         break;
 
                     case R.id.marketCardViewMiscellaneous:
-                        viewModel.getMarketOption().setValue(MarketType.MISCELLANEOUS);
+                        viewModel.getFragmentOption().setValue(FragmentOption.MISCELLANEOUS);
                         break;
 
                     case R.id.marketCardViewSandwiches:
-                        viewModel.getMarketOption().setValue(MarketType.SANDWICHBREAD);
+                        viewModel.getFragmentOption().setValue(FragmentOption.SANDWICHBREAD);
                         break;
                 }
             }
