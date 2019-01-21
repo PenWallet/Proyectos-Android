@@ -1,7 +1,7 @@
 SET DATEFORMAT dmy
 --CREATE DATABASE PennyPan
 GO
-USE PennyPan
+USE PennyPan2
 GO
 
 /*
@@ -95,52 +95,6 @@ CREATE TABLE BocatasIngredientes(
 
 /*
 	*********************************************************************************************
-	******************* T A B L A S  D E  G U A R D A D O  D E  B A J A S ***********************
-	*********************************************************************************************
-*/
-
-CREATE TABLE PedidosBorrados(
-	ID int,
-	IDCliente int,
-	FechaCompra date,
-	ImporteTotal smallmoney,
-	CONSTRAINT PKPedidosBorrados PRIMARY KEY (ID),
-)
-
-CREATE TABLE PedidosComplementosBorrados(
-	IDPedido int,
-	IDComplemento int,
-	Cantidad int,
-	CONSTRAINT FKPCPedidosBorrados FOREIGN KEY (IDPedido) REFERENCES PedidosBorrados(ID),
-	CONSTRAINT PKPCBorrados PRIMARY KEY (IDPedido, IDComplemento)
-)
-
-CREATE TABLE PedidosPanesBorrados(
-	IDPedido int,
-	IDPan int,
-	Cantidad int,
-	CONSTRAINT FKPPPedidosBorrados FOREIGN KEY (IDPedido) REFERENCES PedidosBorrados(ID),
-	CONSTRAINT PKPedidosPanesBorrados PRIMARY KEY (IDPedido, IDPan)
-)
-
-CREATE TABLE BocatasBorrados(
-	ID int,
-	IDPedido int,
-	IDPan int,
-	CONSTRAINT PKBocatasBorrados PRIMARY KEY (ID),
-	CONSTRAINT FKBocatasPedidosBorrados FOREIGN KEY (IDPedido) REFERENCES PedidosBorrados(ID)
-)
-
-CREATE TABLE BocatasIngredientesBorrados(
-	IDBocata int,
-	IDIngrediente int,
-	Cantidad int,
-	CONSTRAINT FKBIBocatasBorrados FOREIGN KEY (IDBocata) REFERENCES BocatasBorrados(ID),
-	CONSTRAINT PKBocatasIngredientesBorrados PRIMARY KEY (IDBocata, IDIngrediente)
-)
-
-/*
-	*********************************************************************************************
 	******************** F U N C I O N E S  Y  P R O C E D I M I E N T O S **********************
 	*********************************************************************************************
 */
@@ -215,6 +169,34 @@ CREATE PROCEDURE CargarImportesTotales (@IDPedido int) AS
 											dbo.ImporteTotalComplementos(ID)+
 											dbo.ImporteTotalPanes(ID) )
 		COMMIT
+	END
+GO
+
+/*
+	Función que añade un nuevo pedido a la base de datos y devuelve la ID que se ha generado
+	Entradas: ClienteUsername, FechaCompra, ImporteTotal
+	Salida: ID del pedido generado
+*/
+GO
+CREATE PROCEDURE InsertarPedido (@ClienteUsername varchar(15), @FechaCompra date, @ImporteTotal smallmoney, @IDPedido int OUTPUT)
+AS
+	BEGIN
+		INSERT INTO Pedidos (ClienteUsername, FechaCompra, ImporteTotal) VALUES (@ClienteUsername, @FechaCompra, @ImporteTotal)
+		SET @IDPedido = @@IDENTITY
+	END
+GO
+
+/*
+	Función que añade un nuevo bocata a la base de datos y devuelve la ID que se ha generado
+	Entradas: IDPedido, IDPan
+	Salida: ID del bocata generado
+*/
+GO
+CREATE PROCEDURE InsertarBocata (@IDPedido int, @IDPan int, @IDBocata int OUTPUT)
+AS
+	BEGIN
+		INSERT INTO Bocatas (IDPedido, IDPan) VALUES (@IDPedido, @IDPan)
+		SET @IDBocata = @@IDENTITY
 	END
 GO
 

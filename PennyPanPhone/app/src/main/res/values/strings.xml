@@ -70,10 +70,10 @@
         <item>Man cannot live on bread alone</item>
         <item>Oreo. Milk\'s favourite cookie</item>
         <item>So sweet. So good.</item>
+        <item>Preparing a tasty grilled cheese sandwich</item>
         <item>A PennyPan for your thoughts ;)</item>
         <item>Not sponsored by Coca-Cola. Buy one, though</item>
     </string-array>
-    <integer name="numberOfMOTD">15</integer>
     <string name="sandwichBreadTitle">Select your sandwich\'s bread</string>
     <string name="sandwichIngredientsTitle">Select the ingredients</string>
     <string name="sandwichDialogBreadTitle">Select this bread?</string>
