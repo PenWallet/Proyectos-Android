@@ -8,6 +8,11 @@ public class PanPedido extends Pan{
         this.cantidad = cantidad;
     }
 
+    public PanPedido(PanPedido pan) {
+        super(pan.getId(), pan.getNombre(), pan.getCrujenticidad(), pan.isIntegral() ? 1 : 0, pan.getPrecio());
+        this.cantidad = pan.getCantidad();
+    }
+
     public int getCantidad() {
         return cantidad;
     }

@@ -9,6 +9,11 @@ public class ComplementoPedido extends Complemento{
         this.cantidad = cantidad;
     }
 
+    public ComplementoPedido(ComplementoPedido comp) {
+        super(comp.getId(), comp.getNombre(), comp.getPrecio());
+        this.cantidad = comp.getCantidad();
+    }
+
     public int getCantidad() {
         return cantidad;
     }

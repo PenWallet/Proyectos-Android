@@ -17,6 +17,12 @@ public class Bocata {
         this.ingredientes = ingredientes;
     }
 
+    public Bocata(Bocata bocata)
+    {
+        this.pan = bocata.getPan();
+        this.ingredientes = bocata.getIngredientes();
+    }
+
     public Pan getPan() {
         return pan;
     }

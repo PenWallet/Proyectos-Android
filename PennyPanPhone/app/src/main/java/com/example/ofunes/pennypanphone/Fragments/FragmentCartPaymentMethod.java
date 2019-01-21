@@ -91,23 +91,35 @@ public class FragmentCartPaymentMethod extends Fragment implements View.OnClickL
                         Pedido pedido = new Pedido(0, simpleDateFormat.format(Calendar.getInstance().getTime()), viewModel.getCartTotal().getValue(), new ArrayList<Bocata>(), new ArrayList<PanPedido>(), new ArrayList<ComplementoPedido>());
 
                         ArrayList<Object> objects = viewModel.getCesta().getValue();
+                        PanPedido pan;
+                        ComplementoPedido comp;
+                        Bocata bocata;
 
                         for(Object object : objects)
                         {
                             if(object instanceof PanPedido)
-                                pedido.getPanes().add((PanPedido)object);
+                            {
+                                pan = (PanPedido)object;
+                                pedido.getPanes().add(new PanPedido(pan));
+                            }
                             else if(object instanceof ComplementoPedido)
-                                pedido.getComplementos().add((ComplementoPedido)object);
+                            {
+                                comp = (ComplementoPedido) object;
+                                pedido.getComplementos().add(new ComplementoPedido(comp));
+                            }
                             else
-                                pedido.getBocatas().add((Bocata)object);
+                            {
+                                bocata = (Bocata)object;
+                                pedido.getBocatas().add(bocata);
+                            }
                         }
 
                         //Reseteamos todo lo relacionado con los pedidos
                         viewModel.getCesta().setValue(new ArrayList<>());
-                        for(PanPedido pan : viewModel.getPanes().getValue())
-                            pan.setCantidad(0);
-                        for(ComplementoPedido complemento : viewModel.getComplementos().getValue())
-                            complemento.setCantidad(0);
+                        for(PanPedido panPedido : viewModel.getPanes().getValue())
+                            panPedido.setCantidad(0);
+                        for(ComplementoPedido complementoPedido : viewModel.getComplementos().getValue())
+                            complementoPedido.setCantidad(0);
                         for(IngredienteBocata ingrediente : viewModel.getIngredientes().getValue())
                             ingrediente.setCantidad(0);
                         viewModel.setSandwichInProgress(-1);
