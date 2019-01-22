@@ -35,10 +35,6 @@ public interface PennyPanAPI {
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     Call<Cliente> postCliente(@Body Cliente cliente);
 
-    @POST("/cliente")
-    @Headers({"Accept: application/json", "Content-Type: application/json"})
-    Call<ResponseBody> postClienteResponse(@Body Cliente cliente);
-
     @GET("/cliente/{username}/pedido")
     @Headers({"Accept: application/json"})
     Call<List<Pedido>> getListadoPedidos(@Header("Authorization") String token, @Path("username") String username);
@@ -54,4 +50,8 @@ public interface PennyPanAPI {
     @GET("/ingrediente")
     @Headers({"Accept: application/json"})
     Call<List<Ingrediente>> getListadoIngredientes();
+
+    @POST("/cliente/{username}/pedido")
+    @Headers({"Accept: application/json", "Content-Type: application/json"})
+    Call<Pedido> postPedido(@Header("Authorization") String token, @Path("username") String username, @Body Pedido pedido);
 }

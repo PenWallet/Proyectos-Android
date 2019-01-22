@@ -3,6 +3,7 @@ package com.example.ofunes.pennypanphone.Retrofit;
 import android.util.Base64;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 import com.google.gson.Gson;
@@ -17,6 +18,7 @@ public class GestoraRetrofitLoggedin {
     private ListadoPanesCallback listadoPanesCallback;
     private ListadoComplementosCallback listadoComplementosCallback;
     private ListadoIngredientesCallback listadoIngredientesCallback;
+    private PostPedidoCallback postPedidoCallback;
     private PennyPanAPI pennyPanAPI;
     private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
@@ -29,6 +31,7 @@ public class GestoraRetrofitLoggedin {
         listadoPanesCallback = new ListadoPanesCallback(loggedinViewModel);
         listadoComplementosCallback = new ListadoComplementosCallback(loggedinViewModel);
         listadoIngredientesCallback = new ListadoIngredientesCallback(loggedinViewModel);
+        postPedidoCallback = new PostPedidoCallback(loggedinViewModel);
     }
 
 
@@ -54,5 +57,14 @@ public class GestoraRetrofitLoggedin {
     public void obtenerListadoIngredientes()
     {
         pennyPanAPI.getListadoIngredientes().enqueue(listadoIngredientesCallback);
+    }
+
+    public void postPedido(String username, String password, Pedido pedido)
+    {
+        String token = username+":"+password;
+        byte[] tokenByte = token.getBytes();
+        String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
+
+        pennyPanAPI.postPedido(token64, username, pedido).enqueue(postPedidoCallback);
     }
 }

@@ -105,6 +105,13 @@
     <string name="finishOrderDialogContent">You will not be able to change it once the order has been placed</string>
     <string name="finishOrderDialogAffirmative">Yes!</string>
     <string name="finishOrderDialogNegative">Nope</string>
+    <string name="postOrderLoading">Saving your order…</string>
+    <string name="postOrderOKDialogTitle">Success!</string>
+    <string name="postOrderOKDialogContent">Your order has been placed correctly</string>
+    <string name="postOrderOKDialogAffirmative">Alright!</string>
+    <string name="postOrderNotOKDialogTitle">Something went wrong</string>
+    <string name="postOrderNotOKDialogContent">For some unknown reason, we could not place your order correctly</string>
+    <string name="postOrderNotOKDialogAffirmative">:(</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

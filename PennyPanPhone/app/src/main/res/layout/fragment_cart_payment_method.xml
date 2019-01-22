@@ -139,6 +139,39 @@
 
     </android.support.v7.widget.CardView>
 
+    <LinearLayout
+        android:id="@+id/progressBarPost"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:elevation="4dp"
+        android:orientation="vertical"
+        android:visibility="visible"
+        android:gravity="center_vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+
+        <ProgressBar
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center_horizontal"
+            android:indeterminate="true"
+            android:indeterminateTint="@color/Purple" />
+
+        <TextView
+            android:id="@+id/txtPostLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/postOrderLoading"
+            android:layout_gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+
+    </LinearLayout>
+
     <android.support.constraint.Guideline
         android:id="@+id/guideline56"
         android:layout_width="wrap_content"
