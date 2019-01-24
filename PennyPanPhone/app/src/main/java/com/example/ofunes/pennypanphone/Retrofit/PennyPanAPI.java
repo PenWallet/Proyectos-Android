@@ -20,6 +20,7 @@ import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface PennyPanAPI {
 
@@ -51,7 +52,7 @@ public interface PennyPanAPI {
     @Headers({"Accept: application/json"})
     Call<List<Ingrediente>> getListadoIngredientes();
 
-    @POST("/cliente/{username}/pedido")
+    @POST("/cliente/{username}/pedido?XDEBUG_SESSION_START=PHPSTORM")
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     Call<Pedido> postPedido(@Header("Authorization") String token, @Path("username") String username, @Body Pedido pedido);
 }
