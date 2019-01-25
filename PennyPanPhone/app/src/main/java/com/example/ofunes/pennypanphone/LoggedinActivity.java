@@ -17,7 +17,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
-
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
@@ -25,8 +24,6 @@ import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
-import com.example.ofunes.pennypanphone.Entidades.Pedido;
-import com.example.ofunes.pennypanphone.Fragments.FragmentAdmin;
 import com.example.ofunes.pennypanphone.Fragments.FragmentCart;
 import com.example.ofunes.pennypanphone.Fragments.FragmentCartPaymentMethod;
 import com.example.ofunes.pennypanphone.Fragments.FragmentHome;
@@ -49,7 +46,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     LoggedinViewModel viewModel;
     BottomNavigationView bottomNavigationView;
     FrameLayout frameLayout;
-    FragmentAdmin fragmentAdmin;
+    FragmentSettings fragmentSettings;
     FragmentCart fragmentCart;
     FragmentHome fragmentHome;
     FragmentOrders fragmentOrders;
@@ -78,6 +75,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         fragmentMarketSandwichBread = new FragmentMarketSandwichBread();
         fragmentMarketSandwichIngredients = new FragmentMarketSandwichIngredients();
         fragmentCartPaymentMethod = new FragmentCartPaymentMethod();
+        fragmentSettings = new FragmentSettings();
 
         //Coger los datos del cliente
         viewModel.setCliente((Cliente)getIntent().getExtras().getParcelable("cliente"));
@@ -95,18 +93,12 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         progressBar = findViewById(R.id.progressBarLoggedin);
         txtLoading = findViewById(R.id.txtLoading); txtLoading.setTypeface(ResourcesCompat.getFont(this, R.font.prinsesstartabolditalic));
 
-        //Si es panadero inicializamos el fragment de admin, si no, lo quitamos del menú
-        if(viewModel.getCliente().isPanadero())
-            fragmentAdmin = new FragmentAdmin();
-        else
-            bottomNavigationView.getMenu().removeItem(R.id.navAdmin);
-
         //Observer para saber cuándo han cargado los pedidos
-        final Observer<ArrayList<Pedido>> ordersObserver = new Observer<ArrayList<Pedido>>() {
+        final Observer<Boolean> ordersObserver = new Observer<Boolean>() {
             @Override
-            public void onChanged(@Nullable ArrayList<Pedido> listadoPedidos) {
+            public void onChanged(@Nullable Boolean haveOrdersLoaded) {
 
-                if(listadoPedidos == null)
+                if(viewModel.getListadoPedidos().getValue() == null || viewModel.getListadoPedidos().getValue().isEmpty())
                     viewModel.getHasOrders().setValue(false);
                 else
                     viewModel.getHasOrders().setValue(true);
@@ -181,7 +173,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         };
 
         //Desclarando los observers
-        viewModel.getListadoPedidos().observe(this, ordersObserver);
+        viewModel.getHaveOrdersLoaded().observe(this, ordersObserver);
         viewModel.getPanes().observe(this, panesObserver);
         viewModel.getComplementos().observe(this, complementosObserver);
         viewModel.getIngredientes().observe(this, ingredientesObserver);
@@ -223,9 +215,9 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
                             switch(item.getItemId())
                             {
-                                case R.id.navAdmin:
-                                    bottomNavigationView.getMenu().findItem(R.id.navAdmin).setChecked(true);
-                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
+                                case R.id.navSettings:
+                                    bottomNavigationView.getMenu().findItem(R.id.navSettings).setChecked(true);
+                                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentSettings).commit();
                                     break;
 
                                 case R.id.navMarket:
@@ -260,8 +252,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
             switch(item.getItemId())
             {
-                case R.id.navAdmin:
-                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentAdmin).commit();
+                case R.id.navSettings:
+                    getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentSettings).commit();
                     break;
 
                 case R.id.navMarket:

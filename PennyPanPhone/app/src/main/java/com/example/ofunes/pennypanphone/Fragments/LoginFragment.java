@@ -2,7 +2,9 @@ package com.example.ofunes.pennypanphone.Fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -11,18 +13,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.dd.processbutton.FlatButton;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
+import com.google.gson.Gson;
 
 
 /**
@@ -72,6 +72,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("cliente", cliente);
+                    saveClienteSharedPreferences(cliente);
                     startActivity(intent);
                     getActivity().finish();
                 }
@@ -161,5 +162,15 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         isOk = isUsernameOk && isPasswordOk;
 
         return isOk;
+    }
+
+    private void saveClienteSharedPreferences(Cliente cliente)
+    {
+        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        Gson gson = new Gson();
+        String json = gson.toJson(cliente);
+        editor.putString(getString(R.string.sharedPreferencesCliente), json);
+        editor.apply();
     }
 }

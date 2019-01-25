@@ -1,4 +1,8 @@
 <resources>
+    <!-- Shared Preferences -->
+    <string name="sharedPreferencesName">savedLoginData</string>
+    <string name="sharedPreferencesCliente">cliente</string>
+
     <string name="app_name">Penny Pan</string>
     <string name="name">Name</string>
     <string name="username">Username</string>
@@ -29,7 +33,7 @@
     <string name="orders">Orders</string>
     <string name="cart">Cart</string>
     <string name="market">Market</string>
-    <string name="admin">Admin</string>
+    <string name="settings">Settings</string>
 
     <!-- Strings de Loading -->
     <string name="loadingOrders">Loading your orders…</string>
@@ -112,6 +116,11 @@
     <string name="postOrderNotOKDialogTitle">Something went wrong</string>
     <string name="postOrderNotOKDialogContent">For some unknown reason, we could not place your order correctly</string>
     <string name="postOrderNotOKDialogAffirmative">:(</string>
+
+    <!-- Strings de Settings -->
+    <string name="settingsMusicTitle">Enable background music</string>
+    <string name="settingsMusicDescription">Enables or disables the in-store background music</string>
+    <string name="settingsSignOffTitle">Log off</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

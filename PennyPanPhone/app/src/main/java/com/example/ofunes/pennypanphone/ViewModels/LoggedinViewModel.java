@@ -27,12 +27,13 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<FragmentOption> fragmentOption;
     private MutableLiveData<Double> cartTotal;
     private MutableLiveData<Boolean> postOK;
+    private MutableLiveData<Boolean> haveOrdersLoaded;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
 
     public LoggedinViewModel()
     {
         cliente = null;
-        listadoPedidos = new MutableLiveData<>();
+        listadoPedidos = new MutableLiveData<>(); listadoPedidos.setValue(new ArrayList<Pedido>());
         hasOrders = new MutableLiveData<>();
         panes = new MutableLiveData<>();
         complementos = new MutableLiveData<>();
@@ -41,6 +42,7 @@ public class LoggedinViewModel extends ViewModel {
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
         fragmentOption = new MutableLiveData<>();
         cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
+        haveOrdersLoaded = new MutableLiveData<>();
         gestoraRetrofitLoggedin = new GestoraRetrofitLoggedin(this);
     }
 
@@ -92,12 +94,20 @@ public class LoggedinViewModel extends ViewModel {
         return postOK;
     }
 
+    public MutableLiveData<Boolean> getHaveOrdersLoaded() {
+        return haveOrdersLoaded;
+    }
+
     public int getSandwichInProgress() {
         return sandwichInProgress;
     }
 
     public void setSandwichInProgress(int sandwichInProgress) {
         this.sandwichInProgress = sandwichInProgress;
+    }
+
+    public void setPostOK(MutableLiveData<Boolean> postOK) {
+        this.postOK = postOK;
     }
 
     public GestoraRetrofitLoggedin getGestoraRetrofitLoggedin() {

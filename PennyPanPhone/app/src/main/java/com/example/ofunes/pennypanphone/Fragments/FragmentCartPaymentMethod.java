@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Fragments;
 
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -75,7 +76,7 @@ public class FragmentCartPaymentMethod extends Fragment implements View.OnClickL
 
         final Observer<Boolean> postOKObserver = new Observer<Boolean>() {
             @Override
-            public void onChanged(final @Nullable Boolean isPostOK) {
+            public void onChanged(@Nullable Boolean isPostOK) {
 
                 new MaterialStyledDialog.Builder(getContext())
                         .setTitle(isPostOK ? R.string.postOrderOKDialogTitle : R.string.postOrderNotOKDialogTitle)
@@ -102,6 +103,8 @@ public class FragmentCartPaymentMethod extends Fragment implements View.OnClickL
                                 viewModel.getCartTotal().setValue(0d);
 
                                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+                                viewModel.setPostOK(new MutableLiveData<Boolean>());
 
                                 viewModel.getFragmentOption().setValue(FragmentOption.ORDERS);
                             }

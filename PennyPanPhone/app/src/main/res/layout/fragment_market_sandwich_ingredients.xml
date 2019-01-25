@@ -45,8 +45,8 @@
             app:layout_constraintEnd_toStartOf="@+id/guideline37"
             app:layout_constraintStart_toEndOf="@+id/guideline22"
             app:layout_constraintTop_toBottomOf="@+id/marketSandwichIngredientsRecyclerView"
-            app:pb_colorNormal="@color/Cyan"
-            app:pb_colorPressed="@color/GreenBread" />
+            app:pb_colorNormal="@color/GreenBread"
+            app:pb_colorPressed="@color/Cyan" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline22"

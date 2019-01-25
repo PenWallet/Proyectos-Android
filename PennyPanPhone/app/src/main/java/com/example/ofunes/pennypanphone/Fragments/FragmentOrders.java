@@ -49,7 +49,7 @@ public class FragmentOrders extends Fragment {
         emptyRV = getActivity().findViewById(R.id.emptyRV); emptyRV.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         recyclerView = getActivity().findViewById(R.id.ordersRecyclerView);
 
-        if(viewModel.getListadoPedidos().getValue() == null)
+        if(viewModel.getListadoPedidos().getValue() == null || viewModel.getListadoPedidos().getValue().isEmpty())
         {
             linearLayout.setVisibility(View.VISIBLE);
             recyclerView.setVisibility(View.GONE);

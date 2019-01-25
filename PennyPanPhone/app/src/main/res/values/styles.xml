@@ -13,6 +13,7 @@
 
     <style name="CustomAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:fontFamily" tools:ignore="NewApi">@font/prinsesstartamedium</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
     <style name="LogInButtonTheme" parent="Widget.AppCompat.Button.Colored">

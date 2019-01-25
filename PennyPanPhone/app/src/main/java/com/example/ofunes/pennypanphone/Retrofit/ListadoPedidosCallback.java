@@ -25,8 +25,12 @@ public class ListadoPedidosCallback implements Callback<List<Pedido>>{
 	@Override
 	public void onResponse(Call<List<Pedido>> call, Response<List<Pedido>> response) {
 		List<Pedido> listado = response.body();
+		if(listado == null)
+			loggedinViewModel.getListadoPedidos().setValue(new ArrayList<Pedido>());
+		else
+			loggedinViewModel.getListadoPedidos().setValue(new ArrayList<>(listado));
 
-		loggedinViewModel.getListadoPedidos().setValue(listado == null ? null : new ArrayList<>(listado));
+		loggedinViewModel.getHaveOrdersLoaded().setValue(true);
 	}
 
 	@Override

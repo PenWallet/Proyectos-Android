@@ -25,6 +25,8 @@ public class PostPedidoCallback implements Callback<Pedido>{
 		Pedido pedido = response.body();
 
 		loggedinViewModel.getListadoPedidos().getValue().add(pedido);
+		if(!loggedinViewModel.getHasOrders().getValue())
+			loggedinViewModel.getHasOrders().setValue(true);
 		loggedinViewModel.getPostOK().setValue(true);
 	}
 
