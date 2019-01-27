@@ -28,6 +28,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<Double> cartTotal;
     private MutableLiveData<Boolean> postOK;
     private MutableLiveData<Boolean> haveOrdersLoaded;
+    private MutableLiveData<Boolean> musicOn;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
 
     public LoggedinViewModel()
@@ -104,6 +105,10 @@ public class LoggedinViewModel extends ViewModel {
 
     public void setSandwichInProgress(int sandwichInProgress) {
         this.sandwichInProgress = sandwichInProgress;
+    }
+
+    public MutableLiveData<Boolean> getMusicOn() {
+        return musicOn;
     }
 
     public void setPostOK(MutableLiveData<Boolean> postOK) {

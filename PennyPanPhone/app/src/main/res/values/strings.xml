@@ -1,7 +1,8 @@
 <resources>
-    <!-- Shared Preferences -->
+    <!-- Shared Preferences (no traducir) -->
     <string name="sharedPreferencesName">savedLoginData</string>
     <string name="sharedPreferencesCliente">cliente</string>
+    <string name="sharedPreferencesMusic">isMusicOn</string>
 
     <string name="app_name">Penny Pan</string>
     <string name="name">Name</string>
@@ -118,13 +119,18 @@
     <string name="postOrderNotOKDialogAffirmative">:(</string>
 
     <!-- Strings de Settings -->
-    <string name="settingsMusicTitle">Enable background music</string>
-    <string name="settingsMusicDescription">Enables or disables the in-store background music</string>
+    <string name="settingsMusicOnTitle">Turn music on</string>
+    <string name="settingsMusicOnDescription">Turn the in-store ambient music on</string>
+    <string name="settingsMusicVolumeTitle">Music volume</string>
     <string name="settingsSignOffTitle">Log off</string>
-
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="signoffDialogTitle">Are you sure you want to sign off?</string>
+    <string name="signoffDialogContent">You will lose everything you have in the cart right now.</string>
+    <string name="signoffDialogAffirmative">I\'m sure</string>
+    <string name="signoffDialogNegative">Nevermind</string>
+    <string name="bugReportTitle">Report a bug</string>
+    <string name="noWay">No way I\'m doing this</string>
+    <string name="bugReportEmailSubject">Bug Report</string>
+    <string name="bugReportEmailText">Tell us what happened</string>
 
 
 </resources>

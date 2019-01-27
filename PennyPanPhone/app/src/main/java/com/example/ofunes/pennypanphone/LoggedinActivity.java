@@ -2,7 +2,9 @@ package com.example.ofunes.pennypanphone;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
@@ -33,6 +35,7 @@ import com.example.ofunes.pennypanphone.Fragments.FragmentMarketMiscellaneous;
 import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichBread;
 import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichIngredients;
 import com.example.ofunes.pennypanphone.Fragments.FragmentOrders;
+import com.example.ofunes.pennypanphone.Fragments.FragmentSettings;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
@@ -168,6 +171,13 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         bottomNavigationView.setSelectedItemId(R.id.navOrders);
                         break;
 
+                    case SIGNOFF:
+                        removeSharedPreferencesSavedLogin();
+                        Intent intent = new Intent(LoggedinActivity.this, MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                        break;
+
                 }
             }
         };
@@ -292,8 +302,11 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     @Override
     protected void onResume() {
         super.onResume();
-        Intent music = new Intent(this, BackgroundSoundService.class);
-        startService(music);
+        if(getIsMusicOnSharedPreferences())
+        {
+            Intent music = new Intent(this, BackgroundSoundService.class);
+            startService(music);
+        }
     }
 
     @Override
@@ -325,5 +338,18 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         viewModel.getCesta().getValue().remove(viewModel.getSandwichInProgress());
 
         viewModel.setSandwichInProgress(-1);
+    }
+
+    private void removeSharedPreferencesSavedLogin()
+    {
+        SharedPreferences sp = getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.remove(getString(R.string.sharedPreferencesCliente));
+        editor.apply();
+    }
+
+    private boolean getIsMusicOnSharedPreferences()
+    {
+        return getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE).getBoolean(getString(R.string.sharedPreferencesMusic), true);
     }
 }

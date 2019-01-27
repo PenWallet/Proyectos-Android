@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.preference.PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:sample="http://schemas.android.com/apk/res-auto">
 
-    <SwitchPreferenceCompat
-        app:key="music"
-        app:title="@string/"/>
+    <PreferenceCategory
+        android:title="Music">
+        <SwitchPreferenceCompat
+            android:key="musicToggle"
+            android:title="@string/settingsMusicOnTitle"
+            android:summary="@string/settingsMusicOnDescription"
+            android:icon="@drawable/icon_music"
+            android:defaultValue="true"/>
+
+        <SeekBarPreference
+            android:key="musicVolume"
+            android:title="@string/settingsMusicVolumeTitle"
+            android:clickable="false"
+            android:focusable="false"/>
+    </PreferenceCategory>
+
 
     <Preference
-        app:key="feedback"
-        app:title="Send feedback"
-        app:summary="Report technical issues or suggest new features"/>
+        android:key="bugReport"
+        android:title="@string/bugReportTitle"
+        android:icon="@drawable/icon_bug"/>
 
-</androidx.preference.PreferenceScreen>
+    <Preference
+        android:key="signoff"
+        android:title="@string/settingsSignOffTitle"
+        android:icon="@drawable/icon_exit"/>
+
+
+</PreferenceScreen>

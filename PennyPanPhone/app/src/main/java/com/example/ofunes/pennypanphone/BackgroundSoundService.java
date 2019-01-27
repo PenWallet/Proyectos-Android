@@ -56,7 +56,7 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnCom
     private void playRandomSong()
     {
         Random random = new Random();
-        int song = random.nextInt(3);
+        int song = random.nextInt(4);
 
         switch(song)
         {
@@ -80,5 +80,10 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnCom
                 player.start();
                 break;
         }
+    }
+
+    public void setVolume(int volume)
+    {
+        player.setVolume(volume, volume);
     }
 }

@@ -36,8 +36,7 @@ dependencies {
     implementation 'com.alespero:expandable-cardview:0.6'
     implementation 'com.github.javiersantos:MaterialStyledDialogs:2.1'
     implementation 'com.github.dmytrodanylyk.android-process-button:library:1.0.0'
-    implementation "androidx.preference:preference:1.0.0"
-    implementation "androidx.legacy:legacy-preference-v14:1.0.0"
+    implementation 'com.android.support:preference-v7:26.1.0'
 }
 repositories {
     mavenCentral()
