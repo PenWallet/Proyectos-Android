@@ -3,6 +3,7 @@ package com.example.ofunes.pennypanphone;
 import android.app.Service;
 import android.content.Intent;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.IBinder;
 
 import java.util.Random;
@@ -18,8 +19,10 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnCom
     @Override
     public void onCreate() {
         super.onCreate();
-        playRandomSong();
+        player = new MediaPlayer();
+        player.setVolume(50, 50);
         player.setOnCompletionListener(this);
+        playRandomSong();
 
     }
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -57,29 +60,10 @@ public class BackgroundSoundService extends Service implements MediaPlayer.OnCom
     {
         Random random = new Random();
         int song = random.nextInt(4);
-
-        switch(song)
-        {
-            case 0:
-                player = MediaPlayer.create(this, R.raw.buymode1);
-                player.start();
-                break;
-
-            case 1:
-                player = MediaPlayer.create(this, R.raw.buymode2);
-                player.start();
-                break;
-
-            case 2:
-                player = MediaPlayer.create(this, R.raw.buymode3);
-                player.start();
-                break;
-
-            case 3:
-                player = MediaPlayer.create(this, R.raw.buymode4);
-                player.start();
-                break;
-        }
+        String filename = "android.resource://" + this.getPackageName() + "/raw/buymode" + song;
+        try { player.setDataSource(this, Uri.parse(filename)); } catch (Exception e) {}
+        try { player.prepare(); } catch (Exception e) {}
+        player.start();
     }
 
     public void setVolume(int volume)

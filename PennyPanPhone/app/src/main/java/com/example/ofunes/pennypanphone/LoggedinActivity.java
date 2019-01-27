@@ -70,6 +70,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
         //Crear el viewmodel y los fragments
         viewModel = ViewModelProviders.of(this).get(LoggedinViewModel.class);
+        fragmentHome = new FragmentHome();
         fragmentCart = new FragmentCart();
         fragmentOrders = new FragmentOrders();
         fragmentMarket = new FragmentMarket();
@@ -133,6 +134,22 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         final Observer<ArrayList<IngredienteBocata>> ingredientesObserver = new Observer<ArrayList<IngredienteBocata>>() {
             @Override
             public void onChanged(@Nullable ArrayList<IngredienteBocata> listadoPedidos) {
+                if(viewModel.getCliente().isPanadero())
+                {
+                    gestoraRetrofitLoggedin.obtenerListadoClientes();
+                    txtLoading.setText(R.string.loadingClients);
+                }
+                else
+                {
+                    progressBar.setVisibility(View.GONE);
+                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                }
+            }
+        };
+
+        final Observer<ArrayList<Cliente>> clientesObserver = new Observer<ArrayList<Cliente>>() {
+            @Override
+            public void onChanged(@Nullable ArrayList<Cliente> listadoClientes) {
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
@@ -188,15 +205,17 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         viewModel.getComplementos().observe(this, complementosObserver);
         viewModel.getIngredientes().observe(this, ingredientesObserver);
         viewModel.getFragmentOption().observe(this, marketOptionObserver);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        viewModel.getListadoClientes().observe(this, clientesObserver);
 
-        fragmentHome = new FragmentHome();
+        //Seleccionar Home como la pantalla principal
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navHome);
 
-        gestoraRetrofitLoggedin.obtenerListadoPedidos(viewModel.getCliente().getUsername(), viewModel.getCliente().getContrasena());
+        //Empezar a cargar datos
+        gestoraRetrofitLoggedin.obtenerListadoPedidos();
         progressBar.setVisibility(View.VISIBLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
     @Override

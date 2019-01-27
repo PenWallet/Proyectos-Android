@@ -42,6 +42,7 @@
     <string name="loadingMiscellaneous">Loading the miscellaneous…</string>
     <string name="loadingIngredients">Loading the ingredients…</string>
     <string name="loadingSplines">Reticulating splines…</string>
+    <string name="loadingClients">Loading the clients…</string>
 
     <!-- Strings de Home -->
     <string name="welcome">Welcome to PennyPan,\n %1$s</string>
@@ -119,18 +120,26 @@
     <string name="postOrderNotOKDialogAffirmative">:(</string>
 
     <!-- Strings de Settings -->
+    <string name="settingsAdminCategory">Admin</string>
+    <string name="settingsHireWorkersTitle">Hire bread makers</string>
+    <string name="settingsHireWorkersDescription">Hire registered users to work at your bakery</string>
+    <string name="settingsFireWorkersTitle">Fire bread makers</string>
+    <string name="settingsFireWorkersDescription">Fire registered users to not work at your bakery anymore</string>
+    <string name="settingsMusicCategory">Music</string>
     <string name="settingsMusicOnTitle">Turn music on</string>
     <string name="settingsMusicOnDescription">Turn the in-store ambient music on</string>
     <string name="settingsMusicVolumeTitle">Music volume</string>
     <string name="settingsSignOffTitle">Log off</string>
+    <string name="settingsAccountCategory">Account</string>
     <string name="signoffDialogTitle">Are you sure you want to sign off?</string>
     <string name="signoffDialogContent">You will lose everything you have in the cart right now.</string>
     <string name="signoffDialogAffirmative">I\'m sure</string>
     <string name="signoffDialogNegative">Nevermind</string>
     <string name="bugReportTitle">Report a bug</string>
+    <string name="bugReportDescription">Please tell us about it</string>
     <string name="noWay">No way I\'m doing this</string>
     <string name="bugReportEmailSubject">Bug Report</string>
     <string name="bugReportEmailText">Tell us what happened</string>
-
+    <string-array name="emptyArray"/>
 
 </resources>

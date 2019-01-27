@@ -23,12 +23,12 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<ArrayList<IngredienteBocata>> ingredientes;
     private MutableLiveData<ArrayList<Pedido>> listadoPedidos;
     private MutableLiveData<ArrayList<Object>> cesta;
+    private MutableLiveData<ArrayList<Cliente>> listadoClientes;
     private MutableLiveData<Boolean> hasOrders;
     private MutableLiveData<FragmentOption> fragmentOption;
     private MutableLiveData<Double> cartTotal;
     private MutableLiveData<Boolean> postOK;
     private MutableLiveData<Boolean> haveOrdersLoaded;
-    private MutableLiveData<Boolean> musicOn;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
 
     public LoggedinViewModel()
@@ -39,6 +39,7 @@ public class LoggedinViewModel extends ViewModel {
         panes = new MutableLiveData<>();
         complementos = new MutableLiveData<>();
         ingredientes = new MutableLiveData<>();
+        listadoClientes = new MutableLiveData<>();
         postOK = new MutableLiveData<>();
         cesta = new MutableLiveData<>(); cesta.setValue(new ArrayList<>());
         fragmentOption = new MutableLiveData<>();
@@ -107,8 +108,8 @@ public class LoggedinViewModel extends ViewModel {
         this.sandwichInProgress = sandwichInProgress;
     }
 
-    public MutableLiveData<Boolean> getMusicOn() {
-        return musicOn;
+    public MutableLiveData<ArrayList<Cliente>> getListadoClientes() {
+        return listadoClientes;
     }
 
     public void setPostOK(MutableLiveData<Boolean> postOK) {

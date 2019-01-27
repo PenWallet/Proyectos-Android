@@ -4,6 +4,7 @@ import android.util.Base64;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
+import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 import com.google.gson.Gson;
@@ -18,12 +19,15 @@ public class GestoraRetrofitLoggedin {
     private ListadoPanesCallback listadoPanesCallback;
     private ListadoComplementosCallback listadoComplementosCallback;
     private ListadoIngredientesCallback listadoIngredientesCallback;
+    private ListadoClientesCallback listadoClientesCallback;
     private PostPedidoCallback postPedidoCallback;
     private PennyPanAPI pennyPanAPI;
+    private LoggedinViewModel loggedinViewModel;
     private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
     public GestoraRetrofitLoggedin(LoggedinViewModel loggedinViewModel)
     {
+        this.loggedinViewModel = loggedinViewModel;
         Gson gson = new GsonBuilder().setLenient().setDateFormat("yyyy-MM-dd").create();
         retrofit = new Retrofit.Builder().baseUrl(SERVER_URL).addConverterFactory(GsonConverterFactory.create(gson)).build();
         pennyPanAPI = retrofit.create(PennyPanAPI.class);
@@ -32,16 +36,15 @@ public class GestoraRetrofitLoggedin {
         listadoComplementosCallback = new ListadoComplementosCallback(loggedinViewModel);
         listadoIngredientesCallback = new ListadoIngredientesCallback(loggedinViewModel);
         postPedidoCallback = new PostPedidoCallback(loggedinViewModel);
+        listadoClientesCallback = new ListadoClientesCallback(loggedinViewModel);
     }
 
 
-    public void obtenerListadoPedidos(String username, String password)
+    public void obtenerListadoPedidos()
     {
-        String token = username+":"+password;
-        byte[] tokenByte = token.getBytes();
-        String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
+        String token64 = obtenerToken();
 
-        pennyPanAPI.getListadoPedidos(token64, username).enqueue(listadoPedidosCallback);
+        pennyPanAPI.getListadoPedidos(token64, loggedinViewModel.getCliente().getUsername()).enqueue(listadoPedidosCallback);
     }
 
     public void obtenerListadoPanes()
@@ -59,12 +62,26 @@ public class GestoraRetrofitLoggedin {
         pennyPanAPI.getListadoIngredientes().enqueue(listadoIngredientesCallback);
     }
 
-    public void postPedido(String username, String password, Pedido pedido)
+    public void postPedido(Pedido pedido)
     {
+        String token64 = obtenerToken();
+
+        pennyPanAPI.postPedido(token64, loggedinViewModel.getCliente().getUsername(), pedido).enqueue(postPedidoCallback);
+    }
+
+    public void obtenerListadoClientes()
+    {
+        String token64 = obtenerToken();
+
+        pennyPanAPI.getListCliente(token64).enqueue(listadoClientesCallback);
+    }
+
+    private String obtenerToken()
+    {
+        String username = loggedinViewModel.getCliente().getUsername();
+        String password = loggedinViewModel.getCliente().getContrasena();
         String token = username+":"+password;
         byte[] tokenByte = token.getBytes();
-        String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
-
-        pennyPanAPI.postPedido(token64, username, pedido).enqueue(postPedidoCallback);
+        return "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
     }
 }

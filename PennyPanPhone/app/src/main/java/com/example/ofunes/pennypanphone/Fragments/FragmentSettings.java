@@ -1,7 +1,6 @@
 package com.example.ofunes.pennypanphone.Fragments;
 
 
-import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -9,28 +8,26 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v14.preference.MultiSelectListPreference;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
+import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.SeekBarPreference;
 import android.support.v7.preference.SwitchPreferenceCompat;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.BackgroundSoundService;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
-import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
-import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
-import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Duration;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
-import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
@@ -44,6 +41,9 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     SwitchPreferenceCompat musicToggle;
     SeekBarPreference musicVolume;
     Preference signoff, bugReport;
+    MultiSelectListPreference hireWorkers, fireWorkers;
+    PreferenceCategory admin;
+    PreferenceScreen preferenceScreen;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -54,12 +54,43 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         musicVolume = (SeekBarPreference)findPreference("musicVolume"); musicVolume.setOnPreferenceChangeListener(this);
         signoff = findPreference("signoff"); signoff.setOnPreferenceClickListener(this);
         bugReport = findPreference("bugReport"); bugReport.setOnPreferenceClickListener(this);
+        hireWorkers = (MultiSelectListPreference)findPreference("hireWorkers");
+        fireWorkers = (MultiSelectListPreference)findPreference("fireWorkers");
+        admin = (PreferenceCategory)findPreference("adminCategory");
+        preferenceScreen = (PreferenceScreen)findPreference("preferenceScreen");
 
         if(musicToggle.isChecked())
             musicVolume.setEnabled(true);
         else
             musicVolume.setEnabled(false);
 
+        if(!viewModel.getCliente().isPanadero())
+        {
+            preferenceScreen.removePreference(hireWorkers);
+            preferenceScreen.removePreference(fireWorkers);
+            preferenceScreen.removePreference(admin);
+        }
+        else
+        {
+            ArrayList<String[]> listado = obtenerUsuarios();
+            if(listado.get(0).length == 0)
+                hireWorkers.setEnabled(false);
+            else
+            {
+                hireWorkers.setEntries(listado.get(0));
+                hireWorkers.setEntryValues(listado.get(0));
+            }
+
+            if(listado.get(1).length == 0)
+                fireWorkers.setEnabled(false);
+            else
+            {
+                fireWorkers.setEntries(listado.get(1));
+                fireWorkers.setEntryValues(listado.get(1));
+            }
+
+
+        }
     }
 
     @Override
@@ -142,5 +173,31 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(R.string.sharedPreferencesMusic), isMusicOn);
         editor.apply();
+    }
+
+    private ArrayList<String[]> obtenerUsuarios()
+    {
+        ArrayList<String> workers = new ArrayList<>();
+        ArrayList<String> clients = new ArrayList<>();
+        ArrayList<String[]> complete = new ArrayList<>();
+
+        for(Cliente cliente : viewModel.getListadoClientes().getValue())
+        {
+            if(cliente.isPanadero())
+                workers.add(cliente.getUsername());
+            else
+                clients.add(cliente.getUsername());
+        }
+
+        String[] workersArray = new String[workers.size()];
+        String[] clientsArray = new String[clients.size()];
+
+        workers.toArray(workersArray);
+        clients.toArray(clientsArray);
+
+        complete.add(clientsArray);
+        complete.add(workersArray);
+
+        return complete;
     }
 }

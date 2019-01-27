@@ -167,7 +167,7 @@ public class FragmentCartPaymentMethod extends Fragment implements View.OnClickL
                         }
 
                         Cliente cliente = viewModel.getCliente();
-                        viewModel.getGestoraRetrofitLoggedin().postPedido(cliente.getUsername(), cliente.getContrasena(), pedido);
+                        viewModel.getGestoraRetrofitLoggedin().postPedido(pedido);
 
                     }
                 })

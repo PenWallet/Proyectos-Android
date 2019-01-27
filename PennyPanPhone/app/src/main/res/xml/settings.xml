@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
+    android:key="preferenceScreen"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:sample="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:title="Music">
+        android:title="@string/settingsMusicCategory">
         <SwitchPreferenceCompat
             android:key="musicToggle"
             android:title="@string/settingsMusicOnTitle"
@@ -20,15 +21,39 @@
     </PreferenceCategory>
 
 
-    <Preference
-        android:key="bugReport"
-        android:title="@string/bugReportTitle"
-        android:icon="@drawable/icon_bug"/>
+    <PreferenceCategory
+        android:title="@string/settingsAccountCategory">
+        <Preference
+            android:key="bugReport"
+            android:title="@string/bugReportTitle"
+            android:summary="@string/bugReportDescription"
+            android:icon="@drawable/icon_bug"/>
 
-    <Preference
-        android:key="signoff"
-        android:title="@string/settingsSignOffTitle"
-        android:icon="@drawable/icon_exit"/>
+        <Preference
+            android:key="signoff"
+            android:title="@string/settingsSignOffTitle"
+            android:icon="@drawable/icon_exit"/>
+    </PreferenceCategory>
+
+
+    <PreferenceCategory
+        android:key="adminCategory"
+        android:title="@string/settingsAdminCategory">
+        <MultiSelectListPreference
+            android:key="hireWorkers"
+            android:title="@string/settingsHireWorkersTitle"
+            android:summary="@string/settingsHireWorkersDescription"
+            android:icon="@drawable/icon_hire"
+            android:entryValues="@array/emptyArray"
+            />
+
+        <MultiSelectListPreference
+            android:key="fireWorkers"
+            android:title="@string/settingsFireWorkersTitle"
+            android:summary="@string/settingsFireWorkersDescription"
+            android:icon="@drawable/icon_fired"
+            />
+    </PreferenceCategory>
 
 
 </PreferenceScreen>
