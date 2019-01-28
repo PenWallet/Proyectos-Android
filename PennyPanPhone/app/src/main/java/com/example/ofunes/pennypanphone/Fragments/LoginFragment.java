@@ -21,6 +21,7 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 import com.google.gson.Gson;
 
@@ -72,7 +73,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("cliente", cliente);
-                    saveClienteSharedPreferences(cliente);
+                    Utils.saveClienteSharedPreferences(cliente, getContext());
                     startActivity(intent);
                     getActivity().finish();
                 }
@@ -162,15 +163,5 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         isOk = isUsernameOk && isPasswordOk;
 
         return isOk;
-    }
-
-    private void saveClienteSharedPreferences(Cliente cliente)
-    {
-        SharedPreferences sharedPreferences = getContext().getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        Gson gson = new Gson();
-        String json = gson.toJson(cliente);
-        editor.putString(getString(R.string.sharedPreferencesCliente), json);
-        editor.apply();
     }
 }

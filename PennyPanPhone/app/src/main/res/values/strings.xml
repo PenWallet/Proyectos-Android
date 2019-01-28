@@ -121,9 +121,9 @@
 
     <!-- Strings de Settings -->
     <string name="settingsAdminCategory">Admin</string>
-    <string name="settingsHireWorkersTitle">Hire bread makers</string>
+    <string name="settingsHireWorkersTitle">Hire bakers</string>
     <string name="settingsHireWorkersDescription">Hire registered users to work at your bakery</string>
-    <string name="settingsFireWorkersTitle">Fire bread makers</string>
+    <string name="settingsFireWorkersTitle">Fire bakers</string>
     <string name="settingsFireWorkersDescription">Fire registered users to not work at your bakery anymore</string>
     <string name="settingsMusicCategory">Music</string>
     <string name="settingsMusicOnTitle">Turn music on</string>
@@ -140,6 +140,5 @@
     <string name="noWay">No way I\'m doing this</string>
     <string name="bugReportEmailSubject">Bug Report</string>
     <string name="bugReportEmailText">Tell us what happened</string>
-    <string-array name="emptyArray"/>
 
 </resources>

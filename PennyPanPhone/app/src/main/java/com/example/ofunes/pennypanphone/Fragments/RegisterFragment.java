@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
+import com.example.ofunes.pennypanphone.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {
@@ -80,6 +81,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     cliente.setContrasena(editPassword.getText().toString());
                     intent.putExtra("cliente", cliente);
+                    Utils.saveClienteSharedPreferences(cliente, getContext());
                     startActivity(intent);
                     getActivity().finish();
                 }

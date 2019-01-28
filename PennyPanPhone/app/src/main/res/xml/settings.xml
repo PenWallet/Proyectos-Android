@@ -44,7 +44,6 @@
             android:title="@string/settingsHireWorkersTitle"
             android:summary="@string/settingsHireWorkersDescription"
             android:icon="@drawable/icon_hire"
-            android:entryValues="@array/emptyArray"
             />
 
         <MultiSelectListPreference
