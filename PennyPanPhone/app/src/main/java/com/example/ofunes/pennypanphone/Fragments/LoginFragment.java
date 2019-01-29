@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +36,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
     TextView txtRegistration, txtErrorLogin;
     ActionProcessButton btnLogin;
     EditText editUsername, editPassword;
+    CheckBox remember;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -49,12 +51,13 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
         ((TextView)getView().findViewById(R.id.textView)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
+        remember = getView().findViewById(R.id.cbRemember); remember.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this); txtRegistration.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         btnLogin = getView().findViewById(R.id.btnLogIn); btnLogin.setOnClickListener(this); btnLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium)); btnLogin.setMode(ActionProcessButton.Mode.ENDLESS);
         txtErrorLogin = getView().findViewById(R.id.txtErrorLogin); txtErrorLogin.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editPassword = getView().findViewById(R.id.editLoginPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editUsername = getView().findViewById(R.id.editLoginUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
-        ((TextView)getView().findViewById(R.id.cbRemember)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+
 
         final Observer<Cliente> clienteObserver = new Observer<Cliente>() {
             @Override
@@ -73,7 +76,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                     intent.putExtra("cliente", cliente);
-                    Utils.saveClienteSharedPreferences(cliente, getContext());
+                    if(remember.isChecked())
+                        Utils.saveClienteSharedPreferences(cliente, getContext());
                     startActivity(intent);
                     getActivity().finish();
                 }

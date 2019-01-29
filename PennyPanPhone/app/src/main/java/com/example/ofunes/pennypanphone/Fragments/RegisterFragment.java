@@ -18,6 +18,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
@@ -28,10 +29,9 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private MainViewModel mViewModel;
 
-    EditText editName, editUsername, editPassword;
-    TextView txtErrorName, txtErrorUsername, txtErrorPassword;
-    Button btnRegister;
-    ProgressBar progressBar;
+    EditText editName, editUsername, editPassword, editPasswordCheck;
+    TextView txtErrorName, txtErrorUsername, txtErrorPassword, txtErrorPasswordCheck;
+    ActionProcessButton btnRegister;
 
     public static RegisterFragment newInstance() {
         return new RegisterFragment();
@@ -51,14 +51,14 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         editName = getView().findViewById(R.id.txtRegisterName); editName.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editUsername = getView().findViewById(R.id.txtRegisterUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editPassword = getView().findViewById(R.id.txtRegisterPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        editPasswordCheck = getView().findViewById(R.id.txtRegisterPasswordCheck); editPasswordCheck.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
         txtErrorName = getView().findViewById(R.id.txtErrorName); txtErrorName.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         txtErrorUsername = getView().findViewById(R.id.txtErrorUsername); txtErrorUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         txtErrorPassword = getView().findViewById(R.id.txtErrorRegisterPassword); txtErrorPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
+        txtErrorPasswordCheck = getView().findViewById(R.id.txtErrorRegisterPasswordCheck); txtErrorPasswordCheck.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
 
         btnRegister = getView().findViewById(R.id.btnRegister); btnRegister.setOnClickListener(this); btnRegister.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
-
-        progressBar = getView().findViewById(R.id.progressBarRegister);
 
         ((TextView)getView().findViewById(R.id.txtSubtitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
         ((TextView)getView().findViewById(R.id.txtTitle)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
@@ -67,15 +67,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         final Observer<Cliente> registerObserver = new Observer<Cliente>() {
             @Override
             public void onChanged(@Nullable Cliente cliente) {
-                progressBar.setVisibility(View.GONE);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 btnRegister.setTextColor(getResources().getColor(R.color.White));
                 if(cliente == null)
                 {
+                    btnRegister.setProgress(0);
                     txtErrorUsername.setText(R.string.errorTakenUsername);
                 }
                 else
                 {
+                    btnRegister.setProgress(100);
                     txtErrorUsername.setText("");
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
                     intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -91,7 +92,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         final Observer<Boolean> somethingWrongObserver = new Observer<Boolean>() {
             @Override
             public void onChanged(@Nullable Boolean somethingWrong) {
-                progressBar.setVisibility(View.GONE);
+                btnRegister.setProgress(-1);
                 getActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 btnRegister.setTextColor(getResources().getColor(R.color.White));
                 if(somethingWrong)
@@ -112,7 +113,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkFields()
     {
-        boolean isOk, isNameOk = true, isUsernameOk = true, isPasswordOk = true;
+        boolean isOk, isNameOk = true, isUsernameOk = true, isPasswordOk = true, doPasswordsMatch = true;
 
         //Validación del nombre
         if(editName.getText().toString().equals(""))
@@ -156,8 +157,16 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         else
             txtErrorPassword.setText("");
 
+        //Validación del check de contraseña
+        if(!editPasswordCheck.getText().toString().equals(editPassword.getText().toString()))
+        {
+            doPasswordsMatch = false;
+            txtErrorPasswordCheck.setText(R.string.errorCheckPassword);
+        }
+        else
+            txtErrorPasswordCheck.setText("");
 
-        isOk = isNameOk && isUsernameOk && isPasswordOk;
+        isOk = isNameOk && isUsernameOk && isPasswordOk && doPasswordsMatch;
 
         return isOk;
     }
@@ -166,7 +175,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
     public void onClick(View view) {
         if(checkFields())
         {
-            progressBar.setVisibility(View.VISIBLE);
+            btnRegister.setProgress(1);
             getActivity().getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                     WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             btnRegister.setTextColor(getResources().getColor(R.color.GreenishCyan));

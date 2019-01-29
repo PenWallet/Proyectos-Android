@@ -8,6 +8,7 @@
     <string name="name">Name</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="passwordCheck">Re-enter your password</string>
     <string name="login">LOG IN</string>
     <string name="remember">Remember me</string>
     <string name="createAccount">Or create a new account</string>
@@ -21,6 +22,7 @@
     <string name="errorTakenUsername">That username is already taken!</string>
     <string name="errorEmptyPassword">The password can\'t be empty!</string>
     <string name="errorInvalidPassword">Invalid password! At least 8 characters long</string>
+    <string name="errorCheckPassword">The passwords don\'t match!</string>
     <string name="errorLogIn">Invalid username or password</string>
     <string name="unexpectedLoginError">We couldn\'t load your data for unknown reasons :(</string>
     <string name="registerSuccessful">You registered successfully</string>

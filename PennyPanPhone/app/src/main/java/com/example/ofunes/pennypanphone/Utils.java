@@ -13,7 +13,8 @@ import android.view.animation.TranslateAnimation;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.google.gson.Gson;
 
-public class Utils {
+public class Utils
+{
     public static void animateClick(View v)
     {
         ScaleAnimation animation = new ScaleAnimation(1, 1.2f, 1, 1.2f, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
