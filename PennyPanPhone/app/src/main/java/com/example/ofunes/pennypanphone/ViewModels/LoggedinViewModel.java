@@ -12,8 +12,10 @@ import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class LoggedinViewModel extends ViewModel {
     private Cliente cliente;
@@ -30,6 +32,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<Boolean> postOK;
     private MutableLiveData<Boolean> haveOrdersLoaded;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
+    private final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(Locale.GERMAN);
 
     public LoggedinViewModel()
     {
@@ -46,6 +49,7 @@ public class LoggedinViewModel extends ViewModel {
         cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
         haveOrdersLoaded = new MutableLiveData<>();
         gestoraRetrofitLoggedin = new GestoraRetrofitLoggedin(this);
+        decimalFormatSymbols.setDecimalSeparator('.');
     }
 
     public Cliente getCliente() {
@@ -123,7 +127,7 @@ public class LoggedinViewModel extends ViewModel {
     /* Funciones */
     public void addValueCartTotal(double value)
     {
-        NumberFormat df = new DecimalFormat("#.00");
+        DecimalFormat df = new DecimalFormat("#.00", decimalFormatSymbols);
         double actualValue = cartTotal.getValue();
         double finalValue = actualValue + value;
         cartTotal.setValue(Double.valueOf(df.format(finalValue)));

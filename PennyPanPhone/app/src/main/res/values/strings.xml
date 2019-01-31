@@ -44,7 +44,7 @@
     <string name="loadingMiscellaneous">Loading the miscellaneous…</string>
     <string name="loadingIngredients">Loading the ingredients…</string>
     <string name="loadingSplines">Reticulating splines…</string>
-    <string name="loadingClients">Loading the clients…</string>
+    <string name="loadingClients">Loading chunks…</string>
 
     <!-- Strings de Home -->
     <string name="welcome">Welcome to PennyPan,\n %1$s</string>
@@ -71,7 +71,7 @@
         <item>A moment to yourself</item>
         <item>PennyPan to serve you</item>
         <item>Delicious alternatives</item>
-        <item>Freshly baked all day. All day!</item>
+        <item>Freshly baked every day. All day!</item>
         <item>I can stop when I want</item>
         <item>Reticulating splines…</item>
         <item>Try our Nachos!</item>
@@ -81,6 +81,16 @@
         <item>Preparing a tasty grilled cheese sandwich</item>
         <item>A PennyPan for your thoughts ;)</item>
         <item>Not sponsored by Coca-Cola. Buy one, though</item>
+        <item>My body is telling me no. But my mouth is telling me yes.</item>
+        <item>Sponsored by Ruafa</item>
+        <item>The better Polvillo</item>
+        <item>Polvillo\'s favourite enemy</item>
+        <item>Error 418</item>
+        <item>Tasty Kahuna Burgers</item>
+        <item></item>
+        <item>Error 418</item>
+        <item>Error 418</item>
+        <item></item>
     </string-array>
     <string name="sandwichBreadTitle">Select your sandwich\'s bread</string>
     <string name="sandwichIngredientsTitle">Select the ingredients</string>
