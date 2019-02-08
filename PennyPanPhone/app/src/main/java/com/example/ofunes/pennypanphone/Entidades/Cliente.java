@@ -12,12 +12,22 @@ public class Cliente implements Parcelable {
     private String contrasena;
     private String nombre;
     private int panadero;
+    private String token;
 
     public Cliente() {
         this.username = "";
         this.contrasena = "";
         this.nombre = "";
         this.panadero = 0;
+        this.token = "";
+    }
+
+    public Cliente(String username, String contrasena, String nombre, int panadero, String token) {
+        this.username = username;
+        this.contrasena = contrasena;
+        this.nombre = nombre;
+        this.panadero = panadero;
+        this.token = token;
     }
 
     public Cliente(String username, String contrasena, String nombre, int panadero) {
@@ -25,6 +35,7 @@ public class Cliente implements Parcelable {
         this.contrasena = contrasena;
         this.nombre = nombre;
         this.panadero = panadero;
+        this.token = "";
     }
 
     public String getUsername() {
@@ -49,6 +60,14 @@ public class Cliente implements Parcelable {
 
     public void setContrasena(String contrasena) {
         this.contrasena = contrasena;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     @Override

@@ -34,7 +34,7 @@ public interface PennyPanAPI {
 
     @POST("/cliente")
     @Headers({"Accept: application/json", "Content-Type: application/json"})
-    Call<Cliente> postCliente(@Body Cliente cliente);
+    Call<Void> postCliente(@Body Cliente cliente);
 
     @GET("/cliente/{username}/pedido")
     @Headers({"Accept: application/json"})
