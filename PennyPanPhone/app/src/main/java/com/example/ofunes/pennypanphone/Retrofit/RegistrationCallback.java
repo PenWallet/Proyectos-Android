@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Retrofit;
 
-import com.auth0.android.jwt.JWT;
+import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Utiliidades.JWTUtils;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 import okhttp3.Headers;
@@ -19,11 +20,12 @@ public class RegistrationCallback implements Callback<Void>
 	}
 
 	@Override
-	public void onResponse(Call<Void> arg0, Response<Void> resp) {
-		Headers headers = resp.headers();
+	public void onResponse(Call<Void> arg0, Response<Void> response) {
+		Headers headers = response.headers();
 		String token = headers.get("Authentication").split(" ")[1];
-		JWT jwt = new JWT(token);
-		jwt.
+		Cliente cliente = JWTUtils.getClienteFromToken(token);
+		cliente.setToken(token);
+		mainVm.getClienteRegistrado().setValue(cliente);
 	}
 
 	@Override

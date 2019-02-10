@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.R;
-import com.example.ofunes.pennypanphone.Utils;
+import com.example.ofunes.pennypanphone.Utiliidades.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdapter.MarketBreadViewHolder> {
@@ -62,7 +62,7 @@ public class MarketBreadRVAdapter extends RecyclerView.Adapter<MarketBreadRVAdap
         holder.imageProduct.setImageResource(pan.isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128);
 
         //OnImageClicks
-        holder.imagePlus.setOnClickListener(new View.OnClickListener(){
+        holder.imagePlus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {

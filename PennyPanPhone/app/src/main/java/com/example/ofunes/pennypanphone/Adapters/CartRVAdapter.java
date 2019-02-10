@@ -9,17 +9,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.Bocata;
-import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
 import com.example.ofunes.pennypanphone.Entidades.PanPedido;
 import com.example.ofunes.pennypanphone.R;
-import com.example.ofunes.pennypanphone.Utils;
+import com.example.ofunes.pennypanphone.Utiliidades.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Duration;
@@ -27,8 +25,6 @@ import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.ListIterator;
 
 public class CartRVAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     LoggedinViewModel viewModel;

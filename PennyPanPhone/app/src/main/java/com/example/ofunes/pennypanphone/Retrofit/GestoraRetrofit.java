@@ -7,6 +7,7 @@ import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import okhttp3.Credentials;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -28,12 +29,7 @@ public class GestoraRetrofit {
 
     public void obtenerUsuario(String username, String password)
     {
-        Cliente cliente = null;
-        String token = username+":"+password;
-        byte[] tokenByte = token.getBytes();
-        String token64 = "Basic " + Base64.encodeToString(tokenByte, Base64.NO_WRAP | Base64.URL_SAFE);
-
-        pennyPanAPI.getCliente(token64, username).enqueue(loginCallback);
+        pennyPanAPI.getCliente(Credentials.basic(username, password), username).enqueue(loginCallback);
     }
 
     public void registrarUsuario(Cliente cliente)

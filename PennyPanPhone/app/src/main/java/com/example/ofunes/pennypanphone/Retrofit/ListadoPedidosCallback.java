@@ -35,6 +35,6 @@ public class ListadoPedidosCallback implements Callback<List<Pedido>>{
 
 	@Override
 	public void onFailure(Call<List<Pedido>> call, Throwable t) {
-		loggedinViewModel.getListadoPedidos().setValue(null);
+		loggedinViewModel.getListadoPedidos().setValue(new ArrayList<Pedido>());
 	}
 }

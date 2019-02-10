@@ -3,16 +3,23 @@ package com.example.ofunes.pennypanphone.Entidades;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by ofunes on 20/12/18.
  */
 
 public class Cliente implements Parcelable {
+    @Expose
     private String username;
-    private String contrasena;
+    @Expose
     private String nombre;
+    @Expose
     private int panadero;
+
     private String token;
+    private String contrasena;
 
     public Cliente() {
         this.username = "";
@@ -76,7 +83,8 @@ public class Cliente implements Parcelable {
                 "username='" + username + '\'' +
                 ", password='" + contrasena + '\'' +
                 ", nombre='" + nombre + '\'' +
-                ", panadero=" + panadero +
+                ", panadero='" + panadero + '\'' +
+                ", token=" + token +
                 '}';
     }
 
@@ -92,6 +100,7 @@ public class Cliente implements Parcelable {
         dest.writeString(this.contrasena);
         dest.writeString(this.nombre);
         dest.writeInt(this.panadero);
+        dest.writeString(this.token);
     }
 
     protected Cliente(Parcel in) {
@@ -99,6 +108,7 @@ public class Cliente implements Parcelable {
         this.contrasena = in.readString();
         this.nombre = in.readString();
         this.panadero = in.readInt();
+        this.token = in.readString();
     }
 
     public static final Parcelable.Creator<Cliente> CREATOR = new Parcelable.Creator<Cliente>() {

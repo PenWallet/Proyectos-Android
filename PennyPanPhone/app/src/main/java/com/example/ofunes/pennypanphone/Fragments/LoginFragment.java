@@ -2,9 +2,7 @@ package com.example.ofunes.pennypanphone.Fragments;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -22,9 +20,8 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
-import com.example.ofunes.pennypanphone.Utils;
+import com.example.ofunes.pennypanphone.Utiliidades.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
-import com.google.gson.Gson;
 
 
 /**

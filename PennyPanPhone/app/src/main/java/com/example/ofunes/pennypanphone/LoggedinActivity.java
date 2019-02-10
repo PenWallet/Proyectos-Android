@@ -19,6 +19,8 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
+import android.widget.Toast;
+
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
@@ -37,6 +39,7 @@ import com.example.ofunes.pennypanphone.Fragments.FragmentMarketSandwichIngredie
 import com.example.ofunes.pennypanphone.Fragments.FragmentOrders;
 import com.example.ofunes.pennypanphone.Fragments.FragmentSettings;
 import com.example.ofunes.pennypanphone.Retrofit.GestoraRetrofitLoggedin;
+import com.example.ofunes.pennypanphone.Services.BackgroundSoundService;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 import com.github.javiersantos.materialstyleddialogs.MaterialStyledDialog;
 import com.github.javiersantos.materialstyleddialogs.enums.Duration;
@@ -192,6 +195,14 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         removeSharedPreferencesSavedLogin();
                         Intent intent = new Intent(LoggedinActivity.this, MainActivity.class);
                         startActivity(intent);
+                        finish();
+                        break;
+
+                    case UNAUTHORIZED:
+                        Toast.makeText(LoggedinActivity.this, getString(R.string.unauthorized), Toast.LENGTH_LONG).show();
+                        removeSharedPreferencesSavedLogin();
+                        Intent intentUnauth = new Intent(LoggedinActivity.this, MainActivity.class);
+                        startActivity(intentUnauth);
                         finish();
                         break;
 

@@ -26,15 +26,15 @@ public interface PennyPanAPI {
 
     @GET("/cliente/{username}")
     @Headers({"Accept: application/json"})
-    Call<Cliente> getCliente(@Header("Authorization") String token, @Path("username") String username);
-
-    @GET("/cliente")
-    @Headers({"Accept: application/json"})
-    Call<List<Cliente>> getListCliente(@Header("Authorization") String token);
+    Call<Void> getCliente(@Header("Authorization") String token, @Path("username") String username);
 
     @POST("/cliente")
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     Call<Void> postCliente(@Body Cliente cliente);
+
+    @GET("/cliente")
+    @Headers({"Accept: application/json"})
+    Call<List<Cliente>> getListCliente(@Header("Authorization") String token);
 
     @GET("/cliente/{username}/pedido")
     @Headers({"Accept: application/json"})

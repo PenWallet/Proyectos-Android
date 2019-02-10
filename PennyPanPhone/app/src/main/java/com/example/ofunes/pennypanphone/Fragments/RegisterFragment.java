@@ -12,9 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +20,7 @@ import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.R;
-import com.example.ofunes.pennypanphone.Utils;
+import com.example.ofunes.pennypanphone.Utiliidades.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 
 public class RegisterFragment extends Fragment implements View.OnClickListener {

@@ -19,7 +19,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".LoggedinActivity"></activity>
-        <service android:enabled="true" android:name=".BackgroundSoundService"/>
+        <service android:enabled="true" android:name=".Services.BackgroundSoundService"/>
     </application>
 
 </manifest>

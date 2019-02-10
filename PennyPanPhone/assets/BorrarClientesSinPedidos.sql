@@ -1,0 +1,1 @@
+DELETE FROM Clientes WHERE Username NOT IN (SELECT Username FROM Clientes AS C INNER JOIN Pedidos AS P ON C.Username = P.ClienteUsername GROUP BY Username)

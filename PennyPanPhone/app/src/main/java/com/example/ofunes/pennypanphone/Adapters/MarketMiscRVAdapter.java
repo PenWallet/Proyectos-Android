@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.R;
-import com.example.ofunes.pennypanphone.Utils;
+import com.example.ofunes.pennypanphone.Utiliidades.Utils;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 public class MarketMiscRVAdapter extends RecyclerView.Adapter<MarketMiscRVAdapter.MarketMiscViewHolder> {
