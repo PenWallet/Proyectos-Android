@@ -22,31 +22,60 @@
         app:itemIconTint="@color/bottomnav_icon_selector"
         app:itemTextColor="@color/bottomnav_icon_selector"
         android:layout_alignParentBottom="true"
-        app:menu="@menu/bottomnav" />
+        app:menu="@menu/bottomnav"
+        android:visibility="gone"/>
 
-    <LinearLayout
-        android:id="@+id/progressBarLoggedin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraintLoadingData"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:visibility="visible"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:background="@drawable/splashloadingscreen">
 
-        <ProgressBar
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:indeterminate="true"
-            android:indeterminateTint="@color/Selected"
-            android:layout_gravity="center_horizontal"/>
-
-        <TextView
+        <android.support.v7.widget.AppCompatTextView
             android:id="@+id/txtLoading"
+            android:layout_width="0sp"
+            android:layout_height="0sp"
+            android:text="@string/loadingSplines"
+            android:textColor="@color/Background"
+            app:autoSizeTextType="uniform"
+            android:gravity="center"
+            app:layout_constraintBottom_toTopOf="@+id/guideline97"
+            app:layout_constraintEnd_toStartOf="@+id/guideline91"
+            app:layout_constraintStart_toStartOf="@+id/guideline73"
+            app:layout_constraintTop_toTopOf="@+id/guideline94" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline73"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/loadingSplines"
-            android:textColor="@color/Background"/>
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.10277778" />
 
-    </LinearLayout>
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline91"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.9" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline94"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.8" />
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline97"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.86" />
+
+    </android.support.constraint.ConstraintLayout>
 
 
 </RelativeLayout>

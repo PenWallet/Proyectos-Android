@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
@@ -16,7 +17,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.support.design.widget.BottomNavigationView.OnNavigationItemSelectedListener;
 import android.widget.Toast;
@@ -63,7 +63,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     FragmentMarketSandwichIngredients fragmentMarketSandwichIngredients;
     FragmentCartPaymentMethod fragmentCartPaymentMethod;
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
-    LinearLayout progressBar;
+    ConstraintLayout constraintLoadingData;
     TextView txtLoading;
 
     @Override
@@ -97,7 +97,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         frameLayout = findViewById(R.id.loggedFrame);
 
         //Preparando el loading
-        progressBar = findViewById(R.id.progressBarLoggedin);
+        constraintLoadingData = findViewById(R.id.constraintLoadingData);
         txtLoading = findViewById(R.id.txtLoading); txtLoading.setTypeface(ResourcesCompat.getFont(this, R.font.prinsesstartabolditalic));
 
         //Observer para saber cuándo han cargado los pedidos
@@ -143,18 +143,14 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                     txtLoading.setText(R.string.loadingClients);
                 }
                 else
-                {
-                    progressBar.setVisibility(View.GONE);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                }
+                    stopLoading();
             }
         };
 
         final Observer<ArrayList<Cliente>> clientesObserver = new Observer<ArrayList<Cliente>>() {
             @Override
             public void onChanged(@Nullable ArrayList<Cliente> listadoClientes) {
-                progressBar.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                stopLoading();
             }
         };
 
@@ -227,10 +223,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         bottomNavigationView.setSelectedItemId(R.id.navHome);
 
         //Empezar a cargar datos
-        gestoraRetrofitLoggedin.obtenerListadoPedidos();
-        progressBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        startLoading();
+
     }
 
     @Override
@@ -385,6 +379,22 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     private boolean getIsMusicOnSharedPreferences()
     {
         return getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE).getBoolean(getString(R.string.sharedPreferencesMusic), true);
+    }
+
+    private void stopLoading()
+    {
+        bottomNavigationView.setVisibility(View.VISIBLE);
+        constraintLoadingData.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+    }
+
+    private void startLoading()
+    {
+        bottomNavigationView.setVisibility(View.GONE);
+        constraintLoadingData.setVisibility(View.VISIBLE);
+        gestoraRetrofitLoggedin.obtenerListadoPedidos();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
 
 }

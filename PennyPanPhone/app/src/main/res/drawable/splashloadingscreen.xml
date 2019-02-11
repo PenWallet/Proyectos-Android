@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android"
     android:opacity="opaque">
-    <item android:drawable="@color/PennyIconLight"/>
+    <item android:drawable="@color/SplashBackground"/>
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@drawable/pennyicon256"/>
+            android:src="@drawable/icon_groceries256"/>
     </item>
 </layer-list>

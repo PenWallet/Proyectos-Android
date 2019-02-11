@@ -44,12 +44,12 @@
     <string name="settings">Settings</string>
 
     <!-- Strings de Loading -->
-    <string name="loadingOrders">Loading your orders…</string>
-    <string name="loadingBread">Loading the bread…</string>
-    <string name="loadingMiscellaneous">Loading the miscellaneous…</string>
-    <string name="loadingIngredients">Loading the ingredients…</string>
-    <string name="loadingSplines">Reticulating splines…</string>
-    <string name="loadingClients">Loading chunks…</string>
+    <string name="loadingOrders">Loading your orders</string>
+    <string name="loadingBread">Loading bread</string>
+    <string name="loadingMiscellaneous">Loading miscellaneous</string>
+    <string name="loadingIngredients">Loading ingredients</string>
+    <string name="loadingSplines">Reticulating splines</string>
+    <string name="loadingClients">Loading chunks</string>
 
     <!-- Strings de Home -->
     <string name="welcome">Welcome to PennyPan,\n %1$s</string>
