@@ -16,7 +16,7 @@ public class GestoraRetrofit {
     private LoginCallback loginCallback;
     private RegistrationCallback registrationCallback;
     private PennyPanAPI pennyPanAPI;
-    private final static String SERVER_URL = "http://pennypan.devel:8080";
+    private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
     public GestoraRetrofit(MainViewModel mainVm)
     {

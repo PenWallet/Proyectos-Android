@@ -27,7 +27,7 @@ public class GestoraRetrofitLoggedin {
     private PostPedidoCallback postPedidoCallback;
     private PennyPanAPI pennyPanAPI;
     private LoggedinViewModel loggedinViewModel;
-    private final static String SERVER_URL = "http://pennypan.devel:8080";
+    private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
 
     public GestoraRetrofitLoggedin(LoggedinViewModel loggedinViewModel)
     {

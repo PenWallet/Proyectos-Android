@@ -21,11 +21,17 @@ public class LoginCallback implements Callback<Void>{
 
 	@Override
 	public void onResponse(Call<Void> call, Response<Void> response) {
-		Headers headers = response.headers();
-		String token = headers.get("Authentication").split(" ")[1];
-		Cliente cliente = JWTUtils.getClienteFromToken(token);
-		cliente.setToken(token);
-		mainVm.getCliente().postValue(cliente);
+		if(response.code() == 204)
+		{
+			Headers headers = response.headers();
+			String token = headers.get("Authentication").split(" ")[1];
+			Cliente cliente = JWTUtils.getClienteFromToken(token);
+			cliente.setToken(token);
+			mainVm.getCliente().postValue(cliente);
+		}
+		else if(response.code() == 401)
+			mainVm.getCliente().postValue(null);
+
 	}
 
 	@Override

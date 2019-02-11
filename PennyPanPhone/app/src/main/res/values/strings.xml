@@ -28,9 +28,13 @@
     <string name="registerSuccessful">You registered successfully</string>
     <string name="registerUnsuccessful">We couldn\'t register you for unknown reasons :(</string>
     <string name="nani">Nani??</string>
-    <string name="error">Error</string>
+
     <string name="loading">Loading</string>
     <string name="unauthorized">Sorry, you took too long to decide. Logging you off!</string>
+
+    <!-- Strings de register -->
+    <string name="registered">Registered</string>
+    <string name="error">Error</string>
 
     <!-- Strings de iconos -->
     <string name="home">Home</string>
@@ -106,7 +110,7 @@
     <string name="dialogExitSandwichCreationTitle">Are you sure you want to lose this sandwich?</string>
     <string name="dialogExitSandwichCreationContent">If you exit now, you will lose all progress on this sandwich and it will not be added to your cart</string>
     <string name="dialogExitSandwichCreationAffirmative">Exit</string>
-    <string name="dialogExitSandwichCreationNegative">Go back</string>
+    <string name="dialogExitSandwichCreationNegative">Stay</string>
 
     <!-- Strings de Cart -->
     <string name="deleteItemHeader">Delete this product?</string>

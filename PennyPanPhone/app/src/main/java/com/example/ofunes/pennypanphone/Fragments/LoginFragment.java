@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 {
                     btnLogin.setProgress(0);
                     txtErrorLogin.setText(R.string.errorLogIn);
+                    txtErrorLogin.setVisibility(View.VISIBLE);
                 }
                 else
                 {
@@ -88,8 +89,9 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 btnLogin.setTextColor(getResources().getColor(R.color.White));
                 if(somethingWrong)
                 {
-                    Toast.makeText(getActivity(), R.string.unexpectedLoginError, Toast.LENGTH_SHORT).show();
                     btnLogin.setProgress(-1);
+                    btnLogin.setText(R.string.error);
+                    Toast.makeText(getActivity(), R.string.unexpectedLoginError, Toast.LENGTH_SHORT).show();
                 }
                 else
                     btnLogin.setProgress(0);
@@ -126,43 +128,43 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
 
     private boolean checkFields()
     {
-        boolean isOk, isUsernameOk = true, isPasswordOk = true;
+        boolean isUsernameOk = true, isPasswordOk = true;
 
         //Validación del nombre de usuario
         if(editUsername.getText().toString().equals(""))
         {
             isUsernameOk = false;
-            //Toast.makeText(getContext(), R.string.errorEmptyUsername, Toast.LENGTH_SHORT).show();
+            txtErrorLogin.setText(R.string.errorEmptyUsername);
+            txtErrorLogin.setVisibility(View.VISIBLE);
         }
         else if(!editUsername.getText().toString().matches("\\w{1,15}"))
         {
             isUsernameOk = false;
-            Toast.makeText(getContext(), R.string.errorInvalidUsername, Toast.LENGTH_SHORT).show();
+            txtErrorLogin.setText(R.string.errorInvalidUsername);
+            txtErrorLogin.setVisibility(View.VISIBLE);
         }
 
         //Validación de la contraseña
         if(editPassword.getText().toString().equals(""))
         {
             isPasswordOk = false;
-            //Toast.makeText(getContext(), R.string.errorEmptyPassword, Toast.LENGTH_SHORT).show();
+            txtErrorLogin.setText(R.string.errorEmptyPassword);
+            txtErrorLogin.setVisibility(View.VISIBLE);
         }
         else if(editPassword.getText().toString().length() < 8 && !editPassword.getText().toString().equals("1234"))
         {
             isPasswordOk = false;
-            Toast.makeText(getContext(), R.string.errorInvalidPassword, Toast.LENGTH_SHORT).show();
+            txtErrorLogin.setText(R.string.errorInvalidPassword);
+            txtErrorLogin.setVisibility(View.VISIBLE);
         }
 
-        //TODO Borrar antes de release
-        if(editUsername.getText().toString().equals("") && editPassword.getText().toString().equals(""))
+
+        if(isUsernameOk && isPasswordOk)
         {
-            isUsernameOk = true;
-            isPasswordOk = true;
-            editPassword.setText("1234");
-            editUsername.setText("oscar1");
+            txtErrorLogin.setText("");
+            txtErrorLogin.setVisibility(View.GONE);
         }
 
-        isOk = isUsernameOk && isPasswordOk;
-
-        return isOk;
+        return isUsernameOk && isPasswordOk;
     }
 }

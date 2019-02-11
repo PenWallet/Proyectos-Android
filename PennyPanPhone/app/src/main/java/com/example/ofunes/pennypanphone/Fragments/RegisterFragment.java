@@ -74,6 +74,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 }
                 else
                 {
+                    btnRegister.setText(R.string.registered);
                     btnRegister.setProgress(100);
                     txtErrorUsername.setText("");
                     Intent intent = new Intent(getActivity(), LoggedinActivity.class);
@@ -95,6 +96,7 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
                 btnRegister.setTextColor(getResources().getColor(R.color.White));
                 if(somethingWrong)
                 {
+                    btnRegister.setText(R.string.error);
                     Toast.makeText(getActivity(), R.string.registerUnsuccessful, Toast.LENGTH_SHORT).show();
                 }
             }
