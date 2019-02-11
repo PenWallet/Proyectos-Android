@@ -11,15 +11,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Adapters.OrdersRVAdapter;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
 
 
-public class FragmentOrders extends Fragment {
+public class FragmentOrders extends Fragment implements View.OnClickListener {
 
     LoggedinViewModel viewModel;
     RecyclerView recyclerView;
@@ -27,6 +29,7 @@ public class FragmentOrders extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     TextView emptyRV, txtNoOrders;
     LinearLayout linearLayout;
+    ImageView imgNoOrders;
 
     public FragmentOrders() {
         // Required empty public constructor
@@ -48,6 +51,7 @@ public class FragmentOrders extends Fragment {
         txtNoOrders = getActivity().findViewById(R.id.txtNoOrders); txtNoOrders.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         emptyRV = getActivity().findViewById(R.id.emptyRV); emptyRV.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         recyclerView = getActivity().findViewById(R.id.ordersRecyclerView);
+        imgNoOrders = getActivity().findViewById(R.id.imgNoOrders); imgNoOrders.setOnClickListener(this);
 
         if(viewModel.getListadoPedidos().getValue() == null || viewModel.getListadoPedidos().getValue().isEmpty())
         {
@@ -65,6 +69,16 @@ public class FragmentOrders extends Fragment {
             adapter = new OrdersRVAdapter(viewModel.getListadoPedidos().getValue());
 
             recyclerView.setAdapter(adapter);
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId())
+        {
+            case R.id.imgNoOrders:
+                viewModel.getFragmentOption().setValue(FragmentOption.MARKET);
+                break;
         }
     }
 }

@@ -15,6 +15,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,6 +39,7 @@ public class FragmentCart extends Fragment implements View.OnClickListener {
     LinearLayout linearLayout;
     NestedScrollView scrollView;
     FlatButton flatButton;
+    ImageView marketIcon;
 
     public FragmentCart() {
         // Required empty public constructor
@@ -64,6 +66,7 @@ public class FragmentCart extends Fragment implements View.OnClickListener {
         cartTotal = getActivity().findViewById(R.id.cartTotal); cartTotal.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
         scrollView = getActivity().findViewById(R.id.scrollViewCart);
         flatButton = getActivity().findViewById(R.id.btnFinishOrder); flatButton.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium)); flatButton.setOnClickListener(this);
+        marketIcon = getActivity().findViewById(R.id.imgEmptyCart); marketIcon.setOnClickListener(this);
 
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -111,6 +114,16 @@ public class FragmentCart extends Fragment implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        viewModel.getFragmentOption().setValue(FragmentOption.PAYMENTMETHOD);
+        switch(view.getId())
+        {
+            case R.id.btnFinishOrder:
+                viewModel.getFragmentOption().setValue(FragmentOption.PAYMENTMETHOD);
+                break;
+
+            case R.id.imgEmptyCart:
+                viewModel.getFragmentOption().setValue(FragmentOption.MARKET);
+                break;
+        }
+
     }
 }

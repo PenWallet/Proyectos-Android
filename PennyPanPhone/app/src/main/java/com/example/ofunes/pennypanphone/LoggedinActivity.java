@@ -206,6 +206,10 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
                         finish();
                         break;
 
+                    case MARKET:
+                        bottomNavigationView.setSelectedItemId(R.id.navMarket);
+                        break;
+
                 }
             }
         };
@@ -382,4 +386,5 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     {
         return getSharedPreferences(getString(R.string.sharedPreferencesName), Context.MODE_PRIVATE).getBoolean(getString(R.string.sharedPreferencesMusic), true);
     }
+
 }

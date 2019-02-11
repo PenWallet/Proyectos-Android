@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.R;
 import com.example.ofunes.pennypanphone.ViewModels.LoggedinViewModel;
@@ -26,12 +27,12 @@ import java.util.ArrayList;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class FragmentHome extends Fragment {
+public class FragmentHome extends Fragment implements View.OnClickListener {
 
     LoggedinViewModel viewModel;
     TextView txtWelcome, txtLastOrderNumber, txtLastOrderDate, txtLastOrderPrice;
     LinearLayout linearHomeNoOrder, linearHomeLastOrder;
-    ImageView lastOrderImage;
+    ImageView lastOrderImage, imgNoLastOrder;
 
 
     public FragmentHome() {
@@ -60,6 +61,7 @@ public class FragmentHome extends Fragment {
         txtLastOrderDate = getActivity().findViewById(R.id.txtLastOrderDate); txtLastOrderDate.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         txtLastOrderPrice = getActivity().findViewById(R.id.txtLastOrderPrice); txtLastOrderPrice.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabold));
         lastOrderImage = getActivity().findViewById(R.id.lastOrderImage);
+        imgNoLastOrder = getActivity().findViewById(R.id.imgNoLastOrder); imgNoLastOrder.setOnClickListener(this);
 
         final Observer<Boolean> ordersObserver = new Observer<Boolean>() {
             @Override
@@ -101,5 +103,16 @@ public class FragmentHome extends Fragment {
         txtWelcome.setText(welcome);
 
         viewModel.getHasOrders().observe(this, ordersObserver);
+    }
+
+
+    @Override
+    public void onClick(View view) {
+        switch(view.getId())
+        {
+            case R.id.imgNoLastOrder:
+                viewModel.getFragmentOption().setValue(FragmentOption.MARKET);
+                break;
+        }
     }
 }

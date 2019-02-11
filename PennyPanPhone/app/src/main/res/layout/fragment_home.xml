@@ -65,12 +65,12 @@
             android:textSize="20sp" />
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/imgNoLastOrder"
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp"
-            android:src="@drawable/icon_market_home" />
+            android:src="@drawable/icon_market_home"/>
 
     </LinearLayout>
 
