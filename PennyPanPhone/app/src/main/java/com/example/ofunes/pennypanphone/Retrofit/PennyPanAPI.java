@@ -5,6 +5,7 @@ package com.example.ofunes.pennypanphone.Retrofit;
  */
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.ClientePanadero;
 import com.example.ofunes.pennypanphone.Entidades.Complemento;
 import com.example.ofunes.pennypanphone.Entidades.Ingrediente;
 import com.example.ofunes.pennypanphone.Entidades.Pan;
@@ -16,8 +17,10 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.HEAD;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -52,7 +55,11 @@ public interface PennyPanAPI {
     @Headers({"Accept: application/json"})
     Call<List<Ingrediente>> getListadoIngredientes();
 
-    @POST("/cliente/{username}/pedido?XDEBUG_SESSION_START=PHPSTORM")
+    @POST("/cliente/{username}/pedido")
     @Headers({"Accept: application/json", "Content-Type: application/json"})
     Call<Pedido> postPedido(@Header("Authorization") String token, @Path("username") String username, @Body Pedido pedido);
+
+    @PATCH("/cliente")
+    @Headers({"Accept: application/json"})
+    Call<Void> patchCliente(@Header("Authorization") String token, @Body ClientePanadero clienteACambiar);
 }
