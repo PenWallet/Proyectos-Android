@@ -1,6 +1,7 @@
 package com.example.ofunes.pennypanphone.Fragments;
 
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
@@ -8,18 +9,22 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v14.preference.MultiSelectListPreference;
 import android.support.v4.app.Fragment;
 import android.support.v7.preference.Preference;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.PreferenceFragmentCompat;
+import android.support.v7.preference.PreferenceManager;
 import android.support.v7.preference.PreferenceScreen;
 import android.support.v7.preference.SeekBarPreference;
 import android.support.v7.preference.SwitchPreferenceCompat;
+import android.view.View;
 import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.ofunes.pennypanphone.Entidades.ClientePanadero;
 import com.example.ofunes.pennypanphone.Services.BackgroundSoundService;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
@@ -30,6 +35,7 @@ import com.github.javiersantos.materialstyleddialogs.enums.Duration;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 
 /**
@@ -54,8 +60,8 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         musicVolume = (SeekBarPreference)findPreference("musicVolume"); musicVolume.setOnPreferenceChangeListener(this);
         signoff = findPreference("signoff"); signoff.setOnPreferenceClickListener(this);
         bugReport = findPreference("bugReport"); bugReport.setOnPreferenceClickListener(this);
-        hireWorkers = (MultiSelectListPreference)findPreference("hireWorkers");
-        fireWorkers = (MultiSelectListPreference)findPreference("fireWorkers");
+        hireWorkers = (MultiSelectListPreference)findPreference("hireWorkers"); hireWorkers.setOnPreferenceClickListener(this);
+        fireWorkers = (MultiSelectListPreference)findPreference("fireWorkers"); fireWorkers.setOnPreferenceClickListener(this);
         admin = (PreferenceCategory)findPreference("adminCategory");
         preferenceScreen = (PreferenceScreen)findPreference("preferenceScreen");
 
@@ -88,9 +94,24 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
                 fireWorkers.setEntries(listado.get(1));
                 fireWorkers.setEntryValues(listado.get(1));
             }
-
-
         }
+
+        final Observer<Boolean> patchObserver = new Observer<Boolean>() {
+            @Override
+            public void onChanged(@Nullable Boolean patchOK) {
+
+                if(patchOK)
+                {
+                    Toast.makeText(getContext(), "Todo bien, todo correcto, y yo que me alegro", Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    Toast.makeText(getContext(), "Sacre bleu :(", Toast.LENGTH_SHORT).show();
+                }
+            }
+        };
+
+        viewModel.getPatchOK().observe(this, patchObserver);
     }
 
     @Override
@@ -119,9 +140,37 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
             case "musicVolume":
                 Toast.makeText(getActivity(), getString(R.string.noWay), Toast.LENGTH_SHORT).show();
                 break;
+
+            case "hireWorkers":
+                SharedPreferences sharedPreferencesHire = PreferenceManager.getDefaultSharedPreferences(getContext());
+                Set<String> selectionsHire = sharedPreferencesHire.getStringSet("hireWorkers", null);
+                if(selectionsHire != null)
+                {
+                    ArrayList<ClientePanadero> listadoHire = new ArrayList<>();
+                    for(String username : selectionsHire)
+                        listadoHire.add(new ClientePanadero(username, 1));
+
+                    viewModel.getGestoraRetrofitLoggedin().patchClientes(listadoHire);
+
+                    sharedPreferencesHire.edit().remove("hireWorkers").apply();
+                }
+                break;
+
+            case "fireWorkers":
+                SharedPreferences sharedPreferencesFire = PreferenceManager.getDefaultSharedPreferences(getContext());
+                Set<String> selectionsFire = sharedPreferencesFire.getStringSet("fireWorkers", null);
+                if(selectionsFire != null)
+                {
+                    ArrayList<ClientePanadero> listadoFire = new ArrayList<>();
+                    for(String username : selectionsFire)
+                        listadoFire.add(new ClientePanadero(username, 1));
+
+                    viewModel.getGestoraRetrofitLoggedin().patchClientes(listadoFire);
+
+                    sharedPreferencesFire.edit().remove("fireWorkers").apply();
+                }
+                break;
         }
-
-
 
         return true;
     }

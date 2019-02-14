@@ -61,5 +61,5 @@ public interface PennyPanAPI {
 
     @PATCH("/cliente")
     @Headers({"Accept: application/json"})
-    Call<Void> patchCliente(@Header("Authorization") String token, @Body ClientePanadero clienteACambiar);
+    Call<Void> patchCliente(@Header("Authorization") String token, @Body List<ClientePanadero> clienteACambiar);
 }

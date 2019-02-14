@@ -31,6 +31,7 @@ public class LoggedinViewModel extends ViewModel {
     private MutableLiveData<Double> cartTotal;
     private MutableLiveData<Boolean> postOK;
     private MutableLiveData<Boolean> haveOrdersLoaded;
+    private MutableLiveData<Boolean> patchOK;
     private int sandwichInProgress; //Representa la posición en la cesta del bocata que está en progreso
     private final DecimalFormatSymbols decimalFormatSymbols = new DecimalFormatSymbols(Locale.GERMAN);
 
@@ -48,6 +49,7 @@ public class LoggedinViewModel extends ViewModel {
         fragmentOption = new MutableLiveData<>();
         cartTotal = new MutableLiveData<>(); cartTotal.setValue(0d);
         haveOrdersLoaded = new MutableLiveData<>();
+        patchOK = new MutableLiveData<>();
         gestoraRetrofitLoggedin = new GestoraRetrofitLoggedin(this);
         decimalFormatSymbols.setDecimalSeparator('.');
     }
@@ -100,6 +102,10 @@ public class LoggedinViewModel extends ViewModel {
         return postOK;
     }
 
+    public void setPostOK(MutableLiveData<Boolean> postOK) {
+        this.postOK = postOK;
+    }
+
     public MutableLiveData<Boolean> getHaveOrdersLoaded() {
         return haveOrdersLoaded;
     }
@@ -116,8 +122,8 @@ public class LoggedinViewModel extends ViewModel {
         return listadoClientes;
     }
 
-    public void setPostOK(MutableLiveData<Boolean> postOK) {
-        this.postOK = postOK;
+    public MutableLiveData<Boolean> getPatchOK() {
+        return patchOK;
     }
 
     public GestoraRetrofitLoggedin getGestoraRetrofitLoggedin() {

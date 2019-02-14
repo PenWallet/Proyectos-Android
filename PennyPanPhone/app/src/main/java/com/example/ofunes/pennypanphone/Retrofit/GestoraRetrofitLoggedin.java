@@ -3,6 +3,7 @@ package com.example.ofunes.pennypanphone.Retrofit;
 import android.util.Base64;
 
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
+import com.example.ofunes.pennypanphone.Entidades.ClientePanadero;
 import com.example.ofunes.pennypanphone.Entidades.Pedido;
 import com.example.ofunes.pennypanphone.LoggedinActivity;
 import com.example.ofunes.pennypanphone.Utiliidades.AuthUtils;
@@ -11,6 +12,7 @@ import com.example.ofunes.pennypanphone.ViewModels.MainViewModel;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.OkHttpClient;
@@ -25,6 +27,7 @@ public class GestoraRetrofitLoggedin {
     private ListadoIngredientesCallback listadoIngredientesCallback;
     private ListadoClientesCallback listadoClientesCallback;
     private PostPedidoCallback postPedidoCallback;
+    private PatchCallback patchCallback;
     private PennyPanAPI pennyPanAPI;
     private LoggedinViewModel loggedinViewModel;
     private final static String SERVER_URL = "http://ofunes.ciclo.iesnervion.es";
@@ -42,6 +45,7 @@ public class GestoraRetrofitLoggedin {
         listadoIngredientesCallback = new ListadoIngredientesCallback(loggedinViewModel);
         postPedidoCallback = new PostPedidoCallback(loggedinViewModel);
         listadoClientesCallback = new ListadoClientesCallback(loggedinViewModel);
+        patchCallback = new PatchCallback(loggedinViewModel);
     }
 
 
@@ -76,5 +80,11 @@ public class GestoraRetrofitLoggedin {
     {
         String bearerToken = AuthUtils.getBearerToken(loggedinViewModel.getCliente().getToken());
         pennyPanAPI.getListCliente(bearerToken).enqueue(listadoClientesCallback);
+    }
+
+    public void patchClientes(List<ClientePanadero> listado)
+    {
+        String bearerToken = AuthUtils.getBearerToken(loggedinViewModel.getCliente().getToken());
+        pennyPanAPI.patchCliente(bearerToken, listado).enqueue(patchCallback);
     }
 }
