@@ -39,14 +39,14 @@
     <PreferenceCategory
         android:key="adminCategory"
         android:title="@string/settingsAdminCategory">
-        <MultiSelectListPreference
+        <com.example.ofunes.pennypanphone.MyMultiSelectListPreference
             android:key="hireWorkers"
             android:title="@string/settingsHireWorkersTitle"
             android:summary="@string/settingsHireWorkersDescription"
             android:icon="@drawable/icon_hire"
             />
 
-        <MultiSelectListPreference
+        <com.example.ofunes.pennypanphone.MyMultiSelectListPreference
             android:key="fireWorkers"
             android:title="@string/settingsFireWorkersTitle"
             android:summary="@string/settingsFireWorkersDescription"

@@ -47,6 +47,8 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.Cyan));
+
         ((TextView)getView().findViewById(R.id.textView)).setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartabolditalic));
         remember = getView().findViewById(R.id.cbRemember); remember.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         txtRegistration = getView().findViewById(R.id.txtCreateAccount); txtRegistration.setOnClickListener(this); txtRegistration.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));

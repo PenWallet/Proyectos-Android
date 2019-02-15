@@ -46,6 +46,8 @@ public class RegisterFragment extends Fragment implements View.OnClickListener {
         super.onActivityCreated(savedInstanceState);
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
 
+        getActivity().getWindow().setStatusBarColor(getResources().getColor(R.color.GreenishCyan));
+
         editName = getView().findViewById(R.id.txtRegisterName); editName.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editUsername = getView().findViewById(R.id.txtRegisterUsername); editUsername.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));
         editPassword = getView().findViewById(R.id.txtRegisterPassword); editPassword.setTypeface(ResourcesCompat.getFont(getContext(), R.font.prinsesstartamedium));

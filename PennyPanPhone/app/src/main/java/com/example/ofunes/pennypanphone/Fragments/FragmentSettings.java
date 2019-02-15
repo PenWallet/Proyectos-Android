@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.example.ofunes.pennypanphone.Entidades.ClientePanadero;
+import com.example.ofunes.pennypanphone.MyMultiSelectListPreference;
 import com.example.ofunes.pennypanphone.Services.BackgroundSoundService;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.FragmentOption;
@@ -35,6 +36,7 @@ import com.github.javiersantos.materialstyleddialogs.enums.Duration;
 import com.github.javiersantos.materialstyleddialogs.enums.Style;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 
 
@@ -47,7 +49,7 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
     SwitchPreferenceCompat musicToggle;
     SeekBarPreference musicVolume;
     Preference signoff, bugReport;
-    MultiSelectListPreference hireWorkers, fireWorkers;
+    MyMultiSelectListPreference hireWorkers, fireWorkers;
     PreferenceCategory admin;
     PreferenceScreen preferenceScreen;
 
@@ -60,8 +62,8 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
         musicVolume = (SeekBarPreference)findPreference("musicVolume"); musicVolume.setOnPreferenceChangeListener(this);
         signoff = findPreference("signoff"); signoff.setOnPreferenceClickListener(this);
         bugReport = findPreference("bugReport"); bugReport.setOnPreferenceClickListener(this);
-        hireWorkers = (MultiSelectListPreference)findPreference("hireWorkers"); hireWorkers.setOnPreferenceClickListener(this);
-        fireWorkers = (MultiSelectListPreference)findPreference("fireWorkers"); fireWorkers.setOnPreferenceClickListener(this);
+        hireWorkers = (MyMultiSelectListPreference)findPreference("hireWorkers"); hireWorkers.setOnPreferenceChangeListener(this);
+        fireWorkers = (MyMultiSelectListPreference)findPreference("fireWorkers"); fireWorkers.setOnPreferenceChangeListener(this);
         admin = (PreferenceCategory)findPreference("adminCategory");
         preferenceScreen = (PreferenceScreen)findPreference("preferenceScreen");
 
@@ -142,17 +144,14 @@ public class FragmentSettings extends PreferenceFragmentCompat implements Prefer
                 break;
 
             case "hireWorkers":
-                SharedPreferences sharedPreferencesHire = PreferenceManager.getDefaultSharedPreferences(getContext());
-                Set<String> selectionsHire = sharedPreferencesHire.getStringSet("hireWorkers", null);
-                if(selectionsHire != null)
+                HashSet<String> listado = (HashSet<String>)newValue;
+                if(listado != null)
                 {
                     ArrayList<ClientePanadero> listadoHire = new ArrayList<>();
-                    for(String username : selectionsHire)
+                    for(String username : listado)
                         listadoHire.add(new ClientePanadero(username, 1));
 
                     viewModel.getGestoraRetrofitLoggedin().patchClientes(listadoHire);
-
-                    sharedPreferencesHire.edit().remove("hireWorkers").apply();
                 }
                 break;
 

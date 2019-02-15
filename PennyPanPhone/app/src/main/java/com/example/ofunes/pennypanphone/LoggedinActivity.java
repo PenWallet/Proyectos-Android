@@ -383,6 +383,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
     private void stopLoading()
     {
+        getWindow().setStatusBarColor(getResources().getColor(R.color.LightCyan));
         bottomNavigationView.setVisibility(View.VISIBLE);
         constraintLoadingData.setVisibility(View.GONE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
@@ -390,6 +391,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
     private void startLoading()
     {
+        getWindow().setStatusBarColor(getResources().getColor(R.color.SplashBackground));
         bottomNavigationView.setVisibility(View.GONE);
         constraintLoadingData.setVisibility(View.VISIBLE);
         gestoraRetrofitLoggedin.obtenerListadoPedidos();
