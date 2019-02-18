@@ -57,7 +57,7 @@ public class FragmentMarket extends Fragment implements View.OnClickListener {
     {
         Random random = new Random();
         String[] motd = getResources().getStringArray(R.array.motd);
-        int randomNumber = random.nextInt(motd.length - 1) + 1;
+        int randomNumber = random.nextInt(motd.length - 1);
         txtMOTD.setText(motd[randomNumber]);
     }
 
