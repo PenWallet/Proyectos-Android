@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
@@ -222,10 +223,13 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navHome);
 
-        //Empezar a cargar datos
-        startLoading();
+        //Empezar a cargar datos si no los ha cargado ya previamente
+        if(viewModel.getIngredientes().getValue() == null || viewModel.getPanes().getValue() == null || viewModel.getComplementos().getValue() == null)
+            startLoading();
 
     }
+
+
 
     @Override
     public boolean onNavigationItemSelected(final @NonNull MenuItem item) {
@@ -391,12 +395,11 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
     private void startLoading()
     {
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         getWindow().setStatusBarColor(getResources().getColor(R.color.SplashBackground));
         bottomNavigationView.setVisibility(View.GONE);
         constraintLoadingData.setVisibility(View.VISIBLE);
         gestoraRetrofitLoggedin.obtenerListadoPedidos();
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
     }
-
 }
