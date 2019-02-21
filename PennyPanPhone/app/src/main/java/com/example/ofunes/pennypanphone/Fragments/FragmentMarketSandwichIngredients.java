@@ -81,12 +81,14 @@ public class FragmentMarketSandwichIngredients extends Fragment implements View.
         if(view.getId() == R.id.btnFinishSandwich)
         {
             Bocata bocata = (Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress());
-            if(bocata.getIngredientes().isEmpty())
+            if(bocata.getIngredientes().isEmpty() && bocata.getPan() == null)
+                Toast.makeText(getContext(), getResources().getString(R.string.sandwichErrorNothing), Toast.LENGTH_SHORT).show();
+            else if(bocata.getIngredientes().isEmpty())
                 Toast.makeText(getContext(), getResources().getString(R.string.sandwichErrorNoIngredients), Toast.LENGTH_SHORT).show();
+            else if(bocata.getPan() == null)
+                Toast.makeText(getContext(), getResources().getString(R.string.sandwichErrorNoBread), Toast.LENGTH_SHORT).show();
             else
-            {
                 askFinalQuestion(bocata);
-            }
         }
     }
 

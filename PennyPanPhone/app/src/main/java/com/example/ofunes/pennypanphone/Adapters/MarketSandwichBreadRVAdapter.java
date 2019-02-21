@@ -1,6 +1,8 @@
 package com.example.ofunes.pennypanphone.Adapters;
 
 import android.content.Context;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.RecyclerView;
@@ -26,12 +28,14 @@ import java.util.ArrayList;
 
 public class MarketSandwichBreadRVAdapter extends RecyclerView.Adapter<MarketSandwichBreadRVAdapter.MarketSandwichBreadViewHolder> {
     LoggedinViewModel viewModel;
+    private View lastView;
 
     class MarketSandwichBreadViewHolder extends RecyclerView.ViewHolder
     {
         public ImageView imageProduct;
         public TextView txtProductPrice, txtProductName;
         public View view;
+
 
         public MarketSandwichBreadViewHolder(View view)
         {
@@ -68,7 +72,7 @@ public class MarketSandwichBreadRVAdapter extends RecyclerView.Adapter<MarketSan
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                askSelectBread(holder.view.getContext(), pan);
+                askSelectBread(holder.view, pan, holder.getAdapterPosition());
             }
         });
     }
@@ -78,9 +82,9 @@ public class MarketSandwichBreadRVAdapter extends RecyclerView.Adapter<MarketSan
         return viewModel.getPanes().getValue().size();
     }
 
-    private void askSelectBread(Context context, final PanPedido panBocata)
+    private void askSelectBread(final View view, final PanPedido panBocata, final int position)
     {
-        new MaterialStyledDialog.Builder(context)
+        new MaterialStyledDialog.Builder(view.getContext())
                 .setTitle(R.string.sandwichDialogBreadTitle)
                 .setDescription(R.string.sandwichDialogBreadContent)
                 .setStyle(Style.HEADER_WITH_ICON)
@@ -94,11 +98,25 @@ public class MarketSandwichBreadRVAdapter extends RecyclerView.Adapter<MarketSan
                 .onPositive(new MaterialDialog.SingleButtonCallback() {
                     @Override
                     public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        Bocata bocata = new Bocata(panBocata, new ArrayList<IngredienteBocata>());
+                        if(view.getContext().getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT)
+                        {
+                            Bocata bocata = new Bocata(panBocata, new ArrayList<IngredienteBocata>());
+                            viewModel.getCesta().getValue().add(bocata);
+                            viewModel.setSandwichInProgress(viewModel.getCesta().getValue().size()-1);
+                            viewModel.getFragmentOption().setValue(FragmentOption.SANDWICHINGREDIENTS);
+                        }
+                        else
+                        {
+                            Bocata bocata = (Bocata)viewModel.getCesta().getValue().get(viewModel.getCesta().getValue().size() - 1);
+                            bocata.setPan(panBocata);
+                        }
 
-                        viewModel.getCesta().getValue().add(bocata);
-                        viewModel.setSandwichInProgress(viewModel.getCesta().getValue().size()-1);
-                        viewModel.getFragmentOption().setValue(FragmentOption.SANDWICHINGREDIENTS);
+                        view.setBackgroundColor(view.getContext().getResources().getColor(R.color.LightCyan));
+
+                        if(lastView != null)
+                            lastView.setBackgroundColor(Color.TRANSPARENT);
+
+                        lastView = view;
                     }
                 })
                 .show();

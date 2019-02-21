@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
+import com.example.ofunes.pennypanphone.Entidades.Bocata;
 import com.example.ofunes.pennypanphone.Entidades.Cliente;
 import com.example.ofunes.pennypanphone.Entidades.ComplementoPedido;
 import com.example.ofunes.pennypanphone.Entidades.IngredienteBocata;
@@ -52,7 +53,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
     LoggedinViewModel viewModel;
     BottomNavigationView bottomNavigationView;
-    FrameLayout frameLayout;
+    FrameLayout frameLayout, frameLayout2;
     FragmentSettings fragmentSettings;
     FragmentCart fragmentCart;
     FragmentHome fragmentHome;
@@ -66,11 +67,15 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
     GestoraRetrofitLoggedin gestoraRetrofitLoggedin;
     ConstraintLayout constraintLoadingData;
     TextView txtLoading;
+    int orientation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loggedin);
+
+        orientation = getResources().getConfiguration().orientation;
 
         //Crear el viewmodel y los fragments
         viewModel = ViewModelProviders.of(this).get(LoggedinViewModel.class);
@@ -96,6 +101,8 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
         //El frameLayout para los fragments
         frameLayout = findViewById(R.id.loggedFrame);
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE)
+            frameLayout2 = findViewById(R.id.loggedFrame2);
 
         //Preparando el loading
         constraintLoadingData = findViewById(R.id.constraintLoadingData);
@@ -170,6 +177,12 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
                     case SANDWICHBREAD:
                         getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame, fragmentMarketSandwichBread).addToBackStack("sandwichBread").commit();
+                        if(orientation == Configuration.ORIENTATION_LANDSCAPE)
+                        {
+                            viewModel.getCesta().getValue().add(new Bocata());
+                            getSupportFragmentManager().beginTransaction().replace(R.id.loggedFrame2, fragmentMarketSandwichIngredients).addToBackStack("sandwichIngredients").commit();
+                            frameLayout2.setVisibility(View.VISIBLE);
+                        }
                         break;
 
                     case SANDWICHINGREDIENTS:
@@ -347,6 +360,10 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
 
         if(count == 0)
             super.onBackPressed();
+        else if (orientation == Configuration.ORIENTATION_LANDSCAPE)
+        {
+
+        }
         else
         {
             Object object = getSupportFragmentManager().findFragmentById(R.id.loggedFrame);

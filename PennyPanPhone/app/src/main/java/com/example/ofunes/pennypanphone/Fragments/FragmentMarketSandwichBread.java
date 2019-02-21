@@ -72,44 +72,4 @@ public class FragmentMarketSandwichBread extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    private void askFinalQuestion(Bocata bocata)
-    {
-        StringBuilder string = new StringBuilder();
-        DecimalFormat df = new DecimalFormat("#.00");
-
-        for(IngredienteBocata ingrediente : bocata.getIngredientes())
-        {
-            string.append(ingrediente.getCantidad()+"x "+ingrediente.getNombre()+"   EUR "+df.format(ingrediente.getCantidad()*ingrediente.getPrecio())+"\n");
-        }
-
-        new MaterialStyledDialog.Builder(getContext())
-                .setTitle(R.string.sandwichFinalQuestionTitle)
-                .setDescription(string)
-                .setPositiveText(R.string.sandwichFinalQuestionAffirmative)
-                .setNegativeText(R.string.sandwichFinalQuestionNegative)
-                .setStyle(Style.HEADER_WITH_ICON)
-                .setIcon(bocata.getPan().isIntegral() ? R.drawable.icon_wholebread128 : R.drawable.icon_bread128)
-                .setHeaderColor(R.color.GreenBread)
-                .setCancelable(true)
-                .withIconAnimation(true)
-                .withDialogAnimation(true, Duration.FAST)
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                        getActivity().getSupportFragmentManager().popBackStack();
-                        for(IngredienteBocata ingrediente : viewModel.getIngredientes().getValue())
-                            ingrediente.setCantidad(0);
-
-                        //Añadir el precio del bocata al total
-                        viewModel.addValueCartTotal(((Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress())).getPan().getPrecio());
-                        for(IngredienteBocata ingrediente : ((Bocata)viewModel.getCesta().getValue().get(viewModel.getSandwichInProgress())).getIngredientes())
-                            viewModel.addValueCartTotal(ingrediente.getPrecio() * ingrediente.getCantidad());
-
-                        viewModel.setSandwichInProgress(-1);
-                        viewModel.getFragmentOption().setValue(FragmentOption.FINISHSANDWICH);
-                    }
-                })
-                .show();
-    }
-
 }

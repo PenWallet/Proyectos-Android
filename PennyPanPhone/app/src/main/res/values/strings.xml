@@ -101,6 +101,8 @@
     <string name="sandwichDialogBreadAffirmative">Accept</string>
     <string name="sandwichDialogBreadNegative">Cancel</string>
     <string name="sandwichErrorNoIngredients">You can\'t make a sandwich out of bread alone!</string>
+    <string name="sandwichErrorNoBread">You can\'t make a sandwich without bread!</string>
+    <string name="sandwichErrorNothing">Do you even want a sandwich? 🤔🤔🤔</string>
     <string name="sandwichFinalQuestionTitle">This will be your sandwich</string>
     <string name="sandwichFinalQuestionAffirmative">Love it!</string>
     <string name="sandwichFinalQuestionNegative">Hate it</string>
