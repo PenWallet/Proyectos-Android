@@ -165,6 +165,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         final Observer<FragmentOption> marketOptionObserver = new Observer<FragmentOption>() {
             @Override
             public void onChanged(@Nullable FragmentOption marketType) {
+
                 switch(marketType)
                 {
                     case BREAD:
@@ -232,7 +233,7 @@ public class LoggedinActivity extends FragmentActivity implements OnNavigationIt
         viewModel.getFragmentOption().observe(this, marketOptionObserver);
         viewModel.getListadoClientes().observe(this, clientesObserver);
 
-        //Seleccionar Home como la pantalla principal
+        //Seleccionar Home como la pantalla principal TODO FALLA EL SELECTEDITEMID
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
         bottomNavigationView.setSelectedItemId(R.id.navHome);
 
